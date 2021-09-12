@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { TotalTime } from "../molcules/TotalTime";
 import { User } from "../../types/user";
+import userDefault from "../../image/user_default.png";
 
 type Props = {
   users: Array<User>;
@@ -30,7 +31,7 @@ export const UserList = memo((props: Props) => {
                 <Text w="5%">{index + 1}</Text>
                 <Flex align="center" justify="start" w="50%">
                   <Image
-                    src={user.picture}
+                    src={user.picture ? user.picture : userDefault}
                     w="50px"
                     borderRadius="full"
                     mr={2}

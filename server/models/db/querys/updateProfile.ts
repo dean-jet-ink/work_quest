@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { db } from "../dbconnect";
+import { fetchUser } from "./fetchUser";
 
 export const updateProfile = (req: Request, res: Response) => {
   const setPlaceholder = {
@@ -9,15 +10,16 @@ export const updateProfile = (req: Request, res: Response) => {
     comment: req.body.comment,
   };
   const wherePlaceholder = {
-    user_id: req.body.userId,
+    user_id: req.params.id,
   };
 
   db.query(
     "UPDATE users SET ? WHERE ?",
     [setPlaceholder, wherePlaceholder],
-    (err, results) => {
+    (err) => {
       if (err) throw err;
-      res.send(results);
     }
   );
+
+  fetchUser(req, res);
 };

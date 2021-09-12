@@ -61,7 +61,7 @@ router
   .post("/post/smallgoal/:id", (req, res) => {
     postSmallGoal(req, res);
   })
-  .put("/update/profile", (req, res) => {
+  .put("/update/profile/:id", (req, res) => {
     updateProfile(req, res);
   })
   .put("/update/work/completed", (req, res) => {

@@ -24,10 +24,6 @@ import { FooterLayout } from "../templates/FooterLayout";
 export const Login: VFC = memo(() => {
   const { initialValues, onSubmit, validationSchema } = useLogin();
 
-  const onClick = (err: any) => {
-    console.log(err);
-  };
-
   return (
     <FooterLayout>
       <Box>

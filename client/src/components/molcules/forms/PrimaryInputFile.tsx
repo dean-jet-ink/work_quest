@@ -6,11 +6,12 @@ type Props = {
   name: string;
   src: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleFile: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const PrimaryInputFile = (props: Props) => {
   const [field, meta] = useField(props);
-  const { src, onChange } = props;
+  const { src, onChange, handleFile } = props;
 
   return (
     <Box>
@@ -29,7 +30,10 @@ export const PrimaryInputFile = (props: Props) => {
             accept="image/*"
             {...field}
             d="none"
-            onChange={onChange}
+            onChange={(e) => {
+              onChange(e);
+              handleFile(e);
+            }}
           />
         </FormLabel>
       </Flex>

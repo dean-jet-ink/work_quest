@@ -6,7 +6,7 @@ export const signup = (req: Request, res: Response) => {
   const newUser = {
     user_name: req.body.userName,
     mail: req.body.mail,
-    picture: req.body.picture,
+    picture: null,
     sex: req.body.sex,
     comment: "",
     total_time: 0,
