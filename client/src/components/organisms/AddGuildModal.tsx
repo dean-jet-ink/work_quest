@@ -40,7 +40,12 @@ export const AddGuildModal = memo((props: Props) => {
                 setFieldValue("guildImage", file);
               }}
             >
-              <PrimaryInputFile name="file" src={file} onChange={fileLoad} />
+              <PrimaryInputFile
+                name="file"
+                src={file}
+                onChange={fileLoad}
+                handleFile={() => console.log("hello")}
+              />
               <Stack spacing={5}>
                 <FormLabel fontSize="12px" m={0}>
                   ギルド名

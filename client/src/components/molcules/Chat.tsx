@@ -1,6 +1,8 @@
 import { memo } from "react";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
+
 import { User } from "../../types/user";
+import userDefault from "../../image/user_default.png";
 
 type Props = {
   user: User;
@@ -21,7 +23,12 @@ export const Chat = memo((props: Props) => {
               borderRadius="50%"
               textAlign="center"
             >
-              <Image src={user.picture} w="45px" h="45px" borderRadius="50%" />
+              <Image
+                src={user.picture ? user.picture : userDefault}
+                w="45px"
+                h="45px"
+                borderRadius="50%"
+              />
             </Box>
           </Box>
           <Box position="relative" pr="22px">
@@ -57,7 +64,12 @@ export const Chat = memo((props: Props) => {
               borderRadius="50%"
               textAlign="center"
             >
-              <Image src={user.picture} w="45px" h="45px" borderRadius="50%" />
+              <Image
+                src={user.picture ? user.picture : userDefault}
+                w="45px"
+                h="45px"
+                borderRadius="50%"
+              />
             </Box>
           </Box>
           <Box position="relative" pl="22px">

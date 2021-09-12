@@ -71,7 +71,7 @@ export const Header = memo((props: Props) => {
               >
                 <Link to={item.path}>
                   <Text d={{ base: "none", md: "block" }}>{item.itemName}</Text>
-                  <Image src={item.src} w="40px" />
+                  <Image src={item.src} w={{ base: "30px", md: "40px" }} />
                 </Link>
               </Flex>
             ))}

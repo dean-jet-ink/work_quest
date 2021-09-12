@@ -1,13 +1,14 @@
 import axios from "axios";
 import { FormikHelpers } from "formik";
-import { useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { Dispatch, SetStateAction, useCallback } from "react";
 import * as Yup from "yup";
+import md5 from "js-md5";
+
 import { User } from "../../types/user";
 import { useShowMessage } from "../useShowMessage";
 
 type InitialValuesType = {
-  picture: string;
+  picture: File | null;
   name: string;
   mail: string;
   comment: string;
@@ -19,41 +20,43 @@ type OnSubmitProps = {
   actions: FormikHelpers<InitialValuesType>;
 };
 
-export const useProfile = (user: User) => {
+export const useProfile = (
+  user: User,
+  setUser: Dispatch<SetStateAction<User>>
+) => {
   const initialValues: InitialValuesType = {
     userId: user.user_id,
-    picture: user.picture,
+    picture: null,
     name: user.user_name,
     mail: user.mail,
     comment: user.comment,
   };
-  const history = useHistory();
   const { showMessage } = useShowMessage();
 
   const onSubmit: (props: OnSubmitProps) => void = useCallback((props) => {
     const { values, actions } = props;
+    const { userId, picture, name, mail, comment } = values;
+    const fileName = picture?.name.split(".")[0];
+    const extension = picture?.name.split(".").splice(-1, 1);
+    const hash = md5(fileName as string);
+    const hashName = picture ? `${hash}.${extension}` : null;
 
     axios
-      .put("http://localhost:4000/update/profile", values)
+      .put(`http://localhost:4000/update/profile/${userId}`, {
+        picture: hashName,
+        name,
+        mail,
+        comment,
+      })
       .then((res) => {
-        console.log(res.data);
-        if (res.data.affectedRows > 0) {
-          setTimeout(() => {
-            showMessage({
-              description: "プロフィールを変更しました",
-              status: "success",
-            });
-            actions.setSubmitting(false);
-          }, 500);
-        } else {
-          setTimeout(() => {
-            showMessage({
-              description: "プロフィールの変更に失敗しました",
-              status: "error",
-            });
-            actions.setSubmitting(false);
-          }, 500);
-        }
+        setTimeout(() => {
+          showMessage({
+            description: "プロフィールを変更しました",
+            status: "success",
+          });
+          setUser(res.data);
+          actions.setSubmitting(false);
+        }, 500);
       })
       .catch((err) => {
         showMessage({

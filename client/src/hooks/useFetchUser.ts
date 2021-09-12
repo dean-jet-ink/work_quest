@@ -22,5 +22,5 @@ export const useFetchUser = (userId: number) => {
       });
   }, [userId]);
 
-  return [user];
+  return { user, setUser };
 };

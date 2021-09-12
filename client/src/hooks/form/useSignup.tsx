@@ -4,7 +4,6 @@ import { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { useShowMessage } from "../useShowMessage";
-import userDefault from "../../image/user_default.png";
 import { useLoginUser } from "../useLoginUser";
 
 type InitialValuesType = {
@@ -13,7 +12,6 @@ type InitialValuesType = {
   pass: string;
   passConfirm: string;
   sex: string;
-  picture: string;
 };
 
 type OnSubmitProps = {
@@ -28,7 +26,6 @@ export const useSignup = () => {
     pass: "",
     passConfirm: "",
     sex: "",
-    picture: userDefault,
   };
   const history = useHistory();
   const { showMessage } = useShowMessage();
