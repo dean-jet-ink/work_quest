@@ -13,6 +13,7 @@ export const useLevelUp = (id: number) => {
   const [level, setLevel] = useState(0);
   const [levelUpFlag, setLevelUpFlag] = useState(false);
   const [title, setTitle] = useState("");
+  const [titleImage, setTitleImage] = useState("");
   const [levelComposition, setLevelComposition] = useState<Array<number>>([]);
 
   const decideTitle = (lv: number): string => {
@@ -53,6 +54,66 @@ export const useLevelUp = (id: number) => {
     }
   };
 
+  const decideTitleImage = useCallback((title: string) => {
+    switch (true) {
+      case title === "村人A":
+        setTitleImage(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager.png"
+        );
+        break;
+      case title === "村の力自慢":
+        setTitleImage(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
+        );
+        break;
+      case title === "見習い兵士":
+        setTitleImage(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
+        );
+        break;
+      case title === "兵士":
+        setTitleImage(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
+        );
+        break;
+      case title === "騎士":
+        setTitleImage(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
+        );
+        break;
+      case title === "近衛騎士":
+        setTitleImage(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
+        );
+        break;
+      case title === "冒険者":
+        setTitleImage(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
+        );
+        break;
+      case title === "勇者":
+        setTitleImage(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
+        );
+        break;
+      case title === "伝説の勇者":
+        setTitleImage(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
+        );
+        break;
+      case title === "Messiah":
+        setTitleImage(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
+        );
+        break;
+      default:
+        setTitleImage(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager.png"
+        );
+        break;
+    }
+  }, []);
+
   // 次のレベルの必要経験値と、現在の取得経験値の割合を算出し、stateを更新
   const calcExperienceRate = (exp: number, nextlv: number) => {
     const rate = Math.floor((exp / nextlv) * 100);
@@ -66,7 +127,7 @@ export const useLevelUp = (id: number) => {
 
   useEffect(() => {
     // 指数関数を用いた経験値の構成表の作成
-    // インデックス0からレベル1
+    // インデックス0＝レベル1
     const newComposition: Array<number> = [0];
     for (let level = 1; level < 200; level++) {
       const nextLevel = level + 1;
@@ -74,7 +135,6 @@ export const useLevelUp = (id: number) => {
       newComposition.push(exponential);
     }
     setLevelComposition(newComposition);
-    console.log(newComposition);
 
     axios
       .get(`http://localhost:4000/fetch/user/${id}`)
@@ -92,6 +152,7 @@ export const useLevelUp = (id: number) => {
         );
 
         setTitle(res.data.title);
+        decideTitleImage(res.data.title);
       })
       .catch((err) => {
         throw err;
@@ -124,6 +185,7 @@ export const useLevelUp = (id: number) => {
               title: newTitle,
             });
             setTitle(newTitle);
+            decideTitleImage(newTitle);
           }
         });
 
@@ -135,5 +197,12 @@ export const useLevelUp = (id: number) => {
     [id, experience, title]
   );
 
-  return { experienceRate, level, levelUpFlag, title, onClickLevelUp };
+  return {
+    experienceRate,
+    level,
+    levelUpFlag,
+    title,
+    titleImage,
+    onClickLevelUp,
+  };
 };
