@@ -6,7 +6,6 @@ import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
 import { AddContents } from "../molcules/AddContents";
 import { WorkList } from "../molcules/WorkList";
 import { PrimaryLayout } from "../templates/PrimaryLayout";
-import villager from "../../image/title/villager.png";
 import { WorkContainer } from "../atoms/WorkContainer";
 import { Status } from "../organisms/Status";
 import { useWorks } from "../../hooks/useWorks";
@@ -24,7 +23,6 @@ import { CheeredOnDrawer } from "../organisms/CheeredOnDrawer";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { useLevelUp } from "../../hooks/useLevelup";
-import userDefault from "../../image/user_default.png";
 import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
 
 export const Top: VFC = memo(() => {
@@ -47,8 +45,14 @@ export const Top: VFC = memo(() => {
   const { file, fileLoad } = useFile(
     `https://work-quest.s3.ap-northeast-3.amazonaws.com/${keyName}${inspectedPicture}`
   );
-  const { experienceRate, levelUpFlag, level, title, onClickLevelUp } =
-    useLevelUp(loginUserId as number);
+  const {
+    experienceRate,
+    levelUpFlag,
+    level,
+    title,
+    titleImage,
+    onClickLevelUp,
+  } = useLevelUp(loginUserId as number);
 
   const { isOpenProfile, onCloseProfile, onOpenProfile } =
     useDisclosureProfile();
@@ -88,9 +92,9 @@ export const Top: VFC = memo(() => {
 
         <Status
           user={user}
-          titleImage={villager}
           level={level}
           title={title}
+          titleImage={titleImage}
           experienceRate={experienceRate}
           flag={levelUpFlag}
           onClickLevelUp={onClickLevelUp}

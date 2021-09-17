@@ -152,6 +152,7 @@ export const Status = memo((props: Props) => {
         user={users[0]}
         level={level!}
         title={title!}
+        titleImage={titleImage}
       />
     </PrimaryContainer>
   );
