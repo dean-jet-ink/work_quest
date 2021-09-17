@@ -23,6 +23,8 @@ import { useSelectWork } from "../../hooks/useSelectWork";
 import { SecondaryButton } from "../atoms/forms/SecondaryButton";
 import { useSoundEffect } from "../../hooks/useSoundEffect";
 import complete from "../../assets/audio/complete.mp3";
+import { useDeadline } from "../../hooks/form/useDaedline";
+import { WorkItem } from "./WorkItem";
 
 type Props = {
   works: Array<Work>;
@@ -42,23 +44,7 @@ export const WorkList = memo((props: Props) => {
         {works.map((work, index) => (
           <AccordionItem key={work.id} border="unset">
             <AccordionButton p="0" _focus={{ boxShadow: "unset" }}>
-              <Flex
-                bg="#eacfad"
-                h="60px"
-                w="100%"
-                align="center"
-                justify="space-between"
-                borderRadius="md"
-                borderWidth="2px"
-                borderColor="#906e43"
-                p={{ base: 3 }}
-                cursor="pointer"
-              >
-                <Text fontSize="15px" fontWeight="bold" color="blackAlpha.800">
-                  {work.workName}
-                </Text>
-                <AccordionIcon />
-              </Flex>
+              <WorkItem name={work.workName} deadline={work.deadline} />
             </AccordionButton>
             <AccordionPanel p="0">
               <Box

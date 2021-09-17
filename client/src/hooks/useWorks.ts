@@ -1,4 +1,5 @@
 import axios from "axios";
+import { FormikHelpers } from "formik";
 import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 import { Work } from "../types/work";
@@ -8,10 +9,11 @@ import { useShowMessage } from "./useShowMessage";
 export type WorkInitialValuesType = {
   workName: string;
   created: string;
-  deadline: string;
+  deadline: string | null;
 };
 export type WorkOnSubmitProps = {
   values: WorkInitialValuesType;
+  actions: FormikHelpers<WorkInitialValuesType>;
 };
 
 export const useWorks = (userId: number) => {
@@ -50,12 +52,12 @@ export const useWorks = (userId: number) => {
   const initialValues: WorkInitialValuesType = {
     workName: "",
     created: now.format("YYYY-MM-DD HH:mm:ss"),
-    deadline: now.format("YYYY-MM-DD"),
+    deadline: null,
   };
 
   const onSubmit = useCallback(
     (props: WorkOnSubmitProps) => {
-      const { values } = props;
+      const { values, actions } = props;
 
       axios
         .post(`http://localhost:4000/post/work/${userId}`, values)
@@ -73,6 +75,11 @@ export const useWorks = (userId: number) => {
           };
           const newWorks = [...incompleteWorks, newWork];
           setIncompleteWorks(newWorks);
+          actions.setSubmitting(false);
+        })
+        .catch((err) => {
+          if (err) throw err;
+          actions.setSubmitting(false);
         });
     },
     [incompleteWorks, userId]

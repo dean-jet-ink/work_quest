@@ -1,6 +1,6 @@
 @font-face {
   font-family: PixelMplus10-Regular;
-  src: url("./assets/data/PixelMplus10-Regular.ttf") format("truetype");
+  src: url("../data/PixelMplus10-Regular.ttf") format("truetype");
 }
 
 .font {
