@@ -1,0 +1,19 @@
+.SingleDatePickerInput {
+  background-color: transparent;
+}
+.SingleDatePickerInput__withBorder {
+  border-radius: 6px;
+}
+.DateInput {
+  background-color: transparent;
+}
+.DateInput_input {
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  padding: 10px 16px;
+}
+.DateInput_input__focused {
+  border-bottom-color: transparent;
+}

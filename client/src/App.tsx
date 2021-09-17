@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import { theme } from "./theme/theme";
 import { Router } from "./router/Router";
-import "./font.css";
+import "./assets/css/font.css";
 
 function App() {
   return (

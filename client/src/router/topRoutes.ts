@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 import { Top } from "../components/pages/Top";
 import { Profile } from "../components/pages/Profile";
 import { Ranking } from "../components/pages/Ranking";
