@@ -19,10 +19,10 @@ export const useDeadline = (deadline: string | null) => {
       case daysLeft > 1 && daysLeft <= 3:
         setColorInfo("orange");
         break;
-      case daysLeft >= 0 && daysLeft <= 1:
+      case daysLeft >= -1 && daysLeft <= 1:
         setColorInfo("red");
         break;
-      case daysLeft < 0:
+      case daysLeft < -1:
         setColorInfo("#afafaf8f");
         break;
       default:
