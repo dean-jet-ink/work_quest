@@ -10,7 +10,9 @@ type Props = {
 export const WorkItem = (props: Props) => {
   const { name, deadline } = props;
   const { colorInfo } = useDeadline(deadline);
-  const deadlineFormat = moment.utc(deadline).format("YYYY/MM/DD");
+  const deadlineFormat = deadline
+    ? moment.utc(deadline).format("YYYY/MM/DD")
+    : "";
 
   return (
     <Flex

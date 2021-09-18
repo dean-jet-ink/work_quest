@@ -8,9 +8,10 @@ import { User } from "../../types/user";
 import { useShowMessage } from "../useShowMessage";
 
 type InitialValuesType = {
-  picture: File | null;
+  picture: File | string | null;
   name: string;
   mail: string;
+  sex: string;
   comment: string;
   userId: number;
 };
@@ -26,26 +27,32 @@ export const useProfile = (
 ) => {
   const initialValues: InitialValuesType = {
     userId: user.user_id,
-    picture: null,
+    picture: user.picture,
     name: user.user_name,
     mail: user.mail,
+    sex: user.sex,
     comment: user.comment,
   };
   const { showMessage } = useShowMessage();
 
+  // File型の値を、ハッシュ化した文字列のファイル名に変換
+  const fileToString = (picture: File): string => {
+    const fileName = picture.name.split(".")[0];
+    const hash = md5(fileName as string);
+    const extension = picture.name.split(".").splice(-1, 1);
+    return `${hash}.${extension}`;
+  };
+
   const onSubmit: (props: OnSubmitProps) => void = useCallback((props) => {
     const { values, actions } = props;
-    const { userId, picture, name, mail, comment } = values;
-    const fileName = picture?.name.split(".")[0];
-    const extension = picture?.name.split(".").splice(-1, 1);
-    const hash = md5(fileName as string);
-    const hashName = picture ? `${hash}.${extension}` : null;
+    const { userId, picture, name, mail, sex, comment } = values;
 
     axios
       .put(`http://localhost:4000/update/profile/${userId}`, {
-        picture: hashName,
+        picture: picture instanceof File ? fileToString(picture) : picture,
         name,
         mail,
+        sex,
         comment,
       })
       .then((res) => {
