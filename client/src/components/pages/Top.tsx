@@ -29,10 +29,7 @@ export const Top: VFC = memo(() => {
   const { loginUserId } = useLoginUser();
   const { user, setUser } = useFetchUser(loginUserId as number);
   // プロフィール画像の設定が無ければ初期画像表示
-  const { inspectedPicture, keyName } = useDefaultPicture(
-    user.picture,
-    "member/"
-  );
+  const { inspectedPicture } = useDefaultPicture(user.picture, "member/");
   const {
     initialValues,
     incompleteWorks,
@@ -42,9 +39,7 @@ export const Top: VFC = memo(() => {
     onClickComplete,
     onClickBack,
   } = useWorks(loginUserId as number);
-  const { file, fileLoad } = useFile(
-    `https://work-quest.s3.ap-northeast-3.amazonaws.com/${keyName}${inspectedPicture}`
-  );
+  const { file, fileLoad } = useFile(inspectedPicture);
   const {
     experienceRate,
     levelUpFlag,
@@ -63,10 +58,7 @@ export const Top: VFC = memo(() => {
     useDisclosureCheeredOn();
 
   return (
-    <PrimaryLayout
-      onClick={onOpenProfile}
-      src={`https://work-quest.s3.ap-northeast-3.amazonaws.com/${keyName}${inspectedPicture}`}
-    >
+    <PrimaryLayout onClick={onOpenProfile} src={inspectedPicture}>
       <PrimaryWrapper>
         <Flex
           py={{ base: 3, md: 6 }}

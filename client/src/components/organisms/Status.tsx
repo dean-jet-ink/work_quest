@@ -80,7 +80,11 @@ export const Status = memo((props: Props) => {
       >
         <Box w="50%">
           <Box mb={6}>
-            <TotalTime totalTime={user.total_time} fontSize="18px" />
+            <TotalTime
+              totalTime={user.total_time}
+              fontSize="18px"
+              color="orange"
+            />
           </Box>
           <Box mb={8}>
             <Heading fontSize="18px" fontFamily="inherit">

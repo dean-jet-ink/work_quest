@@ -5,17 +5,18 @@ export const useDefaultPicture = (
   key: "member/" | "guild/"
 ) => {
   const [inspectedPicture, setInspectedPicture] = useState("");
-  const [keyName, setKeyName] = useState("");
 
   useEffect(() => {
     if (picture) {
-      setInspectedPicture(picture);
-      setKeyName(key);
+      setInspectedPicture(
+        `https://work-quest.s3.ap-northeast-3.amazonaws.com/${key}${picture}`
+      );
     } else {
-      setInspectedPicture("user_default.png");
-      setKeyName("static/");
+      setInspectedPicture(
+        "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/user_default.png"
+      );
     }
   }, [picture]);
 
-  return { inspectedPicture, keyName };
+  return { inspectedPicture };
 };

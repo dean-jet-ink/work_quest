@@ -7,6 +7,7 @@ import { deleteWork } from "../models/db/querys/deleteWork";
 import { fetchSmallGoalOnBattle } from "../models/db/querys/fetchSmallGoalOnBattle";
 import { fetchSmallGoals } from "../models/db/querys/fetchSmallGoals";
 import { fetchUser } from "../models/db/querys/fetchUser";
+import { fetchUserList } from "../models/db/querys/fetchUserList";
 import { fetchWorks } from "../models/db/querys/fetchWorks";
 import { postSmallGoal } from "../models/db/querys/postSmallGoal";
 import { postWork } from "../models/db/querys/postWork";
@@ -39,6 +40,9 @@ router
   })
   .get("/fetch/user/:id", (req, res) => {
     fetchUser(req, res);
+  })
+  .get("/fetch/userlist/:limit", (req, res) => {
+    fetchUserList(req, res);
   })
   .get("/fetch/works/:id", (req, res) => {
     fetchWorks(req, res);
