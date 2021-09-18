@@ -4,7 +4,6 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 import { PrimaryModal } from "../molcules/PrimaryModal";
 import { User } from "../../types/user";
-import knight from "../../image/title/knight.png";
 
 type Props = {
   onClose: () => void;
@@ -12,10 +11,11 @@ type Props = {
   user: User;
   level: number;
   title: string;
+  titleImage: string;
 };
 
 export const LevelUpModal = memo((props: Props) => {
-  const { onClose, isOpen, user, level, title } = props;
+  const { onClose, isOpen, user, level, title, titleImage } = props;
 
   return (
     <PrimaryModal onClose={onClose} isOpen={isOpen}>
@@ -36,7 +36,7 @@ export const LevelUpModal = memo((props: Props) => {
                 {title}
               </Text>
             </Flex>
-            <Image src={knight} w="150px" />
+            <Image src={titleImage} w="150px" />
           </Stack>
         </Flex>
       </Box>

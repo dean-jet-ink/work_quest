@@ -6,7 +6,6 @@ import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
 import { AddContents } from "../molcules/AddContents";
 import { WorkList } from "../molcules/WorkList";
 import { PrimaryLayout } from "../templates/PrimaryLayout";
-import villager from "../../image/title/villager.png";
 import { WorkContainer } from "../atoms/WorkContainer";
 import { Status } from "../organisms/Status";
 import { useWorks } from "../../hooks/useWorks";
@@ -41,8 +40,14 @@ export const Top: VFC = memo(() => {
     onClickBack,
   } = useWorks(loginUserId as number);
   const { file, fileLoad } = useFile(inspectedPicture);
-  const { experienceRate, levelUpFlag, level, title, onClickLevelUp } =
-    useLevelUp(loginUserId as number);
+  const {
+    experienceRate,
+    levelUpFlag,
+    level,
+    title,
+    titleImage,
+    onClickLevelUp,
+  } = useLevelUp(loginUserId as number);
 
   const { isOpenProfile, onCloseProfile, onOpenProfile } =
     useDisclosureProfile();
@@ -79,9 +84,9 @@ export const Top: VFC = memo(() => {
 
         <Status
           user={user}
-          titleImage={villager}
           level={level}
           title={title}
+          titleImage={titleImage}
           experienceRate={experienceRate}
           flag={levelUpFlag}
           onClickLevelUp={onClickLevelUp}
