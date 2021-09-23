@@ -33,8 +33,6 @@ export const ProfileFormModal = memo((props: Props) => {
   const { logout } = useLogout();
   const { selectedFile, handleFile, uploadFile } = useUploadFile();
 
-  console.log(user.picture);
-
   return (
     <PrimaryModal onClose={onClose} isOpen={isOpen}>
       <Box py={{ base: 4 }} px={{ base: 10 }}>

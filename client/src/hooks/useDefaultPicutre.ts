@@ -12,9 +12,15 @@ export const useDefaultPicture = (
         `https://work-quest.s3.ap-northeast-3.amazonaws.com/${key}${picture}`
       );
     } else {
-      setInspectedPicture(
-        "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/user_default.png"
-      );
+      if (key === "member/") {
+        setInspectedPicture(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/user_default.png"
+        );
+      } else {
+        setInspectedPicture(
+          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/no_image.png"
+        );
+      }
     }
   }, [picture]);
 

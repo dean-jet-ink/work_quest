@@ -4,6 +4,6 @@ CREATE TABLE guilds(
   admin_id INT,
   guild_name VARCHAR(255),
   guild_picture VARCHAR(255),
-  experience INT,
+  comment VARCHAR(255),
   PRIMARY KEY (guild_id)
 )

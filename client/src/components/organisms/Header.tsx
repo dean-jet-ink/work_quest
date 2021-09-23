@@ -23,7 +23,7 @@ const headerItems: Array<Item> = [
   {
     itemName: "ギルド",
     src: guild,
-    path: "/top/guildlist",
+    path: "/top/guild",
   },
   {
     itemName: "レポート",

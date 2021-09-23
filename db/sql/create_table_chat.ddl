@@ -1,8 +1,9 @@
 DROP TABLE IF EXISTS chat;
 CREATE TABLE chat(
+  chat_id INT NOT NULL AUTO_INCREMENT,
   guild_id INT,
-  member_id INT,
+  user_id INT,
   comment TEXT,
   created DATETIME,
-  PRIMARY KEY (guild_id, member_id)
+  PRIMARY KEY (chat_id)
 )

@@ -20,7 +20,7 @@ export const PrimarySelect = (props: Props) => {
         {options.map((option) => {
           const { value, text } = option;
           return (
-            <option key={value} value={value}>
+            <option key={value} value={value} style={{ background: "#171923" }}>
               {text}
             </option>
           );

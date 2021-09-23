@@ -5,13 +5,20 @@ import AddIcon from "@material-ui/icons/Add";
 type Props = {
   onClick: () => void;
   contents?: string;
+  color?: "#ca0000" | "#d0d0d099";
+  pointerEvents?: "none" | "auto";
 };
 
 export const AddContents = memo((props: Props) => {
-  const { onClick, contents = "Workの追加" } = props;
+  const {
+    onClick,
+    contents = "Workの追加",
+    color = "#ca0000",
+    pointerEvents = "auto",
+  } = props;
 
   return (
-    <Flex color="#ca0000" align="center">
+    <Flex color={color} pointerEvents={pointerEvents} align="center">
       <Flex
         align="center"
         _hover={{ color: "#d42d2d" }}

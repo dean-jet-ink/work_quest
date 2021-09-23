@@ -23,5 +23,5 @@ export const useFile = (src: string) => {
     setFile(src);
   }, [src]);
 
-  return { fileLoad, file };
+  return { fileLoad, file, setFile };
 };

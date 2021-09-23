@@ -17,7 +17,7 @@ const s3 = new AWS.S3({
 });
 
 export const useUploadFile = () => {
-  const [selectedFile, setSelectedFile] = useState<File>();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFile = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -38,21 +38,23 @@ export const useUploadFile = () => {
 
   // ファイルのアップロード、および前回ファイルの削除
   const uploadFile = useCallback(
-    (key: "member/" | "guild/", preFile: string | null) => {
+    (key: "member/" | "guild/", preFile?: string | null) => {
       const fileName = selectedFile?.name.split(".")[0];
       const extension = selectedFile?.name.split(".").splice(-1, 1);
       const hash = md5(fileName as string);
       const keyName = `${key}${hash}.${extension}`;
 
-      const params = {
-        ACL: "public-read",
-        Bucket: bucket,
-        Body: selectedFile,
-        Key: keyName,
-      };
-      s3.putObject(params, (err) => {
-        if (err) throw err;
-      });
+      if (selectedFile) {
+        const params = {
+          ACL: "public-read",
+          Bucket: bucket,
+          Body: selectedFile,
+          Key: keyName,
+        };
+        s3.putObject(params, (err) => {
+          if (err) throw err;
+        });
+      }
 
       // アップロード済みならば、以前の画像を削除
       if (preFile) {
@@ -62,5 +64,5 @@ export const useUploadFile = () => {
     [selectedFile]
   );
 
-  return { selectedFile, handleFile, uploadFile, deleteFile };
+  return { selectedFile, setSelectedFile, handleFile, uploadFile, deleteFile };
 };
