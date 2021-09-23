@@ -11,8 +11,6 @@ import { DrawerButton } from "../molcules/DrawerButton";
 import { TotalTime } from "../molcules/TotalTime";
 import { SecondaryLayout } from "../templates/SecondaryLayout";
 import { useSmallGoal } from "../../hooks/useSmallGoal";
-import { Dialog } from "../molcules/Dialog";
-import { useDisclosureDelete } from "../../hooks/useDisclosureDelete";
 import { AddSmallGoalModal } from "../organisms/AddSmallGoalModal";
 import { CompleteSmallGoalDrawer } from "../organisms/CompleteSmallGoalDrawer";
 import { useDisclosureComplete } from "../../hooks/useDisclosureComplete";

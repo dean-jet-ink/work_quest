@@ -5,19 +5,17 @@ import { User } from "../../types/user";
 import { UserRow } from "../molcules/UserRow";
 
 type Props = {
-  users: Array<User>;
+  users: User[];
 };
 
 export const UserList = memo((props: Props) => {
   const { users } = props;
 
   return (
-    <List w="100%" px={5} py={7}>
+    <List w="100%" px={5} py={7} minH="50vh">
       <Stack spacing={2}>
         {users.map((user, index) => (
-          <ListItem key={user.user_id} h={{ base: "70px" }}>
-            <UserRow user={user} index={index} />
-          </ListItem>
+          <UserRow key={user.user_id} user={user} index={index} />
         ))}
       </Stack>
     </List>

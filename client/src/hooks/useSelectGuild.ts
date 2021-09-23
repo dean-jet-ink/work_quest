@@ -4,18 +4,16 @@ import { Guild } from "../types/guild";
 type Props = {
   id: number;
   guildList: Array<Guild>;
-  onOpen: () => void;
 };
 
 export const useSelectGuild = () => {
-  const [selectedGuild, setSelectedGuild] = useState<Guild | undefined>();
+  const [selectedGuild, setSelectedGuild] = useState<Guild>({} as Guild);
 
   const onSelectGuild = useCallback((props: Props) => {
-    const { id, guildList, onOpen } = props;
+    const { id, guildList } = props;
 
-    const guild = guildList.find((guild) => guild.id === id);
-    setSelectedGuild(guild);
-    onOpen();
+    const guild = guildList.find((guild) => guild.guildId === id);
+    setSelectedGuild(guild as Guild);
   }, []);
 
   return { selectedGuild, onSelectGuild };

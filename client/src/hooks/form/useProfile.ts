@@ -2,9 +2,9 @@ import axios from "axios";
 import { FormikHelpers } from "formik";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import * as Yup from "yup";
-import md5 from "js-md5";
 
 import { User } from "../../types/user";
+import { useFileStringify } from "../useFileStringify";
 import { useShowMessage } from "../useShowMessage";
 
 type InitialValuesType = {
@@ -34,14 +34,7 @@ export const useProfile = (
     comment: user.comment,
   };
   const { showMessage } = useShowMessage();
-
-  // File型の値を、ハッシュ化した文字列のファイル名に変換
-  const fileToString = (picture: File): string => {
-    const fileName = picture.name.split(".")[0];
-    const hash = md5(fileName as string);
-    const extension = picture.name.split(".").splice(-1, 1);
-    return `${hash}.${extension}`;
-  };
+  const { fileToString } = useFileStringify();
 
   const onSubmit: (props: OnSubmitProps) => void = useCallback((props) => {
     const { values, actions } = props;

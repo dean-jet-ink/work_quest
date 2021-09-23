@@ -4,11 +4,19 @@ import { completedSmallGoal } from "../models/db/querys/completedSmallGoal";
 import { completedWork } from "../models/db/querys/completedWork";
 import { deleteSmallGoal } from "../models/db/querys/deleteSmallGoal";
 import { deleteWork } from "../models/db/querys/deleteWork";
+import { fetchChat } from "../models/db/querys/fetchChat";
+import { fetchGuild } from "../models/db/querys/fetchGuild";
+import { fetchGuildList } from "../models/db/querys/fetchGuildList";
+import { fetchGuildMembers } from "../models/db/querys/fetchGuildMembers";
+import { fetchMyGuild } from "../models/db/querys/fetchMyGuild";
 import { fetchSmallGoalOnBattle } from "../models/db/querys/fetchSmallGoalOnBattle";
 import { fetchSmallGoals } from "../models/db/querys/fetchSmallGoals";
 import { fetchUser } from "../models/db/querys/fetchUser";
 import { fetchUserList } from "../models/db/querys/fetchUserList";
 import { fetchWorks } from "../models/db/querys/fetchWorks";
+import { postChat } from "../models/db/querys/postChat";
+import { postGuild } from "../models/db/querys/postGuild";
+import { postGuildMember } from "../models/db/querys/postGuildMember";
 import { postSmallGoal } from "../models/db/querys/postSmallGoal";
 import { postWork } from "../models/db/querys/postWork";
 import { setCookie } from "../models/db/querys/setCookie";
@@ -53,6 +61,21 @@ router
   .get("/fetch/smallgoal/battle/:id", (req, res) => {
     fetchSmallGoalOnBattle(req, res);
   })
+  .get("/fetch/guildlist", (req, res) => {
+    fetchGuildList(req, res);
+  })
+  .get("/fetch/myguild/:id", (req, res) => {
+    fetchMyGuild(req, res);
+  })
+  .get("/fetch/guild/:id", (req, res) => {
+    fetchGuild(req, res);
+  })
+  .get("/fetch/guild/members/:id", (req, res) => {
+    fetchGuildMembers(req, res);
+  })
+  .get("/fetch/chat/:id", (req, res) => {
+    fetchChat(req, res);
+  })
   .post("/signup", (req, res) => {
     signup(req, res);
   })
@@ -64,6 +87,15 @@ router
   })
   .post("/post/smallgoal/:id", (req, res) => {
     postSmallGoal(req, res);
+  })
+  .post("/post/guild/:id", (req, res) => {
+    postGuild(req, res);
+  })
+  .post("/post/guild_member/:id", (req, res) => {
+    postGuildMember(req, res);
+  })
+  .post("/post/chat/:id", (req, res) => {
+    postChat(req, res);
   })
   .put("/update/profile/:id", (req, res) => {
     updateProfile(req, res);

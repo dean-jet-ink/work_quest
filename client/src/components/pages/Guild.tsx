@@ -1,111 +1,133 @@
 import { memo } from "react";
-import { Link } from "react-router-dom";
-
-import { guilds } from "../../assets/data/guilds";
 import {
-  Box,
-  Flex,
-  List,
-  ListItem,
-  Image,
-  Text,
-  Stack,
   Tabs,
-  TabList,
   Tab,
+  TabList,
   TabPanels,
   TabPanel,
-  HStack,
+  Image,
+  Box,
+  useDisclosure,
+  Center,
+  Flex,
+  Text,
 } from "@chakra-ui/react";
 
 import { SecondaryLayout } from "../templates/SecondaryLayout";
-import { TotalTime } from "../molcules/TotalTime";
-import guildBg from "../../image/guild_bg.jpg";
-import { Chat } from "../molcules/Chat";
-import { PrimaryInputText } from "../molcules/forms/PrimaryInputText";
-import { PrimaryContainer } from "../atoms/PrimaryContainer";
-import { Form, Formik } from "formik";
-import { PrimaryButton } from "../atoms/forms/PrimarButton";
-import { useChat } from "../../hooks/form/useChat";
-import { UserList } from "../organisms/UserList";
+import mister from "../../image/mister.png";
+import { AddContents } from "../molcules/AddContents";
+import { AddGuildModal } from "../organisms/AddGuildModal";
+import { useGuildList } from "../../hooks/form/useGuildList";
+import { LineOfChara } from "../molcules/LineOfChara";
+import { useLine } from "../../hooks/useLine";
+import { GuildList } from "../organisms/GuildList";
+import { useLoginUser } from "../../hooks/useLoginUser";
+import { MyGuildList } from "../organisms/MyGuildList";
+import { useMyGuild } from "../../hooks/form/useMyGuild";
+
+type AddGuildDisplayProps = {
+  color: "#ca0000" | "#d0d0d099";
+  pointerEvents: "none" | "auto";
+};
 
 export const Guild = memo(() => {
-  const guild = guilds[0];
-  const user = guilds[0].members[0];
-  const { chatContents, initialValues, onSubmit } = useChat(user);
+  const { loginUserId } = useLoginUser();
+  const { myGuild, setMyGuild, myGuildInitialValues, myGuildOnSubmit } =
+    useMyGuild(loginUserId as number);
+  const { guildList, initialValues, onSubmitGuild, guildValidationSchema } =
+    useGuildList({
+      userId: loginUserId as number,
+      setMyGuild,
+    });
+  const { onClose, onOpen, isOpen } = useDisclosure();
   const tabsBgColor = "#b1967b";
   const tabColumnTextColor = "#500707";
   const tabNonSelectedColor = "#cebfb5";
-
-  console.log(chatContents);
+  const line1 = "あんたの所属してるギルドだ";
+  const line2 = "参加したいギルドを選びな";
+  const { line, changeLine } = useLine(line1);
+  const addGuildDisplay: AddGuildDisplayProps = //三つのギルドに所属している場合、ギルド作成フォーム使用不能
+    myGuild.length >= 3
+      ? {
+          color: "#d0d0d099",
+          pointerEvents: "none",
+        }
+      : {
+          color: "#ca0000",
+          pointerEvents: "auto",
+        };
 
   return (
     <SecondaryLayout>
-      <Image src={guildBg} mt={3} w="100%" h="220px" objectFit="cover" />
-      <Tabs variant="enclosed" mt="-40px">
+      <Center>
+        <Box position="relative" zIndex={-1} w="500px" h="220px">
+          <LineOfChara line={line} />
+          <Image
+            src={mister}
+            mt={3}
+            w="285px"
+            h="220px"
+            objectFit="cover"
+            ml="auto"
+            position="absolute"
+            right={{ base: "-10px", sm: "30px" }}
+          />
+        </Box>
+      </Center>
+      <Tabs variant="enclosed" mt="-40px" defaultIndex={1}>
         <TabList borderBottom="none">
           <Tab
             _focus={{}}
             color={tabNonSelectedColor}
             _selected={{ bg: tabsBgColor, color: tabColumnTextColor }}
             fontWeight="bold"
+            onClick={() => changeLine(line2)}
           >
-            メンバー
+            ギルド一覧
           </Tab>
           <Tab
             _focus={{}}
             color={tabNonSelectedColor}
             _selected={{ bg: tabsBgColor, color: tabColumnTextColor }}
             fontWeight="bold"
+            onClick={() => changeLine(line1)}
           >
-            メッセージ
+            所属ギルド
           </Tab>
         </TabList>
         <TabPanels>
-          <TabPanel bg={tabsBgColor} p={{ base: 5, sm: 8 }}>
-            <UserList users={guild.members} />
+          <TabPanel bg={tabsBgColor} p={{ base: 5, sm: 8 }} minH="50vh">
+            {/* ギルド一覧 */}
+            <Flex py={2} align="center" justify="space-between">
+              <AddContents
+                contents="ギルドを作成する"
+                onClick={onOpen}
+                color={addGuildDisplay.color}
+                pointerEvents={addGuildDisplay.pointerEvents}
+              />
+              <Text color="#cacaca">({myGuild.length}/3)</Text>
+            </Flex>
+            <GuildList
+              guildList={guildList}
+              myGuildList={myGuild}
+              initialValues={myGuildInitialValues}
+              onSubmit={myGuildOnSubmit}
+            />
           </TabPanel>
-
-          <TabPanel bg={tabsBgColor} px={0} py={4} minHeight="290px">
-            {chatContents.map((chatContent) => {
-              if (chatContent.text) {
-                return (
-                  <Chat key={chatContent.user.user_id} user={chatContent.user}>
-                    {chatContent.text}
-                  </Chat>
-                );
-              }
-            })}
-            <Box position="fixed" bottom="0" w="100%">
-              <PrimaryContainer>
-                <Box p={4}>
-                  <Formik
-                    initialValues={initialValues}
-                    onSubmit={(values, { resetForm }) => {
-                      onSubmit(values);
-                      resetForm();
-                    }}
-                  >
-                    {({ isSubmitting }) => (
-                      <Form>
-                        <Flex justyfy="space-between">
-                          <Box w="80%" mr={4}>
-                            <PrimaryInputText
-                              placeholder="メッセージを入力"
-                              name="text"
-                            />
-                          </Box>
-                          <PrimaryButton>送信</PrimaryButton>
-                        </Flex>
-                      </Form>
-                    )}
-                  </Formik>
-                </Box>
-              </PrimaryContainer>
-            </Box>
+          <TabPanel bg={tabsBgColor} p={8} minH="50vh">
+            {/* 所属ギルド一覧 */}
+            <MyGuildList myGuildList={myGuild} />
           </TabPanel>
         </TabPanels>
       </Tabs>
+
+      <AddGuildModal
+        initialValues={initialValues}
+        onSubmit={onSubmitGuild}
+        onClose={onClose}
+        isOpen={isOpen}
+        validationSchema={guildValidationSchema}
+      />
     </SecondaryLayout>
   );
 });

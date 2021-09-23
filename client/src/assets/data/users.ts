@@ -15,9 +15,7 @@ export const users: Array<User> = [
     comment: "デザインとマーケティングの勉強をがんばっています！",
     total_time: 35,
     title: "近衛兵",
-    guild_id: null,
     white_noise: "clock",
-    experience: 0,
     level: 10,
   },
   {
@@ -29,9 +27,7 @@ export const users: Array<User> = [
     comment: "がんばります！",
     total_time: 31,
     title: "番兵",
-    guild_id: null,
     white_noise: "clock",
-    experience: 0,
     level: 10,
   },
   {
@@ -43,9 +39,7 @@ export const users: Array<User> = [
     comment: "がんばります！",
     total_time: 15,
     title: "村人A",
-    guild_id: null,
     white_noise: "clock",
-    experience: 0,
     level: 10,
   },
   {
@@ -57,9 +51,7 @@ export const users: Array<User> = [
     comment: "がんばります！",
     total_time: 7,
     title: "原始人",
-    guild_id: null,
     white_noise: "clock",
-    experience: 0,
     level: 10,
   },
 ];

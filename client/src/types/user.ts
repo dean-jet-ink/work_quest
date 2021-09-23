@@ -7,8 +7,6 @@ export type User = {
   comment: string;
   total_time: number;
   title: string;
-  guild_id: number | null;
   white_noise: string;
   level: number;
-  experience: number;
 };
