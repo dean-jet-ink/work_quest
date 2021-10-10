@@ -7,7 +7,7 @@ import { CheerUp } from "../molcules/CheerUp";
 import { SecondaryLayout } from "../templates/SecondaryLayout";
 import { Status } from "../organisms/Status";
 import knight from "../../image/title/knight.png";
-import { useFetchUser } from "../../hooks/useFetchUser";
+import { useUser } from "../../hooks/useUser";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import { useCheer } from "../../hooks/useCheer";
 
@@ -15,7 +15,7 @@ export const Member = memo(() => {
   const { loginUserId } = useLoginUser();
   const { id } = useParams<{ id: string }>();
   const targetId = Number(id);
-  const { user } = useFetchUser(targetId);
+  const { user } = useUser(targetId);
   const { cheered, prosessing, onClickSubmit, onClickDelete } = useCheer(
     loginUserId!,
     targetId,

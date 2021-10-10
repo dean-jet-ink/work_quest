@@ -8,16 +8,18 @@ import { PrimaryModal } from "../molcules/PrimaryModal";
 import { Box } from "@chakra-ui/layout";
 import { SmallGoal } from "../../types/smallGoal";
 import { InitialValuesType } from "../../hooks/useSmallGoal";
+import { OptionalObjectSchema } from "yup/lib/object";
 
 type Props = {
   initialValues: InitialValuesType;
   onSubmit: (values: InitialValuesType) => void;
+  validationSchema: OptionalObjectSchema<any>;
   onClose: () => void;
   isOpen: boolean;
 };
 
 export const AddSmallGoalModal = memo((props: Props) => {
-  const { initialValues, onSubmit, onClose, isOpen } = props;
+  const { initialValues, onSubmit, validationSchema, onClose, isOpen } = props;
 
   return (
     <PrimaryModal onClose={onClose} isOpen={isOpen}>
@@ -31,6 +33,7 @@ export const AddSmallGoalModal = memo((props: Props) => {
               onClose();
             }, 500);
           }}
+          validationSchema={validationSchema}
         >
           {({ isSubmitting }) => (
             <Form>

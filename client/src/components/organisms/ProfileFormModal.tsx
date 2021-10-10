@@ -1,4 +1,4 @@
-import { ChangeEvent, memo, Dispatch, SetStateAction } from "react";
+import { ChangeEvent, memo } from "react";
 import { Form, Formik } from "formik";
 import { Box, Stack, FormLabel, Flex } from "@chakra-ui/react";
 
@@ -10,14 +10,17 @@ import { PrimaryInputFile } from "../molcules/forms/PrimaryInputFile";
 import { PrimarySelect } from "../molcules/forms/PrimarySelect";
 import { PrimaryTextArea } from "../molcules/forms/PrimaryTextArea";
 import { User } from "../../types/user";
-import { useProfile } from "../../hooks/form/useProfile";
 import { SecondaryButton } from "../atoms/forms/SecondaryButton";
 import { useLogout } from "../../hooks/useLogout";
 import { useUploadFile } from "../../hooks/useUploadFile";
+import { UserInitialValuesType, UserOnSubmitProps } from "../../hooks/useUser";
+import { OptionalObjectSchema } from "yup/lib/object";
 
 type Props = {
   user: User;
-  setUser: Dispatch<SetStateAction<User>>;
+  initialValues: UserInitialValuesType;
+  onSubmit: (props: UserOnSubmitProps) => void;
+  validationSchema: OptionalObjectSchema<any>;
   onClose: () => void;
   isOpen: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -25,11 +28,16 @@ type Props = {
 };
 
 export const ProfileFormModal = memo((props: Props) => {
-  const { user, setUser, onClose, isOpen, onChange, src } = props;
-  const { initialValues, onSubmit, validationSchema } = useProfile(
+  const {
     user,
-    setUser
-  );
+    initialValues,
+    onSubmit,
+    validationSchema,
+    onClose,
+    isOpen,
+    onChange,
+    src,
+  } = props;
   const { logout } = useLogout();
   const { selectedFile, handleFile, uploadFile } = useUploadFile();
 
@@ -39,8 +47,10 @@ export const ProfileFormModal = memo((props: Props) => {
         <Formik
           initialValues={initialValues}
           onSubmit={(values, actions) => {
-            onSubmit({ values, actions });
-            uploadFile("member/", user.picture);
+            setTimeout(() => {
+              onSubmit({ values, actions });
+              uploadFile("member/", user.picture);
+            }, 500);
           }}
           validationSchema={validationSchema}
         >

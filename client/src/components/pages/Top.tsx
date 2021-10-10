@@ -20,7 +20,7 @@ import { AddWorkModal } from "../organisms/AddWorkModal";
 import { useDisclosureCheeredOn } from "../../hooks/useDisclosureCheeredOn";
 import { CheerDrawer } from "../organisms/CheerDrawer";
 import { useLoginUser } from "../../hooks/useLoginUser";
-import { useFetchUser } from "../../hooks/useFetchUser";
+import { useUser } from "../../hooks/useUser";
 import { useLevelUp } from "../../hooks/useLevelup";
 import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
 import { useCheer } from "../../hooks/useCheer";
@@ -28,17 +28,19 @@ import { useCheered } from "../../hooks/useCheered";
 
 export const Top: VFC = memo(() => {
   const { loginUserId } = useLoginUser();
-  const { user, setUser } = useFetchUser(loginUserId as number);
+  const { user, userInitialValues, userOnSubmit, userValidationSchema } =
+    useUser(loginUserId as number);
   // プロフィール画像の設定が無ければ初期画像表示
   const { inspectedPicture } = useDefaultPicture(user.picture, "member/");
   const {
-    initialValues,
+    workInitialValues,
     incompleteWorks,
     completeWorks,
     onSubmit,
     onClickDelete,
     onClickComplete,
     onClickBack,
+    workValidationSchema,
   } = useWorks(loginUserId as number);
   const { file, fileLoad } = useFile(inspectedPicture);
   const {
@@ -119,18 +121,20 @@ export const Top: VFC = memo(() => {
         />
       </PrimaryWrapper>
 
-      {/* モーダル */}
       <ProfileFormModal
         user={user}
-        setUser={setUser}
+        initialValues={userInitialValues}
+        onSubmit={userOnSubmit}
+        validationSchema={userValidationSchema}
         onClose={onCloseProfile}
         isOpen={isOpenProfile}
         onChange={fileLoad}
         src={file}
       />
       <AddWorkModal
-        initialValues={initialValues}
+        initialValues={workInitialValues}
         onSubmit={onSubmit}
+        validationSchema={workValidationSchema}
         onClose={onCloseWork}
         isOpen={isOpenWork}
       />

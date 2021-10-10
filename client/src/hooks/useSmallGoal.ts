@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { SmallGoal } from "../types/smallGoal";
 import { useShowMessage } from "./useShowMessage";
+import * as Yup from "yup";
 
 export type InitialValuesType = {
   smallGoalName: string;
@@ -147,6 +148,10 @@ export const useSmallGoal = (id: number) => {
     [incompletedSmallGoals, completedSmallGoals]
   );
 
+  const smallGoalValidationSchema = Yup.object({
+    smallGoalName: Yup.string().required("入力必須です"),
+  });
+
   return {
     initialValues,
     workName,
@@ -158,5 +163,6 @@ export const useSmallGoal = (id: number) => {
     onClickDelete,
     onClickComplete,
     onClickBack,
+    smallGoalValidationSchema,
   };
 };

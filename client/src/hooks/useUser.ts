@@ -1,13 +1,13 @@
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { FormikHelpers } from "formik";
-import { Dispatch, SetStateAction, useCallback } from "react";
 import * as Yup from "yup";
 
-import { User } from "../../types/user";
-import { useFileStringify } from "../useFileStringify";
-import { useShowMessage } from "../useShowMessage";
+import { User } from "../types/user";
+import { useFileStringify } from "./useFileStringify";
+import { useShowMessage } from "./useShowMessage";
 
-type InitialValuesType = {
+export type UserInitialValuesType = {
   picture: File | string | null;
   name: string;
   mail: string;
@@ -16,16 +16,49 @@ type InitialValuesType = {
   userId: number;
 };
 
-type OnSubmitProps = {
-  values: InitialValuesType;
-  actions: FormikHelpers<InitialValuesType>;
+export type UserOnSubmitProps = {
+  values: UserInitialValuesType;
+  actions: FormikHelpers<UserInitialValuesType>;
 };
 
-export const useProfile = (
-  user: User,
-  setUser: Dispatch<SetStateAction<User>>
-) => {
-  const initialValues: InitialValuesType = {
+export const useUser = (userId: number) => {
+  const [user, setUser] = useState<User>({} as User);
+  const { showMessage } = useShowMessage();
+  const { fileToString } = useFileStringify();
+
+  const snakeToCamel = useCallback((item: any) => {
+    const formatedItem = {
+      userId: item.user_id,
+      userName: item.user_name,
+      mail: item.mail,
+      picture: item.picture,
+      sex: item.sex,
+      comment: item.comment,
+      totalTime: item.total_time,
+      title: item.title,
+      whiteNoise: item.white_noise,
+      level: item.level,
+    };
+    return formatedItem;
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/fetch/user/${userId}`)
+      .then((res) => {
+        const user = snakeToCamel(res.data);
+        setUser(user);
+      })
+      .catch((err) => {
+        showMessage({
+          description: "ユーザーの取得に失敗しました",
+          status: "error",
+        });
+        throw err;
+      });
+  }, [userId]);
+
+  const userInitialValues: UserInitialValuesType = {
     userId: user.userId,
     picture: user.picture,
     name: user.userName,
@@ -33,10 +66,8 @@ export const useProfile = (
     sex: user.sex,
     comment: user.comment,
   };
-  const { showMessage } = useShowMessage();
-  const { fileToString } = useFileStringify();
 
-  const onSubmit: (props: OnSubmitProps) => void = useCallback((props) => {
+  const userOnSubmit = useCallback((props: UserOnSubmitProps) => {
     const { values, actions } = props;
     const { userId, picture, name, mail, sex, comment } = values;
 
@@ -49,14 +80,15 @@ export const useProfile = (
         comment,
       })
       .then((res) => {
-        setTimeout(() => {
-          showMessage({
-            description: "プロフィールを変更しました",
-            status: "success",
-          });
-          setUser(res.data);
-          actions.setSubmitting(false);
-        }, 500);
+        const formatedUser = snakeToCamel(res.data);
+        setUser(formatedUser);
+
+        showMessage({
+          description: "プロフィールを変更しました",
+          status: "success",
+        });
+
+        actions.setSubmitting(false);
       })
       .catch((err) => {
         showMessage({
@@ -67,7 +99,7 @@ export const useProfile = (
       });
   }, []);
 
-  const validationSchema = Yup.object({
+  const userValidationSchema = Yup.object({
     name: Yup.string().required("入力必須です"),
     mail: Yup.string()
       .email("メールアドレスが正しくありません")
@@ -97,5 +129,5 @@ export const useProfile = (
       ),
   });
 
-  return { initialValues, onSubmit, validationSchema };
+  return { user, userInitialValues, userOnSubmit, userValidationSchema };
 };
