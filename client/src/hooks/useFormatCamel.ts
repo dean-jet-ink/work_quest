@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { Chat } from "../types/chat";
 import { Guild } from "../types/guild";
+import { User } from "../types/user";
 
 export const useFormatCamel = () => {
   // スネークケースのデータをキャメルケースに変換
@@ -28,6 +29,24 @@ export const useFormatCamel = () => {
             userId: item.user_id,
             commnet: item.comment,
             time: item.created,
+          };
+          formatedList.push(formatedItem);
+        });
+        return formatedList;
+      } else if (data === "user") {
+        const formatedList: User[] = [];
+        list.map((item) => {
+          const formatedItem = {
+            userId: item.user_id,
+            userName: item.user_name,
+            mail: item.mail,
+            picture: item.picture,
+            sex: item.sex,
+            comment: item.comment,
+            totalTime: item.total_time,
+            title: item.title,
+            whiteNoise: item.white_noise,
+            level: item.level,
           };
           formatedList.push(formatedItem);
         });

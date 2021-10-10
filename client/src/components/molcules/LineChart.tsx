@@ -1,14 +1,28 @@
 import { memo } from "react";
 import { Line } from "react-chartjs-2";
+import { Week } from "../../types/week";
 
-export const LineChart = memo((props: { value: Array<number> }) => {
-  const { value } = props;
+export const LineChart = memo((props: { week: Week }) => {
+  const { week } = props;
+
+  const alignWeek = [
+    week.monday,
+    week.tuesday,
+    week.wednesday,
+    week.thursday,
+    week.friday,
+    week.saturday,
+    week.sunday,
+  ];
+  console.log(week);
+  console.log(alignWeek);
+
   const data = {
     labels: ["月", "火", "水", "木", "金", "土", "日"],
     datasets: [
       {
         label: "勉強時間",
-        data: value,
+        data: alignWeek,
         backgroundColor: "orange",
         borderColor: "white",
         borderWidth: 1,

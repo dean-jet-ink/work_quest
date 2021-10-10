@@ -26,9 +26,9 @@ export const useProfile = (
   setUser: Dispatch<SetStateAction<User>>
 ) => {
   const initialValues: InitialValuesType = {
-    userId: user.user_id,
+    userId: user.userId,
     picture: user.picture,
-    name: user.user_name,
+    name: user.userName,
     mail: user.mail,
     sex: user.sex,
     comment: user.comment,

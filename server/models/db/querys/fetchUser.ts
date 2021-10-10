@@ -8,6 +8,6 @@ export const fetchUser = (req: Request, res: Response) => {
 
   db.query("SELECT * FROM users WHERE ?", placeHolder, (err, results) => {
     if (err) throw err;
-    res.json(results[0]);
+    res.send(results[0]);
   });
 };

@@ -1,12 +1,12 @@
 export type User = {
-  user_id: number;
-  user_name: string;
+  userId: number;
+  userName: string;
   mail: string;
-  picture: string | null;
+  picture: string;
   sex: string;
   comment: string;
-  total_time: number;
+  totalTime: number;
   title: string;
-  white_noise: string;
+  whiteNoise: string;
   level: number;
 };

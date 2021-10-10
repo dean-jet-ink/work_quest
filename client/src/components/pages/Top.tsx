@@ -10,7 +10,6 @@ import { WorkContainer } from "../atoms/WorkContainer";
 import { Status } from "../organisms/Status";
 import { useWorks } from "../../hooks/useWorks";
 import { DrawerButton } from "../molcules/DrawerButton";
-import { users } from "../../assets/data/users";
 import { useFile } from "../../hooks/useFile";
 import { ProfileFormModal } from "../organisms/ProfileFormModal";
 import { useDisclosureProfile } from "../../hooks/useDisclosureProfile";
@@ -19,11 +18,13 @@ import { useDisclosureComplete } from "../../hooks/useDisclosureComplete";
 import { CompleteWorkDrawer } from "../organisms/CompleteWorkDrawer";
 import { AddWorkModal } from "../organisms/AddWorkModal";
 import { useDisclosureCheeredOn } from "../../hooks/useDisclosureCheeredOn";
-import { CheeredOnDrawer } from "../organisms/CheeredOnDrawer";
+import { CheerDrawer } from "../organisms/CheerDrawer";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { useLevelUp } from "../../hooks/useLevelup";
 import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
+import { useCheer } from "../../hooks/useCheer";
+import { useCheered } from "../../hooks/useCheered";
 
 export const Top: VFC = memo(() => {
   const { loginUserId } = useLoginUser();
@@ -48,6 +49,8 @@ export const Top: VFC = memo(() => {
     titleImage,
     onClickLevelUp,
   } = useLevelUp(loginUserId as number);
+  const { cheerings } = useCheer(loginUserId as number);
+  const { listCheered } = useCheered(loginUserId as number);
 
   const { isOpenProfile, onCloseProfile, onOpenProfile } =
     useDisclosureProfile();
@@ -76,9 +79,6 @@ export const Top: VFC = memo(() => {
             onClick={onOpenCheeredOn}
           >
             <InsertEmoticonIcon color="inherit" fontSize="inherit" />
-            <Text ml={2} color="#43da3e">
-              {users.length}
-            </Text>
           </Flex>
         </Flex>
 
@@ -140,10 +140,11 @@ export const Top: VFC = memo(() => {
         onClose={onCloseComplete}
         isOpen={isOpenComplete}
       />
-      <CheeredOnDrawer
+      <CheerDrawer
         onClose={onCloseCheeredOn}
         isOpen={isOpenCheeredOn}
-        users={users}
+        cheerings={cheerings}
+        listCheered={listCheered}
       />
     </PrimaryLayout>
   );

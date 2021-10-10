@@ -16,7 +16,6 @@ import { TotalTime } from "../molcules/TotalTime";
 import { User } from "../../types/user";
 import { Comment } from "../molcules/Comment";
 import { useDisclosureLevelUp } from "../../hooks/useDisclosureLevelUp";
-import { users } from "../../assets/data/users";
 import { LevelUpModal } from "./LevelUpModal";
 import praise from "../../assets/audio/praise.mp3";
 import { useSoundEffect } from "../../hooks/useSoundEffect";
@@ -81,14 +80,14 @@ export const Status = memo((props: Props) => {
         <Box w="50%">
           <Box mb={6}>
             <TotalTime
-              totalTime={user.total_time}
+              totalTime={user.totalTime}
               fontSize="18px"
               color="orange"
             />
           </Box>
           <Box mb={8}>
             <Heading fontSize="18px" fontFamily="inherit">
-              {user.user_name}
+              {user.userName}
             </Heading>
           </Box>
           <Stack spacing={5}>
@@ -148,12 +147,12 @@ export const Status = memo((props: Props) => {
         </Box>
       </Flex>
       <Box d={commentDisplay} mx={2} mb={3}>
-        <Comment>{`${user.user_name}「 ${user.comment} 」`}</Comment>
+        <Comment>{`${user.userName}「 ${user.comment} 」`}</Comment>
       </Box>
       <LevelUpModal
         onClose={onCloseLevelUp}
         isOpen={isOpenLevelUp}
-        user={users[0]}
+        user={user}
         level={level!}
         title={title!}
         titleImage={titleImage}

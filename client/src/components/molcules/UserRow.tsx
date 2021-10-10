@@ -15,14 +15,11 @@ export const UserRow = (props: Props) => {
   const { loginUserId } = useLoginUser();
   const { user, index } = props;
   const { inspectedPicture } = useDefaultPicture(user.picture, "member/");
-  const noLink = loginUserId == user.user_id ? "none" : "auto"; //リストの自分の項目はリンク無効
+  const noLink = loginUserId == user.userId ? "none" : "auto"; //リストの自分の項目はリンク無効
 
   return (
     <ListItem h={{ base: "70px" }}>
-      <Link
-        to={`/top/member/${user.user_id}`}
-        style={{ pointerEvents: noLink }}
-      >
+      <Link to={`/top/member/${user.userId}`} style={{ pointerEvents: noLink }}>
         <Flex align="center">
           <Text w="5%">{index + 1}</Text>
           <Flex align="center" justify="start" w="50%">
@@ -38,7 +35,7 @@ export const UserRow = (props: Props) => {
                 {user.level}
               </Text>
               <Text fontSize="12px" fontWeight="bold">
-                {user.user_name}
+                {user.userName}
               </Text>
             </Flex>
           </Flex>
@@ -58,7 +55,7 @@ export const UserRow = (props: Props) => {
             </Flex>
           </Flex>
           <Flex justify="start" w="5%">
-            <TotalTime totalTime={user.total_time} color="orange" />
+            <TotalTime totalTime={user.totalTime} color="orange" />
           </Flex>
         </Flex>
       </Link>

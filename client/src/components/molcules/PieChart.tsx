@@ -1,19 +1,30 @@
 import { memo } from "react";
+import { Text } from "@chakra-ui/react";
 import { Pie } from "react-chartjs-2";
 import { Chart } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Context } from "chartjs-plugin-datalabels";
 
-export const PieChart = memo((props: { value: Array<number> }) => {
+import { Work } from "../../types/work";
+
+export const PieChart = memo((props: { works: Work[] }) => {
   Chart.register(ChartDataLabels);
-  const { value } = props;
-  const works = ["ポートフォリオ作成", "デザイン作成", "マーケティング学習"];
+  const { works } = props;
+  const workNames: string[] = [];
+  const workTimes: number[] = [];
+  works.map((work) => {
+    if (work.totalTime > 0) {
+      workNames.push(work.workName);
+      workTimes.push(work.totalTime);
+    }
+  });
+
   const data = {
-    labels: works,
+    labels: workNames,
     datasets: [
       {
         label: "勉強時間",
-        data: value,
+        data: workTimes,
         backgroundColor: ["#f87979", "#aa4c8f", "#38b48b"],
         borderColor: "transparent",
       },
@@ -54,5 +65,13 @@ export const PieChart = memo((props: { value: Array<number> }) => {
     },
   };
 
-  return <Pie data={data} options={options} />;
+  return (
+    <>
+      {works.length !== 0 ? (
+        <Pie data={data} options={options} />
+      ) : (
+        <Text>未完了のWorkがありません</Text>
+      )}
+    </>
+  );
 });
