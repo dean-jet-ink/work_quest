@@ -4,6 +4,7 @@ import moment from "moment";
 
 import { useShowMessage } from "./useShowMessage";
 import axios from "axios";
+import { useReport } from "../hooks/useReport";
 
 type Props = {
   limit: number;
@@ -22,6 +23,7 @@ export const useBattle = (props: Props) => {
   const { showMessage } = useShowMessage();
   const [smallGoalName, setSmallGoalName] = useState("");
   const [totalTime, setTotalTime] = useState(0);
+  const { recordTimeOnReport } = useReport(userId);
 
   // 小数第二位以下四捨五入
   // 一時間単位でtotal_timeにプラス
@@ -61,7 +63,7 @@ export const useBattle = (props: Props) => {
 
   // timeLeftステイトが0になったときの処理
   const timeup = useCallback(() => {
-    if (timeLeft <= 0) {
+    if (timeLeft == 0) {
       clearInterval(countdown);
       setActive(false);
       if (!finish) {
@@ -78,7 +80,12 @@ export const useBattle = (props: Props) => {
           })
           .then((res) => {
             setTotalTime(res.data.total_time);
+          })
+          .catch((err) => {
+            if (err) throw err;
           });
+
+        recordTimeOnReport(addTime);
       } else {
         setFinish(false);
         setTimeLeft(limit);
@@ -111,6 +118,9 @@ export const useBattle = (props: Props) => {
       totalTime: addTime,
       userId,
     });
+    recordTimeOnReport(addTime);
+
+    onClickStop();
     history.goBack();
   };
 

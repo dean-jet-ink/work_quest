@@ -1,19 +1,22 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { User } from "../types/user";
+import { useFormatCamel } from "./useFormatCamel";
 import { useShowMessage } from "./useShowMessage";
 
 export const useInfiniteScrollUser = () => {
   const [userList, setUserList] = useState<User[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const { showMessage } = useShowMessage();
+  const { snakeToCamel } = useFormatCamel();
 
   useEffect(() => {
     axios
       .get(`http://localhost:4000/fetch/userlist/20`)
       .then((res) => {
         console.log(res.data);
-        setUserList(res.data);
+        const users = snakeToCamel(res.data, "user");
+        setUserList(users as User[]);
         if (20 > res.data.length) {
           setHasMore(false);
         }
@@ -33,8 +36,9 @@ export const useInfiniteScrollUser = () => {
     axios
       .get<any[]>(`http://localhost:4000/fetch/userlist/${limit}`)
       .then((res) => {
-        console.log(res.data);
-        setUserList(res.data);
+        const users = snakeToCamel(res.data, "user");
+        setUserList(users as User[]);
+
         if (limit > res.data.length) {
           setHasMore(false);
         }

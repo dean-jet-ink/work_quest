@@ -24,10 +24,10 @@ type RightOrLeftProps = {
 
 export const Chat = memo((props: Props) => {
   const { loginUserId, userId, members, children } = props;
-  const user = members.find((member) => member.user_id === userId);
+  const user = members.find((member) => member.userId === userId);
   const { inspectedPicture } = useDefaultPicture(user!.picture, "member/");
   const rightOrLeft: RightOrLeftProps =
-    loginUserId == user?.user_id
+    loginUserId == user?.userId
       ? {
           flexDir: "row-reverse",
           pr: "0",
@@ -58,7 +58,7 @@ export const Chat = memo((props: Props) => {
       </Box>
       <Box position="relative" pr={rightOrLeft.pr} pl={rightOrLeft.pl}>
         <Text fontSize="10px" mb={1} fontWeight="bold">
-          {user?.user_name}
+          {user?.userName}
         </Text>
         <Box
           border="9px solid transparent"
