@@ -1,7 +1,9 @@
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { FormikHelpers } from "formik";
 import moment from "moment";
-import { useCallback, useEffect, useState } from "react";
+import * as Yup from "yup";
+
 import { Work } from "../types/work";
 import { useShowMessage } from "./useShowMessage";
 
@@ -49,7 +51,7 @@ export const useWorks = (userId: number) => {
 
   const now = moment();
 
-  const initialValues: WorkInitialValuesType = {
+  const workInitialValues: WorkInitialValuesType = {
     workName: "",
     created: now.format("YYYY-MM-DD HH:mm:ss"),
     deadline: null,
@@ -141,8 +143,12 @@ export const useWorks = (userId: number) => {
     [incompleteWorks, completeWorks]
   );
 
+  const workValidationSchema = Yup.object({
+    workName: Yup.string().required("入力必須です"),
+  });
+
   return {
-    initialValues,
+    workInitialValues,
     incompleteWorks,
     completeWorks,
     setIncompleteWorks,
@@ -150,5 +156,6 @@ export const useWorks = (userId: number) => {
     onClickDelete,
     onClickComplete,
     onClickBack,
+    workValidationSchema,
   };
 };

@@ -12,16 +12,18 @@ import { Box } from "@chakra-ui/layout";
 import { SubmitOrCancel } from "../molcules/forms/SubmitOrCancel";
 import { WorkInitialValuesType, WorkOnSubmitProps } from "../../hooks/useWorks";
 import "../../assets/css/react-dates.css";
+import { OptionalObjectSchema } from "yup/lib/object";
 
 type Props = {
   initialValues: WorkInitialValuesType;
   onSubmit: (values: WorkOnSubmitProps) => void;
+  validationSchema: OptionalObjectSchema<any>;
   onClose: () => void;
   isOpen: boolean;
 };
 
 export const AddWorkModal = memo((props: Props) => {
-  const { initialValues, onSubmit, onClose, isOpen } = props;
+  const { initialValues, onSubmit, validationSchema, onClose, isOpen } = props;
   const [date, setDate] = useState<Moment>();
   const [focused, setFocused] = useState(false);
 
@@ -36,6 +38,7 @@ export const AddWorkModal = memo((props: Props) => {
               onClose();
             }, 500);
           }}
+          validationSchema={validationSchema}
         >
           {({ isSubmitting, handleSubmit, setFieldValue }) => (
             <Form

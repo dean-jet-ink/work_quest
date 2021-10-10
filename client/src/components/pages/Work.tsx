@@ -27,6 +27,7 @@ export const Work = memo(() => {
     onClickDelete,
     onClickComplete,
     onClickBack,
+    smallGoalValidationSchema,
   } = useSmallGoal(Number(id));
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpenComplete, onOpenComplete, onCloseComplete } =
@@ -67,6 +68,7 @@ export const Work = memo(() => {
       <AddSmallGoalModal
         initialValues={initialValues}
         onSubmit={onSubmit}
+        validationSchema={smallGoalValidationSchema}
         isOpen={isOpen}
         onClose={onClose}
       />
