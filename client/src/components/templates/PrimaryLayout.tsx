@@ -3,17 +3,22 @@ import { Footer } from "../molcules/Footer";
 import { Header } from "../organisms/Header";
 
 type Props = {
-  onClick: () => void;
+  onOpenProfile: () => void;
+  onOpenCheer: () => void;
   src: string;
   children: ReactNode;
 };
 
 export const PrimaryLayout = memo((props: Props) => {
-  const { onClick, src, children } = props;
+  const { onOpenProfile, onOpenCheer, src, children } = props;
 
   return (
     <>
-      <Header onClick={onClick} src={src} />
+      <Header
+        onOpenProfile={onOpenProfile}
+        onOpenCheer={onOpenCheer}
+        src={src}
+      />
       {children}
       <Footer />
     </>

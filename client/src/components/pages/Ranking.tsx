@@ -3,21 +3,55 @@ import { Box, Image } from "@chakra-ui/react";
 
 import { SecondaryLayout } from "../templates/SecondaryLayout";
 import { UserList } from "../organisms/UserList";
-import coronation from "../../image/coronation.jpg";
+import queen from "../../image/queen.png";
 import { InfiniteScroller } from "../molcules/InfiniteScroller";
 import { useInfiniteScrollUser } from "../../hooks/useInfiniteScrollUser";
+import { LineOfChara } from "../../components/molcules/LineOfChara";
+import palace from "../../image/palace.jpg";
 
 export const Ranking = memo(() => {
   const { userList, hasMore, loadMoreUser } = useInfiniteScrollUser();
 
   return (
-    <SecondaryLayout>
-      <Image src={coronation} mt={4} w="100%" h="215px" />
-      <Box minH="100vh">
-        <InfiniteScroller hasMore={hasMore} loadMore={loadMoreUser}>
-          <UserList users={userList} />
-        </InfiniteScroller>
+    <Box bg={`center/cover url(${palace}) no-repeat`} bgAttachment="fixed">
+      <Box bg="#00000052">
+        <SecondaryLayout>
+          <Box
+            position="relative"
+            mx="auto"
+            w="500px"
+            h={{ base: "231px", lg: "261px" }}
+          >
+            <Box
+              position="absolute"
+              top={{ base: "65px" }}
+              left={{ base: "38px", md: "-10px", lg: "-110px" }}
+            >
+              <LineOfChara
+                line="せいぜい頑張んなさい!"
+                position="right"
+                width={{ base: "180px", md: "220px", lg: "285px" }}
+              />
+            </Box>
+            <Box position="absolute" right="30px">
+              <Image
+                src={queen}
+                mt={4}
+                boxSize={{ base: "250px", lg: "280px" }}
+                mr={{ base: "unset", md: "auto" }}
+                ml={{ base: "auto", md: "auto" }}
+              />
+            </Box>
+          </Box>
+          <Box minH="100vh">
+            <Box px={{ md: "40px", lg: "120px", xl: "220px" }}>
+              <InfiniteScroller hasMore={hasMore} loadMore={loadMoreUser}>
+                <UserList users={userList} isRanking={true} />
+              </InfiniteScroller>
+            </Box>
+          </Box>
+        </SecondaryLayout>
       </Box>
-    </SecondaryLayout>
+    </Box>
   );
 });

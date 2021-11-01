@@ -59,7 +59,7 @@ export const SmallGoalList = memo((props: Props) => {
                   {smallGoal.smallGoalName}
                 </Text>
                 <Spacer />
-                <TotalTime totalTime={smallGoal.totalTime} color="orange" />
+                <TotalTime totalTime={smallGoal.totalTime} color="inherit" />
                 <AccordionIcon />
               </Flex>
             </AccordionButton>
@@ -67,12 +67,13 @@ export const SmallGoalList = memo((props: Props) => {
               <Box
                 bg="#f5e8c3"
                 mx={1}
-                p={{ base: 6 }}
+                p={{ base: 6, lg: 12 }}
+                px={{ lg: "90px" }}
                 borderBottomEndRadius={5}
                 borderBottomLeftRadius={5}
               >
                 <PrimaryContainer>
-                  <Box p={5}>
+                  <Box p={{ base: 5 }}>
                     <Stack spacing={3}>
                       <Flex justify="center" color="white">
                         <Link to={`/top/battle/${smallGoal.id}`}>

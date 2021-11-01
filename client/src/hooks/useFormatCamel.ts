@@ -27,7 +27,7 @@ export const useFormatCamel = () => {
             chatId: item.chat_id,
             guildId: item.guild_id,
             userId: item.user_id,
-            commnet: item.comment,
+            comment: item.comment,
             time: item.created,
           };
           formatedList.push(formatedItem);

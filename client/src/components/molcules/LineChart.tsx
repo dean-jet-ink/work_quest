@@ -1,10 +1,16 @@
 import { memo } from "react";
+import { Box } from "@chakra-ui/react";
 import { Line } from "react-chartjs-2";
+
 import { Week } from "../../types/week";
 
-export const LineChart = memo((props: { week: Week }) => {
-  const { week } = props;
+type Props = {
+  week: Week;
+  myWeek?: Week;
+};
 
+export const LineChart = memo((props: Props) => {
+  const { week, myWeek } = props;
   const alignWeek = [
     week.monday,
     week.tuesday,
@@ -14,8 +20,18 @@ export const LineChart = memo((props: { week: Week }) => {
     week.saturday,
     week.sunday,
   ];
-  console.log(week);
-  console.log(alignWeek);
+  const alignMyWeek: number[] = [];
+  if (myWeek) {
+    alignMyWeek.push(
+      myWeek.monday,
+      myWeek.tuesday,
+      myWeek.wednesday,
+      myWeek.thursday,
+      myWeek.friday,
+      myWeek.saturday,
+      myWeek.sunday
+    );
+  }
 
   const data = {
     labels: ["月", "火", "水", "木", "金", "土", "日"],
@@ -24,7 +40,14 @@ export const LineChart = memo((props: { week: Week }) => {
         label: "勉強時間",
         data: alignWeek,
         backgroundColor: "orange",
-        borderColor: "white",
+        borderColor: "orange",
+        borderWidth: 1,
+      },
+      {
+        label: "自分の勉強時間",
+        data: alignMyWeek,
+        backgroundColor: "#d5d5d5",
+        borderColor: "#d5d5d5",
         borderWidth: 1,
       },
     ],
@@ -62,5 +85,9 @@ export const LineChart = memo((props: { week: Week }) => {
     },
   };
 
-  return <Line data={data} options={options} />;
+  return (
+    <Box border="1px solid white" py={3} px={5}>
+      <Line data={data} options={options} />
+    </Box>
+  );
 });

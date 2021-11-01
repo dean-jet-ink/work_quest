@@ -13,12 +13,10 @@ export const HeaderGoBack = memo(() => {
   }, []);
 
   return (
-    <Box mt={3} mx={2}>
-      <PrimaryContainer>
-        <Box color="white" py={{ base: 3, md: 5 }} px={{ base: 5, md: 8 }}>
-          <SecondaryButton onClick={onClickGoBack}>戻る</SecondaryButton>
-        </Box>
-      </PrimaryContainer>
-    </Box>
+    <PrimaryContainer>
+      <Box color="white" py={{ base: 3, md: 5 }} px={{ base: 5, md: 8 }}>
+        <SecondaryButton onClick={onClickGoBack}>戻る</SecondaryButton>
+      </Box>
+    </PrimaryContainer>
   );
 });

@@ -7,13 +7,11 @@ import "./assets/css/font.css";
 
 function App() {
   return (
-    <div className="font">
-      <ChakraProvider theme={theme}>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
-      </ChakraProvider>
-    </div>
+    <ChakraProvider theme={theme}>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </ChakraProvider>
   );
 }
 

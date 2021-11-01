@@ -6,7 +6,7 @@ export const LoginHeaderContainer: VFC<{ children: ReactNode }> = (props) => {
 
   return (
     <Flex
-      h="600px"
+      h={{ base: "600px", md: "700px", lg: "720px" }}
       bg="gray.800"
       py={20}
       position="relative"

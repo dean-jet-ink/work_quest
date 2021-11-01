@@ -3,12 +3,18 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 
 import { User } from "../../types/user";
 import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
+import moment from "moment";
 
 type Props = {
   loginUserId: number;
-  userId: number;
   members: User[];
-  children: string;
+  chat: {
+    userId: number;
+    guildId: number;
+    chatId: number;
+    comment: string;
+    time: string;
+  };
 };
 
 type RightOrLeftProps = {
@@ -23,9 +29,16 @@ type RightOrLeftProps = {
 };
 
 export const Chat = memo((props: Props) => {
-  const { loginUserId, userId, members, children } = props;
-  const user = members.find((member) => member.userId === userId);
+  const { loginUserId, members, chat } = props;
+  console.log(chat.time);
+  chat.time = moment.utc(chat.time).format("YYYY/MM/DD HH:mm");
+  const user = members.find((member) => member.userId === chat.userId);
   const { inspectedPicture } = useDefaultPicture(user!.picture, "member/");
+  const imageSize = {
+    base: "45px",
+    md: "60px",
+    lg: "80px",
+  };
   const rightOrLeft: RightOrLeftProps =
     loginUserId == user?.userId
       ? {
@@ -52,12 +65,26 @@ export const Chat = memo((props: Props) => {
   return (
     <Flex mb={4} flexDir={rightOrLeft.flexDir}>
       <Box pt="8px" px={5}>
-        <Box boxSize="45px" bg="white" borderRadius="50%" textAlign="center">
-          <Image src={inspectedPicture} w="45px" h="45px" borderRadius="50%" />
+        <Box
+          boxSize={imageSize}
+          bg="white"
+          borderRadius="50%"
+          textAlign="center"
+        >
+          <Image
+            src={inspectedPicture}
+            boxSize={imageSize}
+            borderRadius="50%"
+          />
         </Box>
       </Box>
       <Box position="relative" pr={rightOrLeft.pr} pl={rightOrLeft.pl}>
-        <Text fontSize="10px" mb={1} fontWeight="bold">
+        <Text
+          fontSize={{ base: "10px", md: "12px" }}
+          mb={1}
+          fontWeight="bold"
+          color="white"
+        >
           {user?.userName}
         </Text>
         <Box
@@ -76,10 +103,15 @@ export const Chat = memo((props: Props) => {
           py={2}
           shadow="2px 2px 5px 0px rgba(0 0 0 / 0.3)"
         >
-          <Text fontWeight="bold" fontSize="12px">
-            {children}
+          <Text
+            fontWeight="bold"
+            fontSize={{ base: "12px", md: "14px", lg: "16px" }}
+            whiteSpace="pre-wrap"
+          >
+            {chat.comment}
           </Text>
         </Box>
+        <Text color="#d5d5d5">{chat.time}</Text>
       </Box>
     </Flex>
   );

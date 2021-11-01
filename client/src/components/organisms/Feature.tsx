@@ -1,5 +1,5 @@
-import { Flex } from "@chakra-ui/react";
 import { memo } from "react";
+import { Flex, Box, Center } from "@chakra-ui/react";
 import { FeatureImage } from "../molcules/FeatureImage";
 import { FeatureDescription } from "../molcules/FeatureDescription";
 import { ReactNode } from "react";
@@ -16,12 +16,17 @@ export const Feature = memo((props: Props) => {
   return (
     <Flex
       flexDir={{ base: "column", md: "row" }}
-      pt="60px"
       _even={{ flexDir: { md: "row-reverse" } }}
       px={{ base: "20px", md: "80px" }}
+      pt="60px"
+      align="center"
     >
-      <FeatureImage src={src} />
-      <FeatureDescription heading={heading}>{children}</FeatureDescription>
+      <Box flex={{ md: "40%" }}>
+        <FeatureImage src={src} />
+      </Box>
+      <Box flex={{ md: "60%" }} h="250px">
+        <FeatureDescription heading={heading}>{children}</FeatureDescription>
+      </Box>
     </Flex>
   );
 });

@@ -19,7 +19,12 @@ export const CompleteSmallGoalDrawer = (props: Props) => {
   const [BackSound, onClickBackSound] = useSoundEffect(cancel);
 
   return (
-    <DrawerContainer onClose={onClose} isOpen={isOpen} image={goalFlag}>
+    <DrawerContainer
+      onClose={onClose}
+      isOpen={isOpen}
+      image={goalFlag}
+      closeButtonColor="white"
+    >
       {completeSmallGoals.length != 0 ? (
         completeSmallGoals.map((smallGoal, index) => (
           <Flex align="center" justify="center" key={smallGoal.id}>

@@ -1,28 +1,22 @@
 import { memo } from "react";
-import {
-  Box,
-  Flex,
-  Image,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@chakra-ui/react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 
 import { SecondaryLayout } from "../templates/SecondaryLayout";
 import guildBg from "../../image/guild_bg.jpg";
 import { Chat } from "../molcules/Chat";
-import { PrimaryInputText } from "../molcules/forms/PrimaryInputText";
-import { PrimaryContainer } from "../atoms/PrimaryContainer";
-import { Form, Formik } from "formik";
-import { PrimaryButton } from "../atoms/forms/PrimarButton";
 import { useChat } from "../../hooks/form/useChat";
 import { UserList } from "../organisms/UserList";
 import { useParams } from "react-router-dom";
 import { useGuild } from "../../hooks/useGuild";
 import { useFetchGuildMembers } from "../../hooks/useFetchGuildMembers";
 import { useLoginUser } from "../../hooks/useLoginUser";
+import { PrimaryTab } from "../molcules/PrimaryTab";
+import { useDisclosureChat } from "../../hooks/useDisclosureChat";
+import { ChatModal } from "../organisms/ChatModal";
+import CommentIcon from "@material-ui/icons/Comment";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useDisclosureExit } from "../../hooks/useDisclosureExit";
+import { Dialog } from "../molcules/Dialog";
 
 export const MyGuild = memo(() => {
   const { id } = useParams<{ id: string }>();
@@ -33,84 +27,112 @@ export const MyGuild = memo(() => {
     guildId: Number(id),
     userId: loginUserId as number,
   });
-  const tabsBgColor = "#b1967b";
-  const tabColumnTextColor = "#500707";
-  const tabNonSelectedColor = "#cebfb5";
-
-  console.log(chat);
+  const { onOpenChat, onCloseChat, isOpenChat } = useDisclosureChat();
+  const { onOpenExit, onCloseExit, isOpenExit } = useDisclosureExit();
 
   return (
     <SecondaryLayout>
-      <Image src={guildBg} mt={3} w="100%" h="220px" objectFit="cover" />
-      <Tabs variant="enclosed" mt="-40px">
-        <TabList borderBottom="none">
-          <Tab
-            _focus={{}}
-            color={tabNonSelectedColor}
-            _selected={{ bg: tabsBgColor, color: tabColumnTextColor }}
-            fontWeight="bold"
+      <Box
+        bg={`center/cover url(${guildBg}) no-repeat`}
+        position="relative"
+        zIndex={1}
+      >
+        <Flex
+          align="start"
+          h={{ base: "235px", md: "335px", lg: "400px", xl: "500px" }}
+        >
+          <Flex
+            p={{ base: "40px" }}
+            position="relative"
+            align="center"
+            justify="start"
           >
-            メンバー
-          </Tab>
-          <Tab
-            _focus={{}}
-            color={tabNonSelectedColor}
-            _selected={{ bg: tabsBgColor, color: tabColumnTextColor }}
-            fontWeight="bold"
-          >
-            メッセージ
-          </Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel bg={tabsBgColor} p={{ base: 5, sm: 8 }}>
-            <UserList users={guildMembers} />
-          </TabPanel>
-
-          <TabPanel bg={tabsBgColor} px={0} py={4} minHeight="290px">
+            <Box
+              py={{ base: 2, md: 3, lg: 5, xl: 7 }}
+              px={{ base: 3, md: 5, lg: 7, xl: 9 }}
+              mr={{ base: 4 }}
+              bg="#ae8f8366"
+              boxSize="fit-content"
+              borderRadius="2px"
+            >
+              <Text
+                color="#e6be8d"
+                fontSize={{ base: "22px", md: "40px", lg: "45px" }}
+                letterSpacing={{ base: "3px", md: "5px" }}
+              >
+                {guild.guildName}
+              </Text>
+            </Box>
+            <Box
+              fontSize={{ base: "30px", md: "40px", lg: "50px" }}
+              color="white"
+              _hover={{ cursor: "pointer" }}
+              onClick={onOpenExit}
+              h="fit-content"
+            >
+              <ExitToAppIcon fontSize="inherit" color="inherit" />
+            </Box>
+          </Flex>
+        </Flex>
+      </Box>
+      <Box
+        mt={{ base: "-40px", md: "-63px", lg: "" }}
+        position="relative"
+        zIndex={2}
+      >
+        <PrimaryTab defaultIndex={0} tab1="メンバー" tab2="メッセージ">
+          <UserList users={guildMembers} />
+          <Box>
             {chat.map((item) => {
-              if (item.commnet) {
+              if (item.comment) {
                 return (
                   <Chat
                     key={item.chatId}
                     loginUserId={loginUserId as number}
-                    userId={item.userId}
                     members={guildMembers}
-                  >
-                    {item.commnet}
-                  </Chat>
+                    chat={item}
+                  />
                 );
               }
             })}
-            <Box position="fixed" bottom="0" w="100%">
-              <PrimaryContainer>
-                <Box p={4}>
-                  <Formik
-                    initialValues={initialValues}
-                    onSubmit={(values, { resetForm }) => {
-                      onSubmit(values);
-                      resetForm();
-                    }}
-                  >
-                    {({ isSubmitting }) => (
-                      <Form>
-                        <Flex justyfy="space-between">
-                          <Box w="80%" mr={4}>
-                            <PrimaryInputText
-                              placeholder="メッセージを入力"
-                              name="comment"
-                            />
-                          </Box>
-                          <PrimaryButton>送信</PrimaryButton>
-                        </Flex>
-                      </Form>
-                    )}
-                  </Formik>
-                </Box>
-              </PrimaryContainer>
+            <Box
+              position="fixed"
+              bottom="25px"
+              right="25px"
+              fontSize={{ base: "35px", md: "50px" }}
+              color="white"
+              bg="twitter.500"
+              w={{ base: "50px", md: "70px" }}
+              borderRadius="50%"
+              shadow="2px 4px 10px 0 rgb(0 0 0 / 60%)"
+            >
+              <Box
+                mx="auto"
+                w="fit-content"
+                _hover={{ cursor: "pointer" }}
+                onClick={onOpenChat}
+              >
+                <CommentIcon fontSize="inherit" color="inherit" />
+              </Box>
             </Box>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+          </Box>
+        </PrimaryTab>
+      </Box>
+      <ChatModal
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        onClose={onCloseChat}
+        isOpen={isOpenChat}
+      />
+      <Dialog
+        header={`「${guild.guildName}」から退会しますか？`}
+        color="red"
+        onClick={() => {
+          onCloseExit();
+        }}
+        onClose={onCloseExit}
+        isOpen={isOpenExit}
+      />
     </SecondaryLayout>
   );
 });

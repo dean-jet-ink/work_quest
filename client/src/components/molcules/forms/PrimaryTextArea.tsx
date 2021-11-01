@@ -10,11 +10,17 @@ type Props = {
 
 export const PrimaryTextArea = memo((props: Props) => {
   const [field, meta] = useField(props);
-  const { children } = props;
+  const { children, placeholder } = props;
 
   return (
     <Box>
-      <Textarea resize="none" fontSize={{ base: "14px" }} {...field}>
+      <Textarea
+        resize="none"
+        fontSize={{ base: "14px" }}
+        {...field}
+        placeholder={placeholder}
+        size="md"
+      >
         {children}
       </Textarea>
       {meta.error && meta.touched ? (
