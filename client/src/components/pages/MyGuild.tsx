@@ -17,18 +17,22 @@ import CommentIcon from "@material-ui/icons/Comment";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useDisclosureExit } from "../../hooks/useDisclosureExit";
 import { Dialog } from "../molcules/Dialog";
+import { useDisclosureBreakup } from "../../hooks/useDisclosureBreakup";
 
 export const MyGuild = memo(() => {
   const { id } = useParams<{ id: string }>();
   const { loginUserId } = useLoginUser();
   const { guildMembers } = useFetchGuildMembers(Number(id));
-  const { guild } = useGuild(Number(id));
+  const { guild, onClickExit, onClickDelete } = useGuild(Number(id));
   const { chat, initialValues, onSubmit } = useChat({
     guildId: Number(id),
     userId: loginUserId as number,
   });
   const { onOpenChat, onCloseChat, isOpenChat } = useDisclosureChat();
   const { onOpenExit, onCloseExit, isOpenExit } = useDisclosureExit();
+  const { onOpenBreakup, onCloseBreakup, isOpenBreakup } =
+    useDisclosureBreakup();
+  const selectOpen = guild.adminId === loginUserId ? onOpenBreakup : onOpenExit; //adminの場合、ギルド解散のモーダル表示
 
   return (
     <SecondaryLayout>
@@ -67,7 +71,7 @@ export const MyGuild = memo(() => {
               fontSize={{ base: "30px", md: "40px", lg: "50px" }}
               color="white"
               _hover={{ cursor: "pointer" }}
-              onClick={onOpenExit}
+              onClick={selectOpen}
               h="fit-content"
             >
               <ExitToAppIcon fontSize="inherit" color="inherit" />
@@ -124,14 +128,27 @@ export const MyGuild = memo(() => {
         onClose={onCloseChat}
         isOpen={isOpenChat}
       />
+
+      {/* メンバー用で、退会を行う */}
       <Dialog
         header={`「${guild.guildName}」から退会しますか？`}
         color="red"
         onClick={() => {
-          onCloseExit();
+          onClickExit(loginUserId as number);
         }}
         onClose={onCloseExit}
         isOpen={isOpenExit}
+      />
+
+      {/* admin用で、ギルド解散を行う */}
+      <Dialog
+        header={`「${guild.guildName}」を解散させますか？`}
+        color="red"
+        onClick={() => {
+          onClickDelete();
+        }}
+        onClose={onCloseBreakup}
+        isOpen={isOpenBreakup}
       />
     </SecondaryLayout>
   );

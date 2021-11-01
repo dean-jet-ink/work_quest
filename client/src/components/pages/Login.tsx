@@ -15,8 +15,6 @@ import { Feature } from "../organisms/Feature";
 import { Column } from "../organisms/Column";
 import yuusya from "../../image/yuusya.png";
 import party from "../../image/party.png";
-import treasure from "../../image/treasure.png";
-import rare_enemy from "../../image/rare_enemy.png";
 import enemy from "../../image/enemy.png";
 import { FooterLayout } from "../templates/FooterLayout";
 import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
@@ -110,9 +108,6 @@ export const Login: VFC = memo(() => {
                 <Feature src={enemy} heading="「(25分＋5分)×4」">
                   25分（作業）と5分（休憩）を1セットとして、4セットごとに15分の休憩があります。
                   1セットごとに敵が出現し、終えると敵を倒し、経験値を獲得します。
-                </Feature>
-                <Feature src={rare_enemy} heading="「レアキャラ出現」">
-                  一定の確率でレアキャラが出現します。その日のセット数が増えるほど、レアキャラの出現率が高くなり、倒すと多くの経験値を獲得します。
                 </Feature>
               </Stack>
             </Box>
