@@ -22,7 +22,6 @@ type Props = {
 
 export const CheerUp = memo((props: Props) => {
   const { cheered, prosessing, onClickSubmit, onClickDelete } = props;
-  console.log(cheered);
 
   return (
     <>
@@ -34,7 +33,7 @@ export const CheerUp = memo((props: Props) => {
           userSelect="none"
           onClick={onClickDelete}
         >
-          <Text mr={1} fontWeight="bold">
+          <Text mr={1} fontWeight="bold" fontSize={{ lg: "18px" }}>
             応援する
           </Text>
           <Box position="relative">
@@ -61,7 +60,7 @@ export const CheerUp = memo((props: Props) => {
                 times: [0, 0.5, 1],
               }}
             >
-              <Flex fontSize="26px" color="#debd0b">
+              <Flex fontSize={{ base: "26px", lg: "32px" }} color="#debd0b">
                 <InsertEmoticonIcon color="inherit" fontSize="inherit" />
               </Flex>
             </MotionBox>

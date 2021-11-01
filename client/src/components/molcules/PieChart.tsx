@@ -13,10 +13,8 @@ export const PieChart = memo((props: { works: Work[] }) => {
   const workNames: string[] = [];
   const workTimes: number[] = [];
   works.map((work) => {
-    if (work.totalTime > 0) {
-      workNames.push(work.workName);
-      workTimes.push(work.totalTime);
-    }
+    workNames.push(work.workName);
+    workTimes.push(work.totalTime);
   });
 
   const data = {

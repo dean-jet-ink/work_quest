@@ -45,7 +45,6 @@ export const useChat = (props: Props) => {
         })
         .then((res) => {
           const chatList = snakeToCamel(res.data, "chat");
-          console.log(chatList);
           setChat(chatList as Chat[]);
         })
         .catch((err) => {

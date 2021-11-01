@@ -5,7 +5,7 @@ import AddIcon from "@material-ui/icons/Add";
 type Props = {
   onClick: () => void;
   contents?: string;
-  color?: "#ca0000" | "#d0d0d099";
+  color?: "white" | "#d0d0d099";
   pointerEvents?: "none" | "auto";
 };
 
@@ -13,7 +13,7 @@ export const AddContents = memo((props: Props) => {
   const {
     onClick,
     contents = "Workの追加",
-    color = "#ca0000",
+    color = "white",
     pointerEvents = "auto",
   } = props;
 
@@ -29,7 +29,7 @@ export const AddContents = memo((props: Props) => {
           <AddIcon fontSize="large" />
         </Box>
       </Flex>
-      <Text fontSize="16px" ml={3}>
+      <Text fontSize={{ base: "16px", lg: "18px" }} ml={3}>
         {contents}
       </Text>
     </Flex>

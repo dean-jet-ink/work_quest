@@ -76,6 +76,7 @@ export const Status = memo((props: Props) => {
         color="white"
         align="center"
         justify="space-around"
+        height={{ xl: "440px" }}
       >
         <Box w="50%">
           <Box mb={6}>
@@ -86,14 +87,17 @@ export const Status = memo((props: Props) => {
             />
           </Box>
           <Box mb={8}>
-            <Heading fontSize="18px" fontFamily="inherit">
+            <Heading
+              fontSize={{ base: "18px", xl: "22px" }}
+              fontFamily="inherit"
+            >
               {user.userName}
             </Heading>
           </Box>
-          <Stack spacing={5}>
+          <Stack spacing={{ base: 5, md: 8 }}>
             <Box>
               <Flex align="center">
-                <Text fontSize="15px">Level</Text>
+                <Text fontSize={{ base: "15px", xl: "20px" }}>Level</Text>
                 <Text ml={5} fontWeight="bold">
                   {profileLevel}
                 </Text>
@@ -102,8 +106,8 @@ export const Status = memo((props: Props) => {
                 d={progressDisplay}
                 value={experienceRate}
                 colorScheme={colorScheme}
-                size="sm"
-                w="100px"
+                size="md"
+                w={{ base: "100px", md: "120px", xl: "150px" }}
                 mt={2}
               />
 
@@ -137,13 +141,17 @@ export const Status = memo((props: Props) => {
             </Flex>
           </Stack>
           <Box mt={3}>
-            <Text color="whiteAlpha.800" fontSize="12px" lineHeight={2}>
+            <Text
+              color="whiteAlpha.800"
+              fontSize={{ base: "12px", md: "14px" }}
+              lineHeight={2}
+            >
               あなたの進化はここから始まります！
             </Text>
           </Box>
         </Box>
         <Box>
-          <Image src={titleImage} w="180px" />
+          <Image src={titleImage} w={{ base: "180px", xl: "257px" }} />
         </Box>
       </Flex>
       <Box d={commentDisplay} mx={2} mb={3}>

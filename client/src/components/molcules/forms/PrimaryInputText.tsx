@@ -21,7 +21,12 @@ export const PrimaryInputText = (props: Props) => {
         {...field}
       />
       {meta.error && meta.touched ? (
-        <Text color="red" fontSize="10px" textAlign="start" mt={1}>
+        <Text
+          color="red"
+          fontSize={{ base: "10px", md: "12px" }}
+          textAlign="start"
+          mt={1}
+        >
           {meta.error}
         </Text>
       ) : null}

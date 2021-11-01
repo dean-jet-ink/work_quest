@@ -6,11 +6,13 @@ import column from "../../image/column.svg";
 type Props = {
   title: string;
   fontSize?: string;
-  top?: string;
+  top: string;
+  left: string;
+  right: string;
 };
 
 export const ColumnTitle = memo((props: Props) => {
-  const { title, fontSize = "20px", top = "12px" } = props;
+  const { title, fontSize = "20px", top, left, right } = props;
 
   return (
     <Box position="relative" h="100px">
@@ -32,8 +34,8 @@ export const ColumnTitle = memo((props: Props) => {
         zIndex="2"
         position="absolute"
         top={top}
-        right="0"
-        left="0"
+        right={right}
+        left={left}
         m="auto"
         color="black"
       >

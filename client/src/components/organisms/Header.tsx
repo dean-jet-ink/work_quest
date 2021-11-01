@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 
 import { PrimaryContainer } from "../atoms/PrimaryContainer";
 
-import ranking from "../../image/ranking-rank1.png";
+import ranking from "../../image/rank1.png";
 import guild from "../../image/guild.png";
 import report from "../../image/report.png";
+import { CheerButton } from "../molcules/CheerButton";
 
 type Item = {
   itemName: string;
@@ -33,51 +34,57 @@ const headerItems: Array<Item> = [
 ];
 
 type Props = {
-  onClick: () => void;
+  onOpenProfile: () => void;
+  onOpenCheer: () => void;
   src: string;
 };
 
 export const Header = memo((props: Props) => {
-  const { onClick, src } = props;
+  const { onOpenProfile, onOpenCheer, src } = props;
 
   return (
-    <Box mt={3} mx={2}>
-      <PrimaryContainer>
-        <Flex
-          py={{ base: 3, md: 5 }}
-          px={{ base: 5, md: 8 }}
-          align="center"
-          justify="space-between"
+    <PrimaryContainer>
+      <Flex
+        py={{ base: 3, md: 5 }}
+        px={{ base: 5, md: 8 }}
+        align="center"
+        justify="space-between"
+      >
+        <Box cursor="pointer" onClick={onOpenProfile}>
+          <Image
+            src={src}
+            borderRadius="50%"
+            boxSize={{ base: "50px", md: "60px" }}
+            objectFit="cover"
+          />
+        </Box>
+        <Text
+          d={{ base: "none", md: "block" }}
+          color="white"
+          fontSize={{ md: "35px", lg: "42px" }}
+          ml="15%"
         >
-          <Box cursor="pointer" onClick={onClick}>
-            <Image
-              src={src}
-              borderRadius="50%"
-              w="50px"
-              h="50px"
-              objectFit="cover"
-            />
-          </Box>
-          <Flex align="center" justify="space-around">
-            {headerItems.map((item) => (
-              <Flex
-                key={item.itemName}
-                align="center"
-                justify="center"
-                flexDir="column"
-                ml={{ base: 6, md: 10, lg: 20 }}
-                color="whiteAlpha.800"
-                cursor="pointer"
-              >
-                <Link to={item.path}>
-                  <Text d={{ base: "none", md: "block" }}>{item.itemName}</Text>
-                  <Image src={item.src} w={{ base: "30px", md: "40px" }} />
-                </Link>
-              </Flex>
-            ))}
-          </Flex>
+          Work Quest
+        </Text>
+        <Flex align="center" justify="space-between">
+          <CheerButton onOpenCheer={onOpenCheer} />
+          {headerItems.map((item) => (
+            <Flex
+              key={item.itemName}
+              align="center"
+              justify="center"
+              flexDir="column"
+              ml={{ base: 6, md: 10 }}
+              color="whiteAlpha.800"
+              cursor="pointer"
+            >
+              <Link to={item.path}>
+                <Image src={item.src} w={{ base: "30px", md: "40px" }} />
+              </Link>
+            </Flex>
+          ))}
         </Flex>
-      </PrimaryContainer>
-    </Box>
+      </Flex>
+    </PrimaryContainer>
   );
 });

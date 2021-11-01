@@ -15,14 +15,18 @@ import { Dialog } from "../molcules/Dialog";
 import { useBattle } from "../../hooks/useBattle";
 import { TotalTime } from "../molcules/TotalTime";
 import { useLoginUser } from "../../hooks/useLoginUser";
+import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
 
 export const Battle = memo(() => {
   // 制限時間設定
   const limit = 60 * 25;
+
   // 休憩回数カウント
   const [restCount, setRestCount] = useState(0);
+
   // 休憩時間設定
   const rest = restCount >= 3 ? 60 * 15 : 60 * 5;
+
   const { id } = useParams<{ id: string }>();
   const { loginUserId } = useLoginUser();
   const {
@@ -62,82 +66,108 @@ export const Battle = memo(() => {
 
   return (
     <Box bg="gray.900" h="100vh">
-      <Box p={6}>
-        <PrimaryContainer>
-          <Flex align="center" justify="center" p={3} color="white">
+      <Box px={{ base: 6, lg: "90px" }}>
+        <Box py={{ base: 6 }}>
+          <PrimaryContainer>
+            <Flex
+              align="center"
+              justify="center"
+              p={{ base: 3, md: 6 }}
+              color="white"
+              fontSize={{ lg: "18px" }}
+            >
+              {!finish ? (
+                <Text letterSpacing={1}>
+                  <Box as="span" color="orange">
+                    {smallGoalName}
+                  </Box>
+                  が現れた！
+                </Text>
+              ) : (
+                <Text>一休みしましょう</Text>
+              )}
+            </Flex>
+          </PrimaryContainer>
+        </Box>
+
+        <Box>
+          <TotalTime totalTime={totalTime} fontSize="18px" />
+
+          <Flex
+            align="center"
+            justify="center"
+            pt={{ base: 4, sm: "60px" }}
+            h={{ base: "335px" }}
+          >
             {!finish ? (
-              <Text letterSpacing={1}>
-                <Box as="span" color="orange">
-                  {smallGoalName}
-                </Box>
-                が現れた！
-              </Text>
+              <Image
+                src={enemy}
+                w={{ base: "200px", sm: "260px", lg: "320px", xl: "380px" }}
+              />
             ) : (
-              <Text>一休みしましょう</Text>
+              <Image
+                src={restTime}
+                w={{ base: "200px", sm: "260px", lg: "320px", xl: "380px" }}
+              />
             )}
           </Flex>
-        </PrimaryContainer>
-      </Box>
-      <Box px={6}>
-        <TotalTime totalTime={totalTime} fontSize="18px" />
 
-        <Flex align="center" justify="center" pt={4} h="40%">
-          {!finish ? (
-            <Image src={enemy} w="200px" />
-          ) : (
-            <Image src={restTime} w="150px" />
-          )}
-        </Flex>
+          <Flex
+            align="center"
+            justify="center"
+            fontSize="40px"
+            letterSpacing={1}
+          >
+            {!finish ? (
+              <Text color="white">{time}</Text>
+            ) : (
+              <Text color="#6dcc80">{time}</Text>
+            )}
+          </Flex>
 
-        <Flex align="center" justify="center" fontSize="40px" letterSpacing={1}>
-          {!finish ? (
-            <Text color="white">{time}</Text>
-          ) : (
-            <Text color="#6dcc80">{time}</Text>
-          )}
-        </Flex>
-        <Box pt={6}>
-          <PrimaryContainer>
-            <Box py="10px" color="white">
-              <Flex align="center" justify="space-around" color="white">
-                {!finish ? (
-                  active ? (
-                    <SecondaryButton
-                      onClick={() => {
-                        onClickStop();
-                        pause();
-                      }}
-                      fontSize="18px"
-                    >
-                      一時停止
+          <Box pt={{ base: 6, sm: "100px", md: "60px" }}>
+            <PrimaryContainer>
+              <Box py={{ base: "10px", md: 6 }} color="white">
+                <Flex align="center" justify="space-around" color="white">
+                  {!finish ? (
+                    active ? (
+                      <SecondaryButton
+                        onClick={() => {
+                          onClickStop();
+                          pause();
+                        }}
+                        fontSize="18px"
+                      >
+                        一時停止
+                      </SecondaryButton>
+                    ) : (
+                      <SecondaryButton
+                        onClick={() => {
+                          onClickStart();
+                          play();
+                        }}
+                        fontSize="18px"
+                      >
+                        たたかう
+                      </SecondaryButton>
+                    )
+                  ) : active ? (
+                    <SecondaryButton onClick={onClickFinish} fontSize="18px">
+                      休憩おわり
                     </SecondaryButton>
                   ) : (
-                    <SecondaryButton
-                      onClick={() => {
-                        onClickStart();
-                        play();
-                      }}
-                      fontSize="18px"
-                    >
-                      たたかう
+                    <SecondaryButton onClick={onClickStart} fontSize="18px">
+                      休憩する
                     </SecondaryButton>
-                  )
-                ) : active ? (
-                  <SecondaryButton onClick={onClickFinish} fontSize="18px">
-                    休憩おわり
-                  </SecondaryButton>
-                ) : (
-                  <SecondaryButton onClick={onClickStart} fontSize="18px">
-                    休憩する
-                  </SecondaryButton>
-                )}
+                  )}
 
-                <SecondaryButton onClick={onOpen} fontSize="18px">
-                  {!finish ? "にげる" : "おわる"}
-                </SecondaryButton>
-              </Flex>
-            </Box>
-          </PrimaryContainer>
+                  <SecondaryButton onClick={onOpen} fontSize="18px">
+                    {!finish ? "にげる" : "おわる"}
+                  </SecondaryButton>
+                </Flex>
+              </Box>
+            </PrimaryContainer>
+          </Box>
         </Box>
       </Box>
       <Dialog

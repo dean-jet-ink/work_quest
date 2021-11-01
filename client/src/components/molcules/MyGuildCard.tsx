@@ -4,6 +4,7 @@ import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
 import { Guild } from "../../types/guild";
 import { Comment } from "./Comment";
 import { PeopleOfNumber } from "./PeopleOfNumber";
+import paper from "../../image/paper.png";
 
 type Props = {
   guild: Guild;
@@ -15,31 +16,28 @@ export const MyGuildCard = (props: Props) => {
 
   return (
     <Link to={`/top/myguild/${guild.guildId}`}>
-      <Box bg="#f0e8d8" p={7}>
-        <Box pb={3}>
-          <Text fontSize="25px" fontWeight="bold">
-            lv10
-          </Text>
-        </Box>
-        <Flex align="center">
-          <Box w="60%">
+      <Box
+        bg={`center/cover url(${paper}) no-repeat`}
+        w={{ base: "300px" }}
+        h={{ base: "380px" }}
+        shadow="md"
+      >
+        <Box bgColor="#b98b3a1f" h="100%" p="27px">
+          <Stack spacing={4}>
             <Image
               src={inspectedPicture}
-              w="120px"
-              h="120px"
+              boxSize="160px"
               mx="auto"
               borderRadius="50%"
             />
-          </Box>
-          <Stack>
-            <Text fontSize="18px" fontWeight="bold">
+            <Text fontSize="14px" fontWeight="bold" textAlign="center">
               {guild.guildName}
             </Text>
             <PeopleOfNumber num={5} />
+            <Box>
+              <Comment>{`*「 ${guild.comment} 」`}</Comment>
+            </Box>
           </Stack>
-        </Flex>
-        <Box py={4}>
-          <Comment>{`*「 ${guild.comment} 」`}</Comment>
         </Box>
       </Box>
     </Link>

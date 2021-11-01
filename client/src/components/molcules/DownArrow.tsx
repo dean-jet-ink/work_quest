@@ -4,16 +4,7 @@ import { Image } from "@chakra-ui/react";
 import { MotionBox } from "../../animation/MotionBox";
 import down_arrow from "../../image/down_arrow.svg";
 
-type Props = {
-  top?: string;
-  bottom?: string;
-  right?: string;
-  left?: string;
-};
-
-export const DownArrow = memo((props: Props) => {
-  const { top, bottom, right, left } = props;
-
+export const DownArrow = memo(() => {
   return (
     <MotionBox
       as="div"
@@ -29,12 +20,9 @@ export const DownArrow = memo((props: Props) => {
         repeatDelay: 1.3,
       }}
       position="absolute"
-      top={top}
-      bottom={bottom}
-      right={right}
-      left={left}
+      bottom={{ base: "-20px", md: "-30px" }}
     >
-      <Image src={down_arrow} boxSize="50px" alt="" />
+      <Image src={down_arrow} boxSize={{ base: "50px", md: "65px" }} alt="" />
     </MotionBox>
   );
 });

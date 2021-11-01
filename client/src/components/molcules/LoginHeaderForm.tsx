@@ -12,7 +12,7 @@ export const LoginHeaderForm = (props: Props) => {
 
   return (
     <Flex
-      w="100vh"
+      w="100%"
       bg="gray.100"
       align="center"
       justify="center"
@@ -20,8 +20,14 @@ export const LoginHeaderForm = (props: Props) => {
       py={7}
     >
       <Box>
-        <Heading as="h1">Work Quest</Heading>
-        <Box py={7} px={20} spacing={20}>
+        <Text
+          fontSize={{ base: "30px", md: "80px", lg: "150px" }}
+          fontWeight="bold"
+          mb={{ sm: 3, md: 8 }}
+        >
+          Work Quest
+        </Text>
+        <Box py={7} spacing={20} w={{ base: "170px", md: "200px" }} mx="auto">
           {children}
         </Box>
         {signup ? (

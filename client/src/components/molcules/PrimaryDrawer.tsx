@@ -13,10 +13,17 @@ type Props = {
   isOpen: boolean;
   children: ReactNode;
   placement?: SlideDirection;
+  closeButtonColor?: string;
 };
 
 export const PrimaryDrawer = memo((props: Props) => {
-  const { onClose, isOpen, children, placement = "bottom" } = props;
+  const {
+    onClose,
+    isOpen,
+    children,
+    placement = "bottom",
+    closeButtonColor = "black",
+  } = props;
 
   return (
     <Drawer
@@ -24,13 +31,12 @@ export const PrimaryDrawer = memo((props: Props) => {
       isOpen={isOpen}
       placement={placement}
       autoFocus={false}
+      size="md"
     >
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerBody p="0">
-          <DrawerCloseButton />
-          {children}
-        </DrawerBody>
+        <DrawerCloseButton top="25px" right="45px" color={closeButtonColor} />
+        {children}
       </DrawerContent>
     </Drawer>
   );

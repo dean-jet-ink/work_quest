@@ -1,26 +1,33 @@
-import { Box, Text } from "@chakra-ui/react";
-import { useSelectGuild } from "../../hooks/useSelectGuild";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import { Guild } from "../../types/guild";
-import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
 import { MyGuildCard } from "../molcules/MyGuildCard";
 
 export const MyGuildList = (props: { myGuildList: Guild[] }) => {
   const { myGuildList } = props;
 
   return (
-    <PrimaryWrapper>
-      <Text color="#cacaca" my={3}>
-        ({myGuildList.length}/3)
-      </Text>
+    <Box>
+      <Box mb={{ base: 2, md: 8, lg: 10 }}>
+        <Text color="white" fontSize={{ lg: "18px" }}>
+          ({myGuildList.length}/3)
+        </Text>
+      </Box>
       {myGuildList.length !== 0 ? (
-        <Box>
+        <Flex
+          flexDir={{ base: "column", md: "row" }}
+          flexWrap="wrap"
+          justify="center"
+          align="center"
+        >
           {myGuildList.map((guild) => (
-            <MyGuildCard key={guild.guildId} guild={guild} />
+            <Box mb={{ base: 5, lg: 10 }} ml={{ base: 5, lg: 10 }}>
+              <MyGuildCard key={guild.guildId} guild={guild} />
+            </Box>
           ))}
-        </Box>
+        </Flex>
       ) : (
         <Text>所属しているギルドはありません</Text>
       )}
-    </PrimaryWrapper>
+    </Box>
   );
 };

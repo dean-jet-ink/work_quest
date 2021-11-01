@@ -40,7 +40,7 @@ export const WorkList = memo((props: Props) => {
 
   return (
     <Accordion allowToggle>
-      <Stack spacing={2}>
+      <Stack spacing={{ base: 2 }}>
         {works.map((work, index) => (
           <AccordionItem key={work.id} border="unset">
             <AccordionButton p="0" _focus={{ boxShadow: "unset" }}>
@@ -50,7 +50,8 @@ export const WorkList = memo((props: Props) => {
               <Box
                 bg="#f5e8c3"
                 mx={1}
-                p={{ base: 6 }}
+                p={{ base: 6, lg: 12 }}
+                px={{ xl: "90px" }}
                 borderBottomEndRadius={5}
                 borderBottomLeftRadius={5}
               >
