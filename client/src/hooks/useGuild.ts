@@ -23,15 +23,32 @@ export const useGuild = (guildId: number) => {
     });
   }, [guildId]);
 
-  const onClickDelete = useCallback((userId: number) => {
+  const onClickExit = useCallback(
+    (userId: number) => {
+      axios
+        .delete("http://localhost:4000/delete/guild/member", {
+          data: { userId, guildId },
+        })
+        .then(() => {
+          history.push("/top/guild");
+        })
+        .catch((err) => {
+          if (err) throw err;
+        });
+    },
+    [guildId]
+  );
+
+  const onClickDelete = useCallback(() => {
     axios
-      .delete("http://localhost:4000/delete/guild", {
-        data: { userId, guildId },
-      })
+      .delete("http://localhost:4000/delete/guild", { data: { guildId } })
       .then(() => {
         history.push("/top/guild");
+      })
+      .catch((err) => {
+        if (err) throw err;
       });
   }, []);
 
-  return { guild, onClickDelete };
+  return { guild, onClickExit, onClickDelete };
 };

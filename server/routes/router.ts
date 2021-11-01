@@ -3,6 +3,8 @@ import { auth } from "../models/auth";
 import { completedSmallGoal } from "../models/db/querys/completedSmallGoal";
 import { completedWork } from "../models/db/querys/completedWork";
 import { deleteCheer } from "../models/db/querys/deleteCheer";
+import { deleteGuild } from "../models/db/querys/deleteGuild";
+import { deleteGuildMember } from "../models/db/querys/deleteGuildMember";
 import { deleteSmallGoal } from "../models/db/querys/deleteSmallGoal";
 import { deleteWork } from "../models/db/querys/deleteWork";
 import { fetchChat } from "../models/db/querys/fetchChat";
@@ -144,4 +146,10 @@ router
   })
   .delete("/delete/cheer", (req, res) => {
     deleteCheer(req, res);
+  })
+  .delete("/delete/guild/member", (req, res) => {
+    deleteGuildMember(req, res);
+  })
+  .delete("/delete/guild/", (req, res) => {
+    deleteGuild(req, res);
   });
