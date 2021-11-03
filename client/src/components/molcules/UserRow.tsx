@@ -34,7 +34,7 @@ export const UserRow = (props: Props) => {
       default:
         return "unset";
     }
-  }, []);
+  }, []); //ランキングページにおいて、順位が3位以内ならば王冠表示
   const rank = place(index);
 
   return (
@@ -45,27 +45,27 @@ export const UserRow = (props: Props) => {
       borderRadius="4px"
     >
       <Link to={`/top/member/${user.userId}`} style={{ pointerEvents: noLink }}>
-        <Flex align="center" h="100%">
-          <Box
-            position="relative"
-            mr={{ base: 3 }}
-            fontWeight="bold"
-            color="#785117"
-            d={ranking}
-          >
-            <Image
-              src={rank}
-              position="absolute"
-              maxW="unset"
-              w="60px"
-              top="-15px"
-              left="-26px"
-            />
-            <Text w="5%" d={ranking}>
-              {index + 1}
-            </Text>
-          </Box>
+        <Flex align="center" justify="space-between" h="100%">
           <Flex align="center" justify="start" w="50%">
+            <Box
+              position="relative"
+              mr={{ base: 3 }}
+              fontWeight="bold"
+              color="#785117"
+              d={ranking}
+            >
+              <Image
+                src={rank}
+                position="absolute"
+                maxW="unset"
+                w="60px"
+                top="-15px"
+                left="-26px"
+              />
+              <Text w="5%" d={ranking}>
+                {index + 1}
+              </Text>
+            </Box>
             <Image
               src={inspectedPicture}
               boxSize="50px"
@@ -85,23 +85,24 @@ export const UserRow = (props: Props) => {
               </Text>
             </Flex>
           </Flex>
-          <Flex justify="center" w="30%">
+          <Flex align="center" w={{ base: "147px", md: "200px" }}>
             <Flex
               textAlign="center"
               justify="center"
-              alignItems="center"
-              w="70px"
-              h="22px"
+              align="center"
+              w={{ base: "70px", md: "100px" }}
               bg="red.500"
               borderRadius="md"
+              mr={{ md: 2 }}
+              py={{ base: 1, md: "8px" }}
             >
-              <Text fontWeight="bold" fontSize="12px" color="white">
+              <Text fontWeight="bold" fontSize="15px" color="white">
                 {user.title}
               </Text>
             </Flex>
-          </Flex>
-          <Flex justify="start" w="5%">
-            <TotalTime totalTime={user.totalTime} />
+            <Box fontSize={{ lg: "18px" }}>
+              <TotalTime totalTime={user.totalTime} fontSize="inherit" />
+            </Box>
           </Flex>
         </Flex>
       </Link>

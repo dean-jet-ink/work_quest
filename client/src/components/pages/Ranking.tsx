@@ -19,21 +19,22 @@ export const Ranking = memo(() => {
           <Box
             position="relative"
             mx="auto"
-            w="500px"
+            w={{ sm: "500px" }}
             h={{ base: "231px", lg: "261px" }}
           >
             <Box
               position="absolute"
               top={{ base: "65px" }}
-              left={{ base: "38px", md: "-10px", lg: "-110px" }}
+              left={{ base: "5px", sm: "38px", md: "-10px", lg: "-110px" }}
+              zIndex={1}
             >
               <LineOfChara
                 line="せいぜい頑張んなさい!"
                 position="right"
-                width={{ base: "180px", md: "220px", lg: "285px" }}
+                width={{ base: "154px", sm: "180px", md: "220px", lg: "285px" }}
               />
             </Box>
-            <Box position="absolute" right="30px">
+            <Box position="absolute" right={{ base: "0", sm: "30px" }}>
               <Image
                 src={queen}
                 mt={4}
