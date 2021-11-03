@@ -26,7 +26,9 @@ export const MyGuildList = (props: { myGuildList: Guild[] }) => {
           ))}
         </Flex>
       ) : (
-        <Text>所属しているギルドはありません</Text>
+        <Text color="white" fontSize={{ lg: "18px" }}>
+          所属しているギルドはありません
+        </Text>
       )}
     </Box>
   );
