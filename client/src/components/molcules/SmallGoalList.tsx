@@ -10,10 +10,8 @@ import {
   Spacer,
   AccordionPanel,
   Box,
-  Divider,
 } from "@chakra-ui/react";
 
-import { PrimaryContainer } from "../atoms/PrimaryContainer";
 import { AccordionInnerButton } from "../atoms/AccordionInnerButton";
 import { TotalTime } from "../molcules/TotalTime";
 import { SmallGoal } from "../../types/smallGoal";
@@ -21,20 +19,33 @@ import { Link } from "react-router-dom";
 import { SecondaryButton } from "../atoms/forms/SecondaryButton";
 import { useSelectSmallGoal } from "../../hooks/useSelectSmallGoal";
 import { Dialog } from "./Dialog";
-import { useDisclosureDelete } from "../../hooks/useDisclosureDelete";
 import { useSoundEffect } from "../../hooks/useSoundEffect";
 import complete from "../../assets/audio/complete.mp3";
+import { PrimaryAccordionPanel } from "./PaimaryAccordionPanel";
+import { useDisclosures } from "../../hooks/useDisclosures";
+import { EditSmallGoalModal } from "../organisms/EditSmallGoalModal";
+import { SmallGoalUpdateProps } from "../../hooks/useSmallGoal";
+import { OptionalObjectSchema } from "yup/lib/object";
 
 type Props = {
   smallGoals: Array<SmallGoal>;
+  onClickUpdate: (props: SmallGoalUpdateProps) => void;
   onClickDelete: (id: number, index: number) => void;
   onClickComplete: (id: number, index: number) => void;
+  validationSchema: OptionalObjectSchema<any>;
 };
 
 export const SmallGoalList = memo((props: Props) => {
-  const { smallGoals, onClickDelete, onClickComplete } = props;
+  const {
+    smallGoals,
+    onClickDelete,
+    onClickComplete,
+    onClickUpdate,
+    validationSchema,
+  } = props;
   const { selectedSmallGoal, onSelectSmallGoal } = useSelectSmallGoal();
-  const { isOpenDelete, onOpenDelete, onCloseDelete } = useDisclosureDelete();
+  const { onOpen1, onOpen2, onClose1, onClose2, isOpen1, isOpen2 } =
+    useDisclosures();
   const [completeSound, onClickCompleteSound] = useSoundEffect(complete);
 
   return (
@@ -63,54 +74,47 @@ export const SmallGoalList = memo((props: Props) => {
                 <AccordionIcon />
               </Flex>
             </AccordionButton>
+
             <AccordionPanel p="0">
-              <Box
-                bg="#f5e8c3"
-                mx={1}
-                p={{ base: 6, lg: 12 }}
-                px={{ lg: "90px" }}
-                borderBottomEndRadius={5}
-                borderBottomLeftRadius={5}
-              >
-                <PrimaryContainer>
-                  <Box p={{ base: 5 }}>
-                    <Stack spacing={3}>
-                      <Flex justify="center" color="white">
-                        <Link to={`/top/battle/${smallGoal.id}`}>
-                          <Text fontWeight="bold">たたかう</Text>
-                        </Link>
-                      </Flex>
-                      <Divider />
-                      <Flex align="center" justify="space-around" color="white">
-                        <Flex
-                          justify="center"
-                          w="50%"
-                          onClick={() => {
-                            onClickComplete(smallGoal.id, index);
-                            onClickCompleteSound();
-                          }}
-                        >
-                          <AccordionInnerButton>完了する</AccordionInnerButton>
-                        </Flex>
-                        <Flex justify="center" w="50%">
-                          <SecondaryButton
-                            onClick={() => {
-                              onSelectSmallGoal({
-                                id: smallGoal.id,
-                                smallGoals,
-                                onOpen: onOpenDelete,
-                              });
-                            }}
-                          >
-                            削除する
-                          </SecondaryButton>
-                        </Flex>
-                      </Flex>
-                    </Stack>
-                  </Box>
-                </PrimaryContainer>
-              </Box>
+              <PrimaryAccordionPanel>
+                <Flex
+                  justify="center"
+                  color="white"
+                  _hover={{ color: "orange" }}
+                >
+                  <Link to={`/top/battle/${smallGoal.id}`}>
+                    <Text fontWeight="bold">たたかう</Text>
+                  </Link>
+                </Flex>
+                <SecondaryButton onClick={onOpen1}>編集する</SecondaryButton>
+                <Box
+                  onClick={() => {
+                    onClickComplete(smallGoal.id, index);
+                    onClickCompleteSound();
+                  }}
+                >
+                  <AccordionInnerButton>完了する</AccordionInnerButton>
+                </Box>
+                <SecondaryButton
+                  onClick={() => {
+                    onSelectSmallGoal({
+                      id: smallGoal.id,
+                      smallGoals,
+                      onOpen: onOpen2,
+                    });
+                  }}
+                >
+                  削除する
+                </SecondaryButton>
+              </PrimaryAccordionPanel>
             </AccordionPanel>
+            <EditSmallGoalModal
+              smallGoal={smallGoal}
+              onSubmit={onClickUpdate}
+              validationSchema={validationSchema}
+              onClose={onClose1}
+              isOpen={isOpen1}
+            />
           </AccordionItem>
         ))}
       </Stack>
@@ -123,8 +127,8 @@ export const SmallGoalList = memo((props: Props) => {
             smallGoals.indexOf(selectedSmallGoal)
           );
         }}
-        onClose={onCloseDelete}
-        isOpen={isOpenDelete}
+        onClose={onClose2}
+        isOpen={isOpen2}
       />
     </Accordion>
   );

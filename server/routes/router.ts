@@ -31,8 +31,10 @@ import { signup } from "../models/db/querys/signup";
 import { updateLevel } from "../models/db/querys/updateLevel";
 import { updateProfile } from "../models/db/querys/updateProfile";
 import { updateReport } from "../models/db/querys/updateReport";
+import { updateSmallGoal } from "../models/db/querys/updateSmallGoal";
 import { updateTitle } from "../models/db/querys/updateTitle";
 import { updateTotalTime } from "../models/db/querys/updateTotalTime";
+import { updateWork } from "../models/db/querys/updateWork";
 import { validateDuplicatedMail } from "../models/db/querys/validateDuplicatedMail";
 import { logout } from "../models/logout";
 
@@ -137,6 +139,12 @@ router
   })
   .put("/update/report/:day/:id", (req, res) => {
     updateReport(req, res);
+  })
+  .put("/update/work/:id", (req, res) => {
+    updateWork(req, res);
+  })
+  .put("/update/smallgoal/:id", (req, res) => {
+    updateSmallGoal(req, res);
   })
   .delete("/delete/work", (req, res) => {
     deleteWork(req, res);

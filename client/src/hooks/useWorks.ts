@@ -6,6 +6,7 @@ import * as Yup from "yup";
 
 import { Work } from "../types/work";
 import { useShowMessage } from "./useShowMessage";
+import { useFormatCamel } from "../hooks/useFormatCamel";
 
 // topページからmodalへpropsとして渡すため,そこでの型定義のためにexport
 export type WorkInitialValuesType = {
@@ -17,30 +18,40 @@ export type WorkOnSubmitProps = {
   values: WorkInitialValuesType;
   actions: FormikHelpers<WorkInitialValuesType>;
 };
+export type WorkUpdateProps = {
+  values: {
+    workName: string;
+    deadline: string | null;
+  };
+  actions: FormikHelpers<{ workName: string; deadline: string | null }>;
+  workId: number;
+};
 
 export const useWorks = (userId: number) => {
   const [incompleteWorks, setIncompleteWorks] = useState<Array<Work>>([]);
   const [completeWorks, setCompletedWorks] = useState<Array<Work>>([]);
   const { showMessage } = useShowMessage();
+  const { snakeToCamel } = useFormatCamel();
+  const now = moment();
+  const workInitialValues: WorkInitialValuesType = {
+    workName: "",
+    created: now.format("YYYY-MM-DD HH:mm:ss"),
+    deadline: null,
+  };
 
   useEffect(() => {
     axios
       .get<Array<any>>(`http://localhost:4000/fetch/works/${userId}`)
       .then((res) => {
-        const newIncompleteWorks: Array<Work> = [];
-        const newCompleteWorks: Array<Work> = [];
-        res.data.map((work) => {
-          const newWork = {
-            id: work.work_id,
-            workName: work.work_name,
-            completed: work.completed,
-            deadline: work.deadline,
-            totalTime: work.total_time,
-          };
-          if (newWork.completed) {
-            newCompleteWorks.push(newWork);
+        const newIncompleteWorks: Work[] = [];
+        const newCompleteWorks: Work[] = [];
+        const formatedList = snakeToCamel(res.data, "work");
+        const workList = formatedList as Work[];
+        workList.map((work) => {
+          if (work.completed) {
+            newCompleteWorks.push(work);
           } else {
-            newIncompleteWorks.push(newWork);
+            newIncompleteWorks.push(work);
           }
         });
 
@@ -48,14 +59,6 @@ export const useWorks = (userId: number) => {
         setCompletedWorks(newCompleteWorks);
       });
   }, [userId]);
-
-  const now = moment();
-
-  const workInitialValues: WorkInitialValuesType = {
-    workName: "",
-    created: now.format("YYYY-MM-DD HH:mm:ss"),
-    deadline: null,
-  };
 
   const onSubmit = useCallback(
     (props: WorkOnSubmitProps) => {
@@ -114,7 +117,7 @@ export const useWorks = (userId: number) => {
           id,
           completed: true,
         })
-        .then((res) => {
+        .then(() => {
           deleteFromIncompleteState(index);
 
           const newWorks = [...completeWorks, incompleteWorks[index]];
@@ -143,6 +146,33 @@ export const useWorks = (userId: number) => {
     [incompleteWorks, completeWorks]
   );
 
+  const onClickUpdate = useCallback(
+    (props: WorkUpdateProps) => {
+      const { values, actions, workId } = props;
+      axios
+        .put(`http://localhost:4000/update/work/${userId}`, {
+          workId,
+          ...values,
+        })
+        .then((res) => {
+          const formatedList = snakeToCamel(res.data, "work");
+          const workList = formatedList as Work[];
+          const incompleteList: Work[] = [];
+          workList.map((work) => {
+            if (!work.completed) {
+              incompleteList.push(work);
+            }
+          });
+          setIncompleteWorks(incompleteList);
+          actions.setSubmitting(false);
+        })
+        .catch((err) => {
+          if (err) throw err;
+        });
+    },
+    [userId]
+  );
+
   const workValidationSchema = Yup.object({
     workName: Yup.string().required("入力必須です"),
   });
@@ -156,6 +186,7 @@ export const useWorks = (userId: number) => {
     onClickDelete,
     onClickComplete,
     onClickBack,
+    onClickUpdate,
     workValidationSchema,
   };
 };

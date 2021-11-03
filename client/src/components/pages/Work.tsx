@@ -33,6 +33,7 @@ export const Work = memo(() => {
     onClickDelete,
     onClickComplete,
     onClickBack,
+    onClickUpdate,
     smallGoalValidationSchema,
   } = useSmallGoal(Number(id));
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -162,6 +163,8 @@ export const Work = memo(() => {
                         smallGoals={incompletedSmallGoals}
                         onClickDelete={onClickDelete}
                         onClickComplete={onClickComplete}
+                        onClickUpdate={onClickUpdate}
+                        validationSchema={smallGoalValidationSchema}
                       />
                     ) : (
                       <Flex align="center" justify="center" pt={5}>

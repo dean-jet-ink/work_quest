@@ -10,20 +10,21 @@ import { PrimaryInputText } from "../molcules/forms/PrimaryInputText";
 import { PrimaryModal } from "../molcules/PrimaryModal";
 import { Box } from "@chakra-ui/layout";
 import { SubmitOrCancel } from "../molcules/forms/SubmitOrCancel";
-import { WorkInitialValuesType, WorkOnSubmitProps } from "../../hooks/useWorks";
+import { WorkUpdateProps } from "../../hooks/useWorks";
 import "../../assets/css/react-dates.css";
 import { OptionalObjectSchema } from "yup/lib/object";
+import { Work } from "../../types/work";
 
 type Props = {
-  initialValues: WorkInitialValuesType;
-  onSubmit: (values: WorkOnSubmitProps) => void;
+  work: Work;
+  onSubmit: (props: WorkUpdateProps) => void;
   validationSchema: OptionalObjectSchema<any>;
   onClose: () => void;
   isOpen: boolean;
 };
 
-export const AddWorkModal = memo((props: Props) => {
-  const { initialValues, onSubmit, validationSchema, onClose, isOpen } = props;
+export const EditWorkModal = memo((props: Props) => {
+  const { work, onSubmit, validationSchema, onClose, isOpen } = props;
   const [date, setDate] = useState<Moment>();
   const [focused, setFocused] = useState(false);
 
@@ -31,10 +32,13 @@ export const AddWorkModal = memo((props: Props) => {
     <PrimaryModal onClose={onClose} isOpen={isOpen} isCentered={false}>
       <Box py={{ base: 10 }} px={{ base: 10 }}>
         <Formik
-          initialValues={initialValues}
+          initialValues={{
+            workName: work.workName,
+            deadline: work.deadline,
+          }}
           onSubmit={(values, actions) => {
             setTimeout(() => {
-              onSubmit({ values, actions });
+              onSubmit({ values, actions, workId: work.id });
               onClose();
             }, 500);
           }}
@@ -69,7 +73,11 @@ export const AddWorkModal = memo((props: Props) => {
                   block={true}
                 />
               </FormLabel>
-              <SubmitOrCancel onClose={onClose} isLoading={isSubmitting} />
+              <SubmitOrCancel
+                onClose={onClose}
+                isLoading={isSubmitting}
+                text="編集"
+              />
             </Form>
           )}
         </Formik>
