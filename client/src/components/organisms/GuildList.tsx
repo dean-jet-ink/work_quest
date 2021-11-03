@@ -30,7 +30,7 @@ export const GuildList = (props: Props) => {
   );
 
   return (
-    <Wrap spacing={{ base: 5, lg: 10 }}>
+    <Wrap spacing={{ base: 5, lg: 10 }} justify="center">
       {guildList.map((guild) => (
         <GuildCard
           key={guild.guildId}
