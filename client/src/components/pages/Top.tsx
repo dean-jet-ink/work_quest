@@ -40,6 +40,7 @@ export const Top: VFC = memo(() => {
     onClickDelete,
     onClickComplete,
     onClickBack,
+    onClickUpdate,
     workValidationSchema,
   } = useWorks(loginUserId as number);
   const { file, fileLoad } = useFile(inspectedPicture);
@@ -103,6 +104,8 @@ export const Top: VFC = memo(() => {
                           works={incompleteWorks}
                           onClickDelete={onClickDelete}
                           onClickComplete={onClickComplete}
+                          onSubmit={onClickUpdate}
+                          validationSchema={workValidationSchema}
                         />
                       ) : (
                         <Flex align="center" justify="center" pt={5}>

@@ -5,6 +5,8 @@ import { useCallback, useEffect, useState } from "react";
 import { SmallGoal } from "../types/smallGoal";
 import { useShowMessage } from "./useShowMessage";
 import * as Yup from "yup";
+import { FormikHelpers } from "formik";
+import { useFormatCamel } from "./useFormatCamel";
 
 export type InitialValuesType = {
   smallGoalName: string;
@@ -15,16 +17,24 @@ type OnSubmitProps = {
   values: InitialValuesType;
 };
 
-export const useSmallGoal = (id: number) => {
+export type SmallGoalUpdateProps = {
+  values: {
+    smallGoalName: string;
+  };
+  smallGoalId: number;
+};
+
+export const useSmallGoal = (workId: number) => {
   const [workName, setWorkName] = useState("");
   const [workTotalTime, setWorkTotalTime] = useState(0);
   const [incompletedSmallGoals, setIncompletedSmallGoals] = useState<
-    Array<SmallGoal>
+    SmallGoal[]
   >([]);
-  const [completedSmallGoals, setCompletedSmallGoals] = useState<
-    Array<SmallGoal>
-  >([]);
+  const [completedSmallGoals, setCompletedSmallGoals] = useState<SmallGoal[]>(
+    []
+  );
   const { showMessage } = useShowMessage();
+  const { snakeToCamel } = useFormatCamel();
   const now = moment();
   const initialValues: InitialValuesType = {
     smallGoalName: "",
@@ -33,7 +43,7 @@ export const useSmallGoal = (id: number) => {
 
   useEffect(() => {
     axios
-      .get<any[]>(`http://localhost:4000/fetch/smallgoals/${id}`)
+      .get<any[]>(`http://localhost:4000/fetch/smallgoals/${workId}`)
       .then((res) => {
         setWorkName(res.data[0].work_name);
 
@@ -68,7 +78,7 @@ export const useSmallGoal = (id: number) => {
   const onSubmit = useCallback(
     (values: InitialValuesType) => {
       axios
-        .post(`http://localhost:4000/post/smallgoal/${id}`, values)
+        .post(`http://localhost:4000/post/smallgoal/${workId}`, values)
         .then((res) => {
           showMessage({
             description: `${values.smallGoalName}を追加しました`,
@@ -148,6 +158,32 @@ export const useSmallGoal = (id: number) => {
     [incompletedSmallGoals, completedSmallGoals]
   );
 
+  const onClickUpdate = useCallback(
+    (props: SmallGoalUpdateProps) => {
+      const { values, smallGoalId } = props;
+      axios
+        .put(`http://localhost:4000/update/smallgoal/${workId}`, {
+          smallGoalId,
+          ...values,
+        })
+        .then((res) => {
+          const formatedList = snakeToCamel(res.data, "smallGoal");
+          const smallGoalList = formatedList as SmallGoal[];
+          const incompleteList: SmallGoal[] = [];
+          smallGoalList.map((smallGoal) => {
+            if (!smallGoal.completed) {
+              incompleteList.push(smallGoal);
+            }
+          });
+          setIncompletedSmallGoals(incompleteList);
+        })
+        .catch((err) => {
+          if (err) throw err;
+        });
+    },
+    [workId]
+  );
+
   const smallGoalValidationSchema = Yup.object({
     smallGoalName: Yup.string().required("入力必須です"),
   });
@@ -163,6 +199,7 @@ export const useSmallGoal = (id: number) => {
     onClickDelete,
     onClickComplete,
     onClickBack,
+    onClickUpdate,
     smallGoalValidationSchema,
   };
 };

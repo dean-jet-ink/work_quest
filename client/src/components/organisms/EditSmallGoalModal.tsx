@@ -1,33 +1,37 @@
 import { memo } from "react";
-import { FormLabel, Flex, Stack } from "@chakra-ui/react";
+import { FormLabel, Flex, HStack, Button, Stack } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 
+import { PrimaryButton } from "../atoms/forms/PrimarButton";
 import { PrimaryInputText } from "../molcules/forms/PrimaryInputText";
 import { PrimaryModal } from "../molcules/PrimaryModal";
 import { Box } from "@chakra-ui/layout";
-import { InitialValuesType } from "../../hooks/useSmallGoal";
+import { SmallGoal } from "../../types/smallGoal";
+import { SmallGoalUpdateProps } from "../../hooks/useSmallGoal";
 import { OptionalObjectSchema } from "yup/lib/object";
 import { SubmitOrCancel } from "../molcules/forms/SubmitOrCancel";
 
 type Props = {
-  initialValues: InitialValuesType;
-  onSubmit: (values: InitialValuesType) => void;
+  smallGoal: SmallGoal;
+  onSubmit: (props: SmallGoalUpdateProps) => void;
   validationSchema: OptionalObjectSchema<any>;
   onClose: () => void;
   isOpen: boolean;
 };
 
-export const AddSmallGoalModal = memo((props: Props) => {
-  const { initialValues, onSubmit, validationSchema, onClose, isOpen } = props;
+export const EditSmallGoalModal = memo((props: Props) => {
+  const { smallGoal, onSubmit, validationSchema, onClose, isOpen } = props;
 
   return (
     <PrimaryModal onClose={onClose} isOpen={isOpen}>
       <Box py={{ base: 10 }} px={{ base: 10 }}>
         <Formik
-          initialValues={initialValues}
+          initialValues={{
+            smallGoalName: smallGoal.smallGoalName,
+          }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              onSubmit(values);
+              onSubmit({ values, smallGoalId: smallGoal.id });
               setSubmitting(false);
               onClose();
             }, 500);
@@ -42,7 +46,11 @@ export const AddSmallGoalModal = memo((props: Props) => {
                   <PrimaryInputText name="smallGoalName" />
                 </FormLabel>
                 <Flex align="center" justify="center">
-                  <SubmitOrCancel onClose={onClose} isLoading={isSubmitting} />
+                  <SubmitOrCancel
+                    onClose={onClose}
+                    isLoading={isSubmitting}
+                    text="編集"
+                  />
                 </Flex>
               </Stack>
             </Form>

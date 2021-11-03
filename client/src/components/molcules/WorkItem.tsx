@@ -4,7 +4,7 @@ import moment from "moment";
 
 type Props = {
   name: string;
-  deadline: string;
+  deadline: string | null;
 };
 
 export const WorkItem = (props: Props) => {
