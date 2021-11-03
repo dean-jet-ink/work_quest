@@ -12,7 +12,7 @@ export const TotalTime = memo((props: Props) => {
   const { totalTime, color = "white", fontSize = "15px" } = props;
 
   return (
-    <Flex align="center" mr={2} color={color} fontSize={fontSize}>
+    <Flex align="center" color={color} fontSize={fontSize}>
       <TimerIcon />
       <Text>{totalTime}h</Text>
     </Flex>
