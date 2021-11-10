@@ -1,5 +1,13 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import villager from "../image/title/villager.png";
+import villagerStrong from "../image/title/villager_strong.png";
+import soldier from "../image/title/soldier.png";
+import soldierStrong from "../image/title/soldier_strong.png";
+import knight from "../image/title/knight.png";
+import royalKnight from "../image/title/royal_knight.png";
+import adventurer from "../image/title/adventurer.png";
+import breaver from "../image/title/breaver.png";
 
 type Props = {
   onOpenLevelUp: () => void;
@@ -17,7 +25,6 @@ export const useLevelUp = (id: number) => {
   const [levelComposition, setLevelComposition] = useState<Array<number>>([]);
 
   const decideTitle = (lv: number): string => {
-    // 文字列をreturnする
     switch (true) {
       case lv < 7:
         return "村人A";
@@ -29,7 +36,7 @@ export const useLevelUp = (id: number) => {
         return "見習い兵士";
 
       case lv >= 17 && lv < 25:
-        return "兵士";
+        return "頼もしい兵士";
 
       case lv >= 25 && lv < 36:
         return "騎士";
@@ -57,59 +64,37 @@ export const useLevelUp = (id: number) => {
   const decideTitleImage = useCallback((title: string) => {
     switch (true) {
       case title === "村人A":
-        setTitleImage(
-          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager.png"
-        );
+        setTitleImage(villager);
         break;
       case title === "村の力自慢":
-        setTitleImage(
-          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
-        );
+        setTitleImage(villagerStrong);
         break;
       case title === "見習い兵士":
-        setTitleImage(
-          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
-        );
+        setTitleImage(soldier);
         break;
-      case title === "兵士":
-        setTitleImage(
-          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
-        );
+      case title === "頼もしい兵士":
+        setTitleImage(soldierStrong);
         break;
       case title === "騎士":
-        setTitleImage(
-          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
-        );
+        setTitleImage(knight);
         break;
       case title === "近衛騎士":
-        setTitleImage(
-          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
-        );
+        setTitleImage(royalKnight);
         break;
       case title === "冒険者":
-        setTitleImage(
-          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
-        );
+        setTitleImage(adventurer);
         break;
       case title === "勇者":
-        setTitleImage(
-          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
-        );
+        setTitleImage(breaver);
         break;
       case title === "伝説の勇者":
-        setTitleImage(
-          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
-        );
+        setTitleImage(breaver);
         break;
       case title === "Messiah":
-        setTitleImage(
-          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager_strong.png"
-        );
+        setTitleImage(breaver);
         break;
       default:
-        setTitleImage(
-          "https://work-quest.s3.ap-northeast-3.amazonaws.com/static/title/villager.png"
-        );
+        setTitleImage(villager);
         break;
     }
   }, []);
