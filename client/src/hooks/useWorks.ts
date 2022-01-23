@@ -47,31 +47,34 @@ export const useWorks = (userId: number) => {
         const newCompleteWorks: Work[] = [];
         const formatedList = snakeToCamel(res.data, "work");
         const workList = formatedList as Work[];
-        workList.map((work) => {
+        workList.forEach((work) => {
           if (work.completed) {
             newCompleteWorks.push(work);
           } else {
             newIncompleteWorks.push(work);
           }
         });
-
         setIncompleteWorks(newIncompleteWorks);
         setCompletedWorks(newCompleteWorks);
+      })
+      .catch((err) => {
+        throw err;
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   const onSubmit = useCallback(
-    (props: WorkOnSubmitProps) => {
+    async (props: WorkOnSubmitProps) => {
       const { values, actions } = props;
 
-      axios
+      const result = await axios
         .post(`http://localhost:4000/post/work/${userId}`, values)
         .then((res) => {
           showMessage({
             description: `${values.workName}を追加しました`,
             status: "success",
           });
-          const newWork = {
+          const newWork: Work = {
             id: res.data.slice(-1)[0].work_id,
             workName: res.data.slice(-1)[0].work_name,
             completed: res.data.slice(-1)[0].completed,
@@ -79,14 +82,18 @@ export const useWorks = (userId: number) => {
             totalTime: res.data.slice(-1)[0].total_time,
           };
           const newWorks = [...incompleteWorks, newWork];
-          setIncompleteWorks(newWorks);
-          actions.setSubmitting(false);
+          return newWorks;
         })
         .catch((err) => {
-          if (err) throw err;
           actions.setSubmitting(false);
+          throw err;
         });
+      if (result) {
+        setIncompleteWorks(result);
+        actions.setSubmitting(false);
+      }
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [incompleteWorks, userId]
   );
 
@@ -96,6 +103,7 @@ export const useWorks = (userId: number) => {
       newWorks.splice(index, 1);
       setIncompleteWorks(newWorks);
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [incompleteWorks]
   );
 
@@ -105,8 +113,12 @@ export const useWorks = (userId: number) => {
         .delete("http://localhost:4000/delete/work", { data: { id } })
         .then((res) => {
           deleteFromIncompleteState(index);
+        })
+        .catch((err) => {
+          throw err;
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [incompleteWorks]
   );
 
@@ -119,11 +131,14 @@ export const useWorks = (userId: number) => {
         })
         .then(() => {
           deleteFromIncompleteState(index);
-
           const newWorks = [...completeWorks, incompleteWorks[index]];
           setCompletedWorks(newWorks);
+        })
+        .catch((err) => {
+          throw err;
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [incompleteWorks, completeWorks]
   );
 
@@ -141,6 +156,9 @@ export const useWorks = (userId: number) => {
 
           const newIncompleteWorks = [...incompleteWorks, completeWorks[index]];
           setIncompleteWorks(newIncompleteWorks);
+        })
+        .catch((err) => {
+          throw err;
         });
     },
     [incompleteWorks, completeWorks]
@@ -158,18 +176,20 @@ export const useWorks = (userId: number) => {
           const formatedList = snakeToCamel(res.data, "work");
           const workList = formatedList as Work[];
           const incompleteList: Work[] = [];
-          workList.map((work) => {
+          workList.forEach((work) => {
             if (!work.completed) {
               incompleteList.push(work);
             }
           });
-          setIncompleteWorks(incompleteList);
           actions.setSubmitting(false);
+          setIncompleteWorks(incompleteList);
         })
         .catch((err) => {
-          if (err) throw err;
+          actions.setSubmitting(false);
+          throw err;
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [userId]
   );
 

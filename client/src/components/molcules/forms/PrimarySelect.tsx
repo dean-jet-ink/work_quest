@@ -16,7 +16,7 @@ export const PrimarySelect = (props: Props) => {
 
   return (
     <Box>
-      <Select {...field} placeholder={placeholder}>
+      <Select {...field} placeholder={placeholder} data-testid="select">
         {options.map((option) => {
           const { value, text } = option;
           return (

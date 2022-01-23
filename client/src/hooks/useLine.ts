@@ -9,6 +9,7 @@ export const useLine = (init: string) => {
 
   useEffect(() => {
     setLine(init);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { line, changeLine };

@@ -16,7 +16,8 @@ type Props = {
 
 export const CompleteWorkDrawer = (props: Props) => {
   const { completeWorks, onClose, onClick, isOpen } = props;
-  const [BackSound, onClickBackSound] = useSoundEffect(chest);
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [soundEffect, onClickPlaySoundEffect] = useSoundEffect(chest);
 
   return (
     <DrawerContainer
@@ -25,7 +26,7 @@ export const CompleteWorkDrawer = (props: Props) => {
       image={treasure}
       closeButtonColor="white"
     >
-      {completeWorks.length != 0 ? (
+      {completeWorks.length !== 0 ? (
         completeWorks.map((work, index) => (
           <Flex align="center" justify="center" key={work.id}>
             <Flex
@@ -52,7 +53,7 @@ export const CompleteWorkDrawer = (props: Props) => {
               _active={{ bg: "unset" }}
               onClick={() => {
                 onClick(work.id, index);
-                onClickBackSound();
+                onClickPlaySoundEffect();
               }}
             >
               もどす

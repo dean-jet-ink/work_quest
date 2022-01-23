@@ -1,12 +1,4 @@
-import {
-  Box,
-  Tabs,
-  Tab,
-  TabList,
-  TabPanels,
-  TabPanel,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 
 import { User } from "../../types/user";
 import { UserList } from "./UserList";

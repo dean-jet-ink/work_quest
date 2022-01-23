@@ -25,7 +25,7 @@ export const AddContents = memo((props: Props) => {
         w="fit-content"
         cursor="pointer"
       >
-        <Box onClick={onClick}>
+        <Box onClick={onClick} data-testid="addButton">
           <AddIcon fontSize="large" />
         </Box>
       </Flex>

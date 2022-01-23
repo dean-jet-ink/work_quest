@@ -28,6 +28,7 @@ import { SmallGoalUpdateProps } from "../../hooks/useSmallGoal";
 import { OptionalObjectSchema } from "yup/lib/object";
 
 type Props = {
+  workId: number;
   smallGoals: Array<SmallGoal>;
   onClickUpdate: (props: SmallGoalUpdateProps) => void;
   onClickDelete: (id: number, index: number) => void;
@@ -37,6 +38,7 @@ type Props = {
 
 export const SmallGoalList = memo((props: Props) => {
   const {
+    workId,
     smallGoals,
     onClickDelete,
     onClickComplete,
@@ -46,6 +48,7 @@ export const SmallGoalList = memo((props: Props) => {
   const { selectedSmallGoal, onSelectSmallGoal } = useSelectSmallGoal();
   const { onOpen1, onOpen2, onClose1, onClose2, isOpen1, isOpen2 } =
     useDisclosures();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [completeSound, onClickCompleteSound] = useSoundEffect(complete);
 
   return (
@@ -82,7 +85,7 @@ export const SmallGoalList = memo((props: Props) => {
                   color="white"
                   _hover={{ color: "orange" }}
                 >
-                  <Link to={`/top/battle/${smallGoal.id}`}>
+                  <Link to={`/top/battle/${workId}/${smallGoal.id}`}>
                     <Text fontWeight="bold">たたかう</Text>
                   </Link>
                 </Flex>

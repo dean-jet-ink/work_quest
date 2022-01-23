@@ -19,6 +19,7 @@ export const useCheered = (userId: number) => {
       .catch((err) => {
         if (err) throw err;
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   return { listCheered };

@@ -27,7 +27,7 @@ export const useUser = (userId: number) => {
   const { fileToString } = useFileStringify();
 
   const snakeToCamel = useCallback((item: any) => {
-    const formatedItem = {
+    const formatedItem: User = {
       userId: item.user_id,
       userName: item.user_name,
       mail: item.mail,
@@ -43,19 +43,26 @@ export const useUser = (userId: number) => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/fetch/user/${userId}`)
-      .then((res) => {
-        const user = snakeToCamel(res.data);
-        setUser(user);
-      })
-      .catch((err) => {
-        showMessage({
-          description: "ユーザーの取得に失敗しました",
-          status: "error",
+    const fetchData = async () => {
+      const result = await axios
+        .get(`http://localhost:4000/fetch/user/${userId}`)
+        .then((res) => {
+          const user = snakeToCamel(res.data);
+          return user;
+        })
+        .catch((err) => {
+          showMessage({
+            description: "ユーザーの取得に失敗しました",
+            status: "error",
+          });
+          throw err;
         });
-        throw err;
-      });
+      if (result) {
+        setUser(result);
+      }
+    };
+    fetchData();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   const userInitialValues: UserInitialValuesType = {
@@ -97,16 +104,17 @@ export const useUser = (userId: number) => {
         });
         actions.setSubmitting(false);
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const userValidationSchema = Yup.object({
-    name: Yup.string().required("入力必須です"),
+    name: Yup.string().required("*入力必須です"),
     mail: Yup.string()
-      .email("メールアドレスが正しくありません")
+      .email("*メールアドレスが正しくありません")
       .required("*入力必須です")
       .test(
         "validateDuplicatedMail",
-        "このメールアドレスは既に登録されています",
+        "*このメールアドレスは既に登録されています",
         (value): Promise<boolean> => {
           const validation = axios
             .get(

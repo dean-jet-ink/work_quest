@@ -2,7 +2,7 @@ import { memo } from "react";
 import { Image } from "@chakra-ui/react";
 
 import { MotionBox } from "../../animation/MotionBox";
-import down_arrow from "../../image/down_arrow.svg";
+import downArrow from "../../image/down_arrow.svg";
 
 export const DownArrow = memo(() => {
   return (
@@ -22,7 +22,7 @@ export const DownArrow = memo(() => {
       position="absolute"
       bottom={{ base: "-20px", md: "-30px" }}
     >
-      <Image src={down_arrow} boxSize={{ base: "50px", md: "65px" }} alt="" />
+      <Image src={downArrow} boxSize={{ base: "50px", md: "65px" }} alt="" />
     </MotionBox>
   );
 });

@@ -1,8 +1,7 @@
 import { memo } from "react";
-import { FormLabel, Flex, HStack, Button, Stack } from "@chakra-ui/react";
+import { FormLabel, Flex, Stack } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 
-import { PrimaryButton } from "../atoms/forms/PrimarButton";
 import { PrimaryInputText } from "../molcules/forms/PrimaryInputText";
 import { PrimaryModal } from "../molcules/PrimaryModal";
 import { Box } from "@chakra-ui/layout";

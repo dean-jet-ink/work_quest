@@ -64,6 +64,7 @@ export const useProfile = (
           status: "error",
         });
         actions.setSubmitting(false);
+        throw err;
       });
   }, []);
 

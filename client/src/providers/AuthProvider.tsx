@@ -12,6 +12,7 @@ export const AuthProvider = memo((props: { children: ReactNode }) => {
     axios.get<{ userId: number }>("http://localhost:4000/auth").then((res) => {
       setLoginUserId(res.data.userId);
     });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <>{children}</>;

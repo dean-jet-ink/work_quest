@@ -3,7 +3,6 @@ import { Flex, Box, Image, Text, useDisclosure } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 import { PrimaryContainer } from "../atoms/PrimaryContainer";
-import { SecondaryButton } from "../atoms/forms/SecondaryButton";
 import { useEnemyEncounter } from "../../hooks/useEnemyEncounter";
 import restTime from "../../image/restTime.png";
 import { useWhiteNoise } from "../../hooks/useWhiteNoise";
@@ -15,7 +14,7 @@ import { Dialog } from "../molcules/Dialog";
 import { useBattle } from "../../hooks/useBattle";
 import { TotalTime } from "../molcules/TotalTime";
 import { useLoginUser } from "../../hooks/useLoginUser";
-import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
+import { BattleButtons } from "../molcules/BattleButtons";
 
 export const Battle = memo(() => {
   // 制限時間設定
@@ -27,7 +26,8 @@ export const Battle = memo(() => {
   // 休憩時間設定
   const rest = restCount >= 3 ? 60 * 15 : 60 * 5;
 
-  const { id } = useParams<{ id: string }>();
+  const { workId, smallGoalId } =
+    useParams<{ workId: string; smallGoalId: string }>();
   const { loginUserId } = useLoginUser();
   const {
     smallGoalName,
@@ -40,7 +40,13 @@ export const Battle = memo(() => {
     onClickReset,
     onClickFinish,
     toTimeFormat,
-  } = useBattle({ limit, rest, id: Number(id), userId: loginUserId as number });
+  } = useBattle({
+    limit,
+    rest,
+    workId: Number(workId),
+    smallGoalId: Number(smallGoalId),
+    userId: loginUserId as number,
+  });
   const time = toTimeFormat(timeLeft);
   const { enemy } = useEnemyEncounter();
   const { play, pause } = useWhiteNoise(clock);
@@ -62,6 +68,7 @@ export const Battle = memo(() => {
         soundOver();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft]);
 
   return (
@@ -102,12 +109,12 @@ export const Battle = memo(() => {
             {!finish ? (
               <Image
                 src={enemy}
-                w={{ base: "200px", sm: "260px", lg: "320px", xl: "380px" }}
+                w={{ base: "200px", sm: "260px", lg: "320px" }}
               />
             ) : (
               <Image
                 src={restTime}
-                w={{ base: "200px", sm: "260px", lg: "320px", xl: "380px" }}
+                w={{ base: "200px", sm: "260px", lg: "320px" }}
               />
             )}
           </Flex>
@@ -128,43 +135,16 @@ export const Battle = memo(() => {
           <Box pt={{ base: 6, sm: "100px", md: "60px" }}>
             <PrimaryContainer>
               <Box py={{ base: "10px", md: 6 }} color="white">
-                <Flex align="center" justify="space-around" color="white">
-                  {!finish ? (
-                    active ? (
-                      <SecondaryButton
-                        onClick={() => {
-                          onClickStop();
-                          pause();
-                        }}
-                        fontSize="18px"
-                      >
-                        一時停止
-                      </SecondaryButton>
-                    ) : (
-                      <SecondaryButton
-                        onClick={() => {
-                          onClickStart();
-                          play();
-                        }}
-                        fontSize="18px"
-                      >
-                        たたかう
-                      </SecondaryButton>
-                    )
-                  ) : active ? (
-                    <SecondaryButton onClick={onClickFinish} fontSize="18px">
-                      休憩おわり
-                    </SecondaryButton>
-                  ) : (
-                    <SecondaryButton onClick={onClickStart} fontSize="18px">
-                      休憩する
-                    </SecondaryButton>
-                  )}
-
-                  <SecondaryButton onClick={onOpen} fontSize="18px">
-                    {!finish ? "にげる" : "おわる"}
-                  </SecondaryButton>
-                </Flex>
+                <BattleButtons
+                  active={active}
+                  finish={finish}
+                  onClickStart={onClickStart}
+                  onClickStop={onClickStop}
+                  onClickFinish={onClickFinish}
+                  onOpen={onOpen}
+                  play={play}
+                  pause={pause}
+                />
               </Box>
             </PrimaryContainer>
           </Box>

@@ -16,7 +16,8 @@ type Props = {
 
 export const CompleteSmallGoalDrawer = (props: Props) => {
   const { completeSmallGoals, onClose, onClick, isOpen } = props;
-  const [BackSound, onClickBackSound] = useSoundEffect(cancel);
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [soundEffect, onClickPlaySoundEffect] = useSoundEffect(cancel);
 
   return (
     <DrawerContainer
@@ -25,7 +26,7 @@ export const CompleteSmallGoalDrawer = (props: Props) => {
       image={goalFlag}
       closeButtonColor="white"
     >
-      {completeSmallGoals.length != 0 ? (
+      {completeSmallGoals.length !== 0 ? (
         completeSmallGoals.map((smallGoal, index) => (
           <Flex align="center" justify="center" key={smallGoal.id}>
             <Flex justify="start" align="center" w="70%">
@@ -45,7 +46,7 @@ export const CompleteSmallGoalDrawer = (props: Props) => {
               _active={{ bg: "unset" }}
               onClick={() => {
                 onClick(smallGoal.id, index);
-                onClickBackSound();
+                onClickPlaySoundEffect();
               }}
             >
               もどす

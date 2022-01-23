@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useDisclosure, Wrap, WrapItem } from "@chakra-ui/react";
+import { useDisclosure, Wrap } from "@chakra-ui/react";
 
 import { useSelectGuild } from "../../hooks/useSelectGuild";
 import { GuildDetailModal } from "./GuildDetailModal";
@@ -26,6 +26,7 @@ export const GuildList = (props: Props) => {
       onSelectGuild({ id, guildList });
       onOpen();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [guildList]
   );
 

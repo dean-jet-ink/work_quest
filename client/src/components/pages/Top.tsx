@@ -11,12 +11,9 @@ import { useWorks } from "../../hooks/useWorks";
 import { DrawerButton } from "../molcules/DrawerButton";
 import { useFile } from "../../hooks/useFile";
 import { ProfileFormModal } from "../organisms/ProfileFormModal";
-import { useDisclosureProfile } from "../../hooks/useDisclosureProfile";
-import { useDisclosureWork } from "../../hooks/useDisClosureWork";
-import { useDisclosureComplete } from "../../hooks/useDisclosureComplete";
 import { CompleteWorkDrawer } from "../organisms/CompleteWorkDrawer";
 import { AddWorkModal } from "../organisms/AddWorkModal";
-import { useDisclosureCheer } from "../../hooks/useDisclosureCheer";
+import { useDisclosures } from "../../hooks/useDisclosures";
 import { CheerDrawer } from "../organisms/CheerDrawer";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import { useUser } from "../../hooks/useUser";
@@ -51,22 +48,29 @@ export const Top: VFC = memo(() => {
     title,
     titleImage,
     onClickLevelUp,
-  } = useLevelUp(loginUserId as number);
+  } = useLevelUp(user);
   const { cheerings } = useCheer(loginUserId as number);
   const { listCheered } = useCheered(loginUserId as number);
-
-  const { isOpenProfile, onCloseProfile, onOpenProfile } =
-    useDisclosureProfile();
-  const { isOpenWork, onCloseWork, onOpenWork } = useDisclosureWork();
-  const { isOpenComplete, onCloseComplete, onOpenComplete } =
-    useDisclosureComplete();
-  const { isOpenCheer, onCloseCheer, onOpenCheer } = useDisclosureCheer();
+  const {
+    onOpen1,
+    onOpen2,
+    onOpen3,
+    onOpen4,
+    onClose1,
+    onClose2,
+    onClose3,
+    onClose4,
+    isOpen1,
+    isOpen2,
+    isOpen3,
+    isOpen4,
+  } = useDisclosures();
 
   return (
     <BackgroundCity>
       <PrimaryLayout
-        onOpenProfile={onOpenProfile}
-        onOpenCheer={onOpenCheer}
+        onOpenProfile={onOpen1}
+        onOpenCheer={onOpen4}
         src={inspectedPicture}
       >
         <PrimaryWrapper>
@@ -96,10 +100,10 @@ export const Top: VFC = memo(() => {
                     px={{ base: 6, lg: 8, xl: "50px" }}
                   >
                     <Box mb={{ base: 2 }}>
-                      <AddContents onClick={onOpenWork} />
+                      <AddContents onClick={onOpen2} />
                     </Box>
                     <Box mt={3}>
-                      {incompleteWorks.length != 0 ? (
+                      {incompleteWorks.length !== 0 ? (
                         <WorkList
                           works={incompleteWorks}
                           onClickDelete={onClickDelete}
@@ -121,7 +125,7 @@ export const Top: VFC = memo(() => {
             <Box pt={{ base: "20px", md: "30px" }}>
               <DrawerButton
                 text={`完了したWork (${completeWorks.length})`}
-                onClick={onOpenComplete}
+                onClick={onOpen3}
               />
             </Box>
           </Box>
@@ -131,8 +135,8 @@ export const Top: VFC = memo(() => {
           initialValues={userInitialValues}
           onSubmit={userOnSubmit}
           validationSchema={userValidationSchema}
-          onClose={onCloseProfile}
-          isOpen={isOpenProfile}
+          onClose={onClose1}
+          isOpen={isOpen1}
           onChange={fileLoad}
           src={file}
         />
@@ -140,18 +144,18 @@ export const Top: VFC = memo(() => {
           initialValues={workInitialValues}
           onSubmit={onSubmit}
           validationSchema={workValidationSchema}
-          onClose={onCloseWork}
-          isOpen={isOpenWork}
+          onClose={onClose2}
+          isOpen={isOpen2}
         />
         <CompleteWorkDrawer
           completeWorks={completeWorks}
           onClick={onClickBack}
-          onClose={onCloseComplete}
-          isOpen={isOpenComplete}
+          onClose={onClose3}
+          isOpen={isOpen3}
         />
         <CheerDrawer
-          onClose={onCloseCheer}
-          isOpen={isOpenCheer}
+          onClose={onClose4}
+          isOpen={isOpen4}
           cheerings={cheerings}
           listCheered={listCheered}
         />

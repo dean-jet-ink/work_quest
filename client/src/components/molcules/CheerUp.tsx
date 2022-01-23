@@ -1,14 +1,5 @@
 import { memo } from "react";
-import {
-  Flex,
-  Text,
-  Box,
-  Modal,
-  ModalOverlay,
-  ModalBody,
-  ModalContent,
-  Spinner,
-} from "@chakra-ui/react";
+import { Flex, Text, Box } from "@chakra-ui/react";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import { MotionBox } from "../../animation/MotionBox";
 import { ProsessingModal } from "./ProsessingModal";
@@ -68,6 +59,7 @@ export const CheerUp = memo((props: Props) => {
         </Flex>
       ) : (
         <Flex
+          data-testid="cheerButton"
           align="center"
           cursor="pointer"
           _hover={{ opacity: 0.8 }}

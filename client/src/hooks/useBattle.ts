@@ -9,12 +9,13 @@ import { useReport } from "../hooks/useReport";
 type Props = {
   limit: number;
   rest: number;
-  id: number;
+  workId: number;
+  smallGoalId: number;
   userId: number;
 };
 
 export const useBattle = (props: Props) => {
-  const { limit, rest, id, userId } = props;
+  const { limit, rest, workId, smallGoalId, userId } = props;
   const [timeLeft, setTimeLeft] = useState<number>(limit);
   const [countdown, setCountdown] = useState<any>();
   const [active, setActive] = useState<boolean>(false);
@@ -27,29 +28,36 @@ export const useBattle = (props: Props) => {
 
   // 小数第二位以下四捨五入
   // 一時間単位でtotal_timeにプラス
-  const round = (time: number) => {
+  const round = async (time: number) => {
     return Math.round((time / 60 / 60) * 10) / 10;
   };
 
   // スモールゴール情報取得およびcountdown開始
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/fetch/smallgoal/battle/${id}`)
-      .then((res) => {
-        setSmallGoalName(res.data.small_goal_name);
-        setTotalTime(res.data.total_time);
-        console.log(limit);
-        startCountdown();
-        setActive(true);
-      });
+    const fetch = async () => {
+      await axios
+        .get(`http://localhost:4000/fetch/smallgoal/battle/${smallGoalId}}`)
+        .then((res) => {
+          setSmallGoalName(res.data.small_goal_name);
+          setTotalTime(res.data.total_time);
+          startCountdown();
+          setActive(true);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
+    fetch();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // timeLeftステイトに関心を持ち、timeup関数実行
   useEffect(() => {
     timeup();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft]);
 
-  // timeLeftステイトから毎秒１ずつ減算するsetIntervalを、countdownステイトに代入
+  // timeLeftステイトから毎秒１ずつ減算するsetIntervalの処理を、countdownステイトに代入
   const startCountdown = useCallback(() => {
     if (!active) {
       setCountdown(
@@ -59,38 +67,39 @@ export const useBattle = (props: Props) => {
       );
       setActive(true);
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, timeLeft, countdown]);
 
   // timeLeftステイトが0になったときの処理
-  const timeup = useCallback(() => {
-    if (timeLeft == 0) {
+  const timeup = useCallback(async () => {
+    if (timeLeft === 0) {
       clearInterval(countdown);
       setActive(false);
       if (!finish) {
         showMessage({ description: "敵を倒した！", status: "success" });
         setTimeLeft(rest);
         setFinish(true);
-
-        // 0.4h
-        const addTime = round(limit);
-        axios
-          .put(`http://localhost:4000/update/totaltime/${id}`, {
-            totalTime: addTime,
-            userId,
-          })
-          .then((res) => {
-            setTotalTime(res.data.total_time);
-          })
-          .catch((err) => {
-            if (err) throw err;
-          });
-
-        recordTimeOnReport(addTime);
+        const addTime = await round(limit);
+        setTotalTime((prev) => prev + addTime);
+        const asyncUpdateTotalTime = async () => {
+          await axios
+            .put(`http://localhost:4000/update/totaltime/${smallGoalId}`, {
+              addTime,
+              workId,
+              userId,
+            })
+            .catch((err) => {
+              throw err;
+            });
+        };
+        await asyncUpdateTotalTime();
+        await recordTimeOnReport(addTime);
       } else {
-        setFinish(false);
         setTimeLeft(limit);
+        setFinish(false);
       }
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft]);
 
   // countdownを開始
@@ -110,16 +119,17 @@ export const useBattle = (props: Props) => {
     }
   };
 
-  // 前ページに戻る
-  const onClickReset = () => {
-    // 経過時間を加算
-    const addTime = round(limit - timeLeft);
-    axios.put(`http://localhost:4000/update/totaltime/${id}`, {
-      totalTime: addTime,
-      userId,
-    });
-    recordTimeOnReport(addTime);
-
+  // 前ページに戻る際に、プレイ中なら経過時間を加算
+  const onClickReset = async () => {
+    if (!finish) {
+      const addTime = await round(limit - timeLeft);
+      axios.put(`http://localhost:4000/update/totaltime/${smallGoalId}`, {
+        addTime,
+        workId,
+        userId,
+      });
+      recordTimeOnReport(addTime);
+    }
     onClickStop();
     history.goBack();
   };

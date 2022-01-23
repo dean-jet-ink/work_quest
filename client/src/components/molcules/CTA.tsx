@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Box, Image, Heading, Button } from "@chakra-ui/react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 import bg from "../../image/bg.svg";
 import { useCallback } from "react";

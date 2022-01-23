@@ -1,0 +1,126 @@
+DROP TABLE IF EXISTS `chat`;
+CREATE TABLE `chat` (
+  `chat_id` int NOT NULL AUTO_INCREMENT,
+  `guild_id` int DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `comment` text COLLATE utf8_unicode_ci,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`chat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `chat` WRITE;
+INSERT INTO `chat` VALUES (1,1,1,'テスト','2022-01-12 22:06:40'),(2,1,2,'テスト\nテスト','2022-01-12 22:09:54');
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `cheerings`;
+CREATE TABLE `cheerings` (
+  `target_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`target_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `cheerings` WRITE;
+INSERT INTO `cheerings` VALUES (1,2),(2,1);
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `guild_members`;
+CREATE TABLE `guild_members` (
+  `guild_member_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `guild_id` int DEFAULT NULL,
+  PRIMARY KEY (`guild_member_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `guild_members` WRITE;
+INSERT INTO `guild_members` VALUES (1,1,1),(2,2,1);
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `guilds`;
+CREATE TABLE `guilds` (
+  `guild_id` int NOT NULL AUTO_INCREMENT,
+  `admin_id` int DEFAULT NULL,
+  `guild_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `guild_picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`guild_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `guilds` WRITE;
+INSERT INTO `guilds` VALUES (1,1,'テスト','a8331e018219c7e027ba93b91f0c20aa.png','テスト'),(2,2,'テスト','a8331e018219c7e027ba93b91f0c20aa.png','テスト');
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `reports`;
+CREATE TABLE `reports` (
+  `user_id` int NOT NULL,
+  `monday` double(8,1) DEFAULT NULL,
+  `tuesday` double(8,1) DEFAULT NULL,
+  `wednesday` double(8,1) DEFAULT NULL,
+  `thursday` double(8,1) DEFAULT NULL,
+  `friday` double(8,1) DEFAULT NULL,
+  `saturday` double(8,1) DEFAULT NULL,
+  `sunday` double(8,1) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `reports` WRITE;
+INSERT INTO `reports` VALUES (1,1.0,2.0,3.0,4.0,3.0,2.0,1.0),(2,4.0,3.0,2.0,1.0,2.0,3.0,4.0);
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `small_goals`;
+CREATE TABLE `small_goals` (
+  `small_goal_id` int NOT NULL AUTO_INCREMENT,
+  `work_id` int DEFAULT NULL,
+  `small_goal_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `completed` tinyint(1) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `total_time` double(8,1) DEFAULT NULL,
+  PRIMARY KEY (`small_goal_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `small_goals` WRITE;
+INSERT INTO `small_goals` VALUES (1,1,'テスト',1,'2022-01-12 22:04:51',0.0),(2,1,'テスト',0,'2022-01-12 22:05:02',0.0);
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mail` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sex` enum('male','female') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` text COLLATE utf8_unicode_ci,
+  `total_time` double(8,1) DEFAULT NULL,
+  `level` int DEFAULT NULL,
+  `title` enum('村人A','村の力自慢','見習い兵士','頼もしい兵士','騎士','近衛騎士','冒険者','勇者','伝説の勇者','Messiah') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `guild_id` int DEFAULT NULL,
+  `white_noise` enum('clock','forest','bonfire','river') COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `users` WRITE;
+INSERT INTO `users` VALUES (1,'テスト','test@test.com','a94a8fe5ccb19ba61c4c0873d391e987982fbbd3','a8331e018219c7e027ba93b91f0c20aa.png','male','テスト',0.0,1,'村人A',NULL,'clock'),(2,'テスト','test2@test.com','a94a8fe5ccb19ba61c4c0873d391e987982fbbd3','a8331e018219c7e027ba93b91f0c20aa.png','female','テスト',0.0,1,'村人A',NULL,'clock'),(3,'テスト','test3@test.com','a94a8fe5ccb19ba61c4c0873d391e987982fbbd3','a8331e018219c7e027ba93b91f0c20aa.png','male','テスト',0.0,1,'村人A',NULL,'clock');
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `works`;
+CREATE TABLE `works` (
+  `work_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `work_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `completed` tinyint(1) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `deadline` date DEFAULT NULL,
+  `total_time` double(8,1) DEFAULT NULL,
+  PRIMARY KEY (`work_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `works` WRITE;
+INSERT INTO `works` VALUES (1,1,'テスト',0,'2022-01-12 22:03:04','2023-03-31',0.0),(2,1,'テスト',1,'2022-01-12 22:03:53','2023-03-31',0.0),(3,2,'テスト',0,'2022-01-12 22:08:21','2023-03-31',0.0);
+UNLOCK TABLES;

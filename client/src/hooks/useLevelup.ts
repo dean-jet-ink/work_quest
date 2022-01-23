@@ -8,6 +8,7 @@ import knight from "../image/title/knight.png";
 import royalKnight from "../image/title/royal_knight.png";
 import adventurer from "../image/title/adventurer.png";
 import breaver from "../image/title/breaver.png";
+import { User } from "../types/user";
 
 type Props = {
   onOpenLevelUp: () => void;
@@ -15,7 +16,7 @@ type Props = {
   onClickParty: () => void;
 };
 
-export const useLevelUp = (id: number) => {
+export const useLevelUp = (user: User) => {
   const [experience, setExperience] = useState(0);
   const [experienceRate, setExperienceRate] = useState(0);
   const [level, setLevel] = useState(0);
@@ -23,6 +24,7 @@ export const useLevelUp = (id: number) => {
   const [title, setTitle] = useState("");
   const [titleImage, setTitleImage] = useState("");
   const [levelComposition, setLevelComposition] = useState<Array<number>>([]);
+  const id = user.userId;
 
   const decideTitle = (lv: number): string => {
     switch (true) {
@@ -53,7 +55,7 @@ export const useLevelUp = (id: number) => {
       case lv >= 102 && lv < 200:
         return "伝説の勇者";
 
-      case lv == 200:
+      case lv === 200:
         return "Messiah";
 
       default:
@@ -121,28 +123,25 @@ export const useLevelUp = (id: number) => {
     }
     setLevelComposition(newComposition);
 
-    axios
-      .get(`http://localhost:4000/fetch/user/${id}`)
-      .then((res) => {
-        setLevel(res.data.level);
+    const level = user.level;
+    const title = user.title;
 
-        const exp = res.data.total_time;
-        setExperience(exp);
+    setLevel(level);
 
-        // 第一引数: 総取得経験値 - 現在レベル必要総経験値 = 現在レベル到達以降取得経験値
-        // 第二引数: 次回レベル必要総経験値 - 現在レベル必要総経験値 = 次回レベルまでの必要取得経験値
-        calcExperienceRate(
-          exp - newComposition[res.data.level - 1],
-          newComposition[res.data.level] - newComposition[res.data.level - 1]
-        );
+    const exp = user.totalTime;
+    setExperience(exp);
 
-        setTitle(res.data.title);
-        decideTitleImage(res.data.title);
-      })
-      .catch((err) => {
-        throw err;
-      });
-  }, [id]);
+    // 第一引数: 総取得経験値 - 現在レベル必要経験値 = 現在レベル到達以降取得経験値
+    // 第二引数: 次回レベル必要総経験値 - 現在レベル必要経験値 = 現在レベルから次回レベルまでの必要経験値
+    calcExperienceRate(
+      exp - newComposition[level - 1],
+      newComposition[level] - newComposition[level - 1]
+    );
+
+    setTitle(title);
+    decideTitleImage(title);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const onClickLevelUp = useCallback(
     (props: Props) => {
@@ -179,6 +178,7 @@ export const useLevelUp = (id: number) => {
       onClickPraise();
       onClickParty();
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [id, experience, title]
   );
 
@@ -188,6 +188,7 @@ export const useLevelUp = (id: number) => {
     levelUpFlag,
     title,
     titleImage,
+    decideTitle,
     onClickLevelUp,
   };
 };

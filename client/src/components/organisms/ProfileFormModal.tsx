@@ -1,12 +1,12 @@
 import { ChangeEvent, memo } from "react";
 import { Form, Formik } from "formik";
 import { Box, Stack, FormLabel, Flex } from "@chakra-ui/react";
+import { OptionalObjectSchema } from "yup/lib/object";
 
 import { PrimaryButton } from "../atoms/forms/PrimarButton";
 import { PrimaryModal } from "../molcules/PrimaryModal";
 import { PrimaryInputText } from "../molcules/forms/PrimaryInputText";
 import { PrimaryInputFile } from "../molcules/forms/PrimaryInputFile";
-
 import { PrimarySelect } from "../molcules/forms/PrimarySelect";
 import { PrimaryTextArea } from "../molcules/forms/PrimaryTextArea";
 import { User } from "../../types/user";
@@ -14,7 +14,6 @@ import { SecondaryButton } from "../atoms/forms/SecondaryButton";
 import { useLogout } from "../../hooks/useLogout";
 import { useUploadFile } from "../../hooks/useUploadFile";
 import { UserInitialValuesType, UserOnSubmitProps } from "../../hooks/useUser";
-import { OptionalObjectSchema } from "yup/lib/object";
 
 type Props = {
   user: User;
@@ -81,7 +80,7 @@ export const ProfileFormModal = memo((props: Props) => {
                   <PrimaryInputText name="mail" />
                 </FormLabel>
                 <FormLabel fontSize="12px">
-                  アバターの性別
+                  性別
                   <PrimarySelect
                     name="sex"
                     options={[
@@ -92,7 +91,7 @@ export const ProfileFormModal = memo((props: Props) => {
                 </FormLabel>
                 <FormLabel fontSize="12px">
                   コメント
-                  <PrimaryTextArea name="comment">頑張ります！</PrimaryTextArea>
+                  <PrimaryTextArea name="comment"></PrimaryTextArea>
                 </FormLabel>
                 <Flex justify="center" pt={4}>
                   <PrimaryButton color="facebook" isLoading={isSubmitting}>

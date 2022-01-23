@@ -79,6 +79,7 @@ export const useKingsLine = () => {
   useEffect(() => {
     const lineNo = Math.floor(Math.random() * lines.length);
     setLine(lines[lineNo]);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { line };

@@ -30,7 +30,6 @@ type RightOrLeftProps = {
 
 export const Chat = memo((props: Props) => {
   const { loginUserId, members, chat } = props;
-  console.log(chat.time);
   chat.time = moment.utc(chat.time).format("YYYY/MM/DD HH:mm");
   const user = members.find((member) => member.userId === chat.userId);
   const { inspectedPicture } = useDefaultPicture(user!.picture, "member/");
@@ -40,7 +39,7 @@ export const Chat = memo((props: Props) => {
     lg: "80px",
   };
   const rightOrLeft: RightOrLeftProps =
-    loginUserId == user?.userId
+    loginUserId === user?.userId
       ? {
           flexDir: "row-reverse",
           pr: "0",

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { Guild } from "../../types/guild";
+import { useFormatCamel } from "../useFormatCamel";
 
 export type MyGuildInitialValuesType = {
   guildId: null | number;
@@ -16,28 +17,15 @@ export const useMyGuild = (userId: number) => {
   const myGuildInitialValues = {
     guildId: null,
   };
-
-  // スネークケースのデータをキャメルケースに変換
-  const snakeToCamel = useCallback((list: any[]) => {
-    const formatedList: Guild[] = [];
-    list.map((item) => {
-      const formatedItem = {
-        guildId: item.guild_id,
-        guildName: item.guild_name,
-        guildPicture: item.guild_picture,
-        comment: item.comment,
-        adminId: item.admin_id,
-      };
-      formatedList.push(formatedItem);
-    });
-    return formatedList;
-  }, []);
+  const { snakeToCamel } = useFormatCamel();
 
   useEffect(() => {
     axios.get(`http://localhost:4000/fetch/myguild/${userId}`).then((res) => {
-      const myGuild = snakeToCamel(res.data);
+      const formatedList = snakeToCamel(res.data, "guild");
+      const myGuild = formatedList as Guild[];
       setMyGuild(myGuild);
     });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   const myGuildOnSubmit = useCallback(
@@ -50,7 +38,8 @@ export const useMyGuild = (userId: number) => {
         })
         .then((res) => {
           console.log(res.data);
-          const myGuild = snakeToCamel(res.data);
+          const formatedList = snakeToCamel(res.data, "guild");
+          const myGuild = formatedList as Guild[];
           setMyGuild(myGuild);
           setSubmitting(false);
         })
@@ -58,6 +47,7 @@ export const useMyGuild = (userId: number) => {
           if (err) throw err;
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [userId]
   );
 

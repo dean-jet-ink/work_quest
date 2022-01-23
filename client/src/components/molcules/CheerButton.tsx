@@ -6,6 +6,7 @@ export const CheerButton = (props: { onOpenCheer: () => void }) => {
 
   return (
     <Flex
+      data-testid="cheerButton"
       align="center"
       fontSize={{ base: "26px", md: "31px", lg: "37px" }}
       color="#debd0b"

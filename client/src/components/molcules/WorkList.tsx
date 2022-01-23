@@ -9,7 +9,6 @@ import {
   AccordionButton,
   AccordionPanel,
   Box,
-  useDisclosure,
 } from "@chakra-ui/react";
 
 import { AccordionInnerButton } from "../atoms/AccordionInnerButton";
@@ -38,7 +37,8 @@ export const WorkList = memo((props: Props) => {
   const { works, onClickDelete, onClickComplete, onSubmit, validationSchema } =
     props;
   const { selectedWork, onSelectWork } = useSelectWork();
-  const [completeSound, onClickCompleteSound] = useSoundEffect(complete);
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [completeSound, onClickPlayCompleteSound] = useSoundEffect(complete);
   const { onOpen1, onOpen2, onClose1, onClose2, isOpen1, isOpen2 } =
     useDisclosures();
 
@@ -65,7 +65,7 @@ export const WorkList = memo((props: Props) => {
                 <Box
                   onClick={() => {
                     onClickComplete(work.id, index);
-                    onClickCompleteSound();
+                    onClickPlayCompleteSound();
                   }}
                 >
                   <AccordionInnerButton>完了する</AccordionInnerButton>

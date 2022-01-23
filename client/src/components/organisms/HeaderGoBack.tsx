@@ -12,6 +12,7 @@ export const HeaderGoBack = memo(() => {
 
   const onClickGoBack = useCallback(() => {
     history.goBack();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -4,7 +4,6 @@ import { MyGuildCard } from "../molcules/MyGuildCard";
 
 export const MyGuildList = (props: { myGuildList: Guild[] }) => {
   const { myGuildList } = props;
-
   return (
     <Box>
       <Box mb={{ base: 2, md: 8, lg: 10 }}>
@@ -20,8 +19,12 @@ export const MyGuildList = (props: { myGuildList: Guild[] }) => {
           align="center"
         >
           {myGuildList.map((guild) => (
-            <Box mb={{ base: 5, lg: 10 }} ml={{ base: 5, lg: 10 }}>
-              <MyGuildCard key={guild.guildId} guild={guild} />
+            <Box
+              key={guild.guildId}
+              mb={{ base: 5, lg: 10 }}
+              ml={{ base: 5, lg: 10 }}
+            >
+              <MyGuildCard guild={guild} />
             </Box>
           ))}
         </Flex>

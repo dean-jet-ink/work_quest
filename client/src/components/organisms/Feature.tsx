@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Flex, Box, Center } from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
 import { FeatureImage } from "../molcules/FeatureImage";
 import { FeatureDescription } from "../molcules/FeatureDescription";
 import { ReactNode } from "react";

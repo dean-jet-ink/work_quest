@@ -61,6 +61,7 @@ export const useUploadFile = () => {
         deleteFile(key, preFile);
       }
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedFile]
   );
 

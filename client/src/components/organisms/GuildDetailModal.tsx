@@ -11,7 +11,6 @@ import {
   MyGuildInitialValuesType,
   MyGuildOnSubmitProps,
 } from "../../hooks/form/useMyGuild";
-import { useLoginUser } from "../../hooks/useLoginUser";
 import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
 
 type Props = {

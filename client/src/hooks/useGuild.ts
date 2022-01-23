@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { Guild } from "../types/guild";
 
 export const useGuild = (guildId: number) => {
@@ -18,7 +18,7 @@ export const useGuild = (guildId: number) => {
 
   useEffect(() => {
     axios.get(`http://localhost:4000/fetch/guild/${guildId}`).then((res) => {
-      const guildData = formatedItem(res.data[0]);
+      const guildData = formatedItem(res.data);
       setGuild(guildData);
     });
   }, [guildId]);
@@ -36,6 +36,7 @@ export const useGuild = (guildId: number) => {
           if (err) throw err;
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [guildId]
   );
 
@@ -48,7 +49,8 @@ export const useGuild = (guildId: number) => {
       .catch((err) => {
         if (err) throw err;
       });
-  }, []);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guildId]);
 
   return { guild, onClickExit, onClickDelete };
 };

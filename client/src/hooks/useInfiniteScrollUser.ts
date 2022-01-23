@@ -14,7 +14,6 @@ export const useInfiniteScrollUser = () => {
     axios
       .get(`http://localhost:4000/fetch/userlist/20`)
       .then((res) => {
-        console.log(res.data);
         const users = snakeToCamel(res.data, "user");
         setUserList(users as User[]);
         if (20 > res.data.length) {
@@ -28,6 +27,7 @@ export const useInfiniteScrollUser = () => {
         });
         throw err;
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadMoreUser = useCallback((page: number) => {
@@ -43,6 +43,7 @@ export const useInfiniteScrollUser = () => {
           setHasMore(false);
         }
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { userList, hasMore, loadMoreUser };

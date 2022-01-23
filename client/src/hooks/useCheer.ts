@@ -30,6 +30,7 @@ export const useCheer = (
       .catch((err) => {
         if (err) throw err;
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, targetId]);
 
   const onClickSubmit = useCallback(() => {
@@ -50,6 +51,7 @@ export const useCheer = (
       .finally(() => {
         setProsessing(false);
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, targetId, userName]);
 
   const onClickDelete = useCallback(() => {

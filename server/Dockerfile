@@ -1,8 +1,8 @@
-FROM node:alpine
+FROM node:16.13.2-alpine
 WORKDIR /usr/src/app
 COPY ./package*.json ./
 RUN npm i
 COPY . .
 ENV CHOKIDAR_USEPOLLING=1
-CMD ["./node_modules/.bin/nodemon", "app"]
+CMD ["./node_modules/.bin/nodemon", "src/server.ts"]
 EXPOSE 4000
