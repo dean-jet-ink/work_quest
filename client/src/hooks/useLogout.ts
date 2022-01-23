@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+
 import { useShowMessage } from "./useShowMessage";
 
 export const useLogout = () => {
@@ -11,12 +12,11 @@ export const useLogout = () => {
     axios
       .get("http://localhost:4000/logout")
       .then((res) => {
-        console.log(res.data);
+        history.push("/");
         showMessage({
           description: "ログアウトしました",
           status: "info",
         });
-        history.push("/");
       })
       .catch((err) => {
         throw err;

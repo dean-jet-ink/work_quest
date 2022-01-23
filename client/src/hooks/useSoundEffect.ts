@@ -5,10 +5,12 @@ export const useSoundEffect = (sound: string) => {
 
   const soundEffect = useCallback(() => {
     audio.play();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onClickPlaySoundEffect = useCallback(() => {
     soundEffect();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return [soundEffect, onClickPlaySoundEffect];

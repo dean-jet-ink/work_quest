@@ -26,7 +26,7 @@ export const Member = memo(() => {
     user.userName
   );
   const { week } = useReport(loginUserId as number);
-  const { titleImage } = useLevelUp(Number(id));
+  const { titleImage } = useLevelUp(user);
 
   return (
     <BackgroundCity>

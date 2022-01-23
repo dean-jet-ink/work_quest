@@ -58,6 +58,7 @@ export const Status = memo((props: Props) => {
 
   const { isOpenLevelUp, onCloseLevelUp, onOpenLevelUp } =
     useDisclosureLevelUp();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [soundPraise, onClickPraise] = useSoundEffect(praise);
 
   const onClickParty = () => {

@@ -22,6 +22,7 @@ export const useDefaultPicture = (
         );
       }
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [picture]);
 
   return { inspectedPicture };

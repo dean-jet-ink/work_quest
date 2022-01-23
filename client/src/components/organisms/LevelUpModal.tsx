@@ -15,6 +15,7 @@ type Props = {
 };
 
 export const LevelUpModal = memo((props: Props) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { onClose, isOpen, user, level, title, titleImage } = props;
 
   return (

@@ -12,7 +12,7 @@ export const PieChart = memo((props: { works: Work[] }) => {
   const { works } = props;
   const workNames: string[] = [];
   const workTimes: number[] = [];
-  works.map((work) => {
+  works.forEach((work) => {
     workNames.push(work.workName);
     workTimes.push(work.totalTime);
   });

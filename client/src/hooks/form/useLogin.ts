@@ -60,11 +60,12 @@ export const useLogin = () => {
         });
         actions.setSubmitting(false);
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const validationSchema = Yup.object({
     mail: Yup.string()
-      .email("メールアドレスが正しくありません")
+      .email("*メールアドレスが正しくありません")
       .required("*入力必須です"),
     pass: Yup.string().required("*入力必須です"),
   });

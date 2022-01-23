@@ -19,6 +19,7 @@ export const useShowMessage = () => {
       duration: 2000,
       isClosable: true,
     });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { showMessage };

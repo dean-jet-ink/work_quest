@@ -39,7 +39,7 @@ export const Guild = memo(() => {
   const line1 = "参加したいギルドを選びな";
   const line2 = "あんたの所属してるギルドだ";
   const { line, changeLine } = useLine(line2);
-  const addGuildDisplay: AddGuildDisplayProps = //三つのギルドに所属している場合、ギルド作成フォーム使用不能
+  const addGuildDisplay: AddGuildDisplayProps = //三つのギルドに所属している場合、ギルド作成フォーム使用不可
     myGuild.length >= 3
       ? {
           color: "#d0d0d099",

@@ -1,4 +1,4 @@
-import { memo, VFC } from "react";
+import { memo } from "react";
 import { Box, Stack, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 
@@ -19,7 +19,7 @@ import enemy from "../../image/enemy.png";
 import { FooterLayout } from "../templates/FooterLayout";
 import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
 
-export const Login: VFC = memo(() => {
+export const Login = memo(() => {
   const { initialValues, onSubmit, validationSchema } = useLogin();
 
   return (

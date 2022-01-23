@@ -158,8 +158,9 @@ export const Work = memo(() => {
                         onClick={onOpen}
                       />
                     </Box>
-                    {incompletedSmallGoals.length != 0 ? (
+                    {incompletedSmallGoals.length !== 0 ? (
                       <SmallGoalList
+                        workId={Number(id)}
                         smallGoals={incompletedSmallGoals}
                         onClickDelete={onClickDelete}
                         onClickComplete={onClickComplete}

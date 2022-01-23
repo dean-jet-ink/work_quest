@@ -29,9 +29,9 @@ export const useChat = (props: Props) => {
   useEffect(() => {
     axios.get(`http://localhost:4000/fetch/chat/${guildId}`).then((res) => {
       const chatList = snakeToCamel(res.data, "chat");
-      console.log(chatList);
       setChat(chatList as Chat[]);
     });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guildId]);
 
   const onSubmit = useCallback(
@@ -51,6 +51,7 @@ export const useChat = (props: Props) => {
           if (err) throw err;
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [guildId, userId]
   );
 

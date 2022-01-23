@@ -18,7 +18,7 @@ export const Report = memo(() => {
   const { week } = useReport(loginUserId as number);
   const { incompleteWorks } = useWorks(loginUserId as number);
   const ongoingWorks: Work[] = [];
-  incompleteWorks.map((work) => {
+  incompleteWorks.forEach((work) => {
     if (work.totalTime > 0) {
       ongoingWorks.push(work);
     }

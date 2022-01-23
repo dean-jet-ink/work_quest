@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Flex, Heading, Box, Text } from "@chakra-ui/react";
+import { Flex, Box, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -21,7 +21,7 @@ export const LoginHeaderForm = (props: Props) => {
     >
       <Box>
         <Text
-          fontSize={{ base: "30px", md: "80px", lg: "150px" }}
+          fontSize={{ base: "30px", md: "80px", lg: "100px" }}
           fontWeight="bold"
           mb={{ sm: 3, md: 8 }}
         >

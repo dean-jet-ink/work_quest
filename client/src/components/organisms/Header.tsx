@@ -23,7 +23,11 @@ export const Header = memo((props: Props) => {
         align="center"
         justify="space-between"
       >
-        <Box cursor="pointer" onClick={onOpenProfile}>
+        <Box
+          cursor="pointer"
+          onClick={onOpenProfile}
+          data-testid="profileModalButton"
+        >
           <Image
             src={src}
             borderRadius="50%"

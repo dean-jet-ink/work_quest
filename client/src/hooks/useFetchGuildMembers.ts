@@ -15,6 +15,7 @@ export const useFetchGuildMembers = (guildId: number) => {
         const users = formatedList as User[];
         setGuildMembers(users);
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guildId]);
 
   return { guildMembers };

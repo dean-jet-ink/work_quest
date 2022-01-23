@@ -5,16 +5,11 @@ import { useCallback, useEffect, useState } from "react";
 import { SmallGoal } from "../types/smallGoal";
 import { useShowMessage } from "./useShowMessage";
 import * as Yup from "yup";
-import { FormikHelpers } from "formik";
 import { useFormatCamel } from "./useFormatCamel";
 
 export type InitialValuesType = {
   smallGoalName: string;
   created: string;
-};
-
-type OnSubmitProps = {
-  values: InitialValuesType;
 };
 
 export type SmallGoalUpdateProps = {
@@ -50,7 +45,7 @@ export const useSmallGoal = (workId: number) => {
         const newIncompletedSmallGoals: SmallGoal[] = [];
         const newCompletedSmallGoals: SmallGoal[] = [];
         let totalTime = 0;
-        res.data.map((smallGoal) => {
+        res.data.forEach((smallGoal) => {
           if (smallGoal.small_goal_id) {
             totalTime += smallGoal.total_time;
 
@@ -73,6 +68,7 @@ export const useSmallGoal = (workId: number) => {
         setCompletedSmallGoals(newCompletedSmallGoals);
         setIncompletedSmallGoals(newIncompletedSmallGoals);
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = useCallback(
@@ -94,6 +90,7 @@ export const useSmallGoal = (workId: number) => {
           setIncompletedSmallGoals(newSmallGoals);
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [incompletedSmallGoals]
   );
 
@@ -103,6 +100,7 @@ export const useSmallGoal = (workId: number) => {
       newSmallGoal.splice(index, 1);
       setIncompletedSmallGoals(newSmallGoal);
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [incompletedSmallGoals]
   );
 
@@ -114,6 +112,7 @@ export const useSmallGoal = (workId: number) => {
           deleteFromIncompletedState(index);
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [incompletedSmallGoals]
   );
 
@@ -133,6 +132,7 @@ export const useSmallGoal = (workId: number) => {
           setCompletedSmallGoals(newSmallGoal);
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [incompletedSmallGoals, completedSmallGoals]
   );
 
@@ -155,13 +155,14 @@ export const useSmallGoal = (workId: number) => {
           setIncompletedSmallGoals(newWorks);
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [incompletedSmallGoals, completedSmallGoals]
   );
 
   const onClickUpdate = useCallback(
-    (props: SmallGoalUpdateProps) => {
+    async (props: SmallGoalUpdateProps) => {
       const { values, smallGoalId } = props;
-      axios
+      await axios
         .put(`http://localhost:4000/update/smallgoal/${workId}`, {
           smallGoalId,
           ...values,
@@ -170,7 +171,7 @@ export const useSmallGoal = (workId: number) => {
           const formatedList = snakeToCamel(res.data, "smallGoal");
           const smallGoalList = formatedList as SmallGoal[];
           const incompleteList: SmallGoal[] = [];
-          smallGoalList.map((smallGoal) => {
+          smallGoalList.forEach((smallGoal) => {
             if (!smallGoal.completed) {
               incompleteList.push(smallGoal);
             }
@@ -178,9 +179,10 @@ export const useSmallGoal = (workId: number) => {
           setIncompletedSmallGoals(incompleteList);
         })
         .catch((err) => {
-          if (err) throw err;
+          throw err;
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [workId]
   );
 

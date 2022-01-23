@@ -11,7 +11,7 @@ export const useFormatCamel = () => {
     (list: any[], data: "user" | "guild" | "chat" | "work" | "smallGoal") => {
       if (data === "guild") {
         const formatedList: Guild[] = [];
-        list.map((item) => {
+        list.forEach((item) => {
           const formatedItem = {
             guildId: item.guild_id,
             guildName: item.guild_name,
@@ -24,7 +24,7 @@ export const useFormatCamel = () => {
         return formatedList;
       } else if (data === "chat") {
         const formatedList: Chat[] = [];
-        list.map((item) => {
+        list.forEach((item) => {
           const formatedItem = {
             chatId: item.chat_id,
             guildId: item.guild_id,
@@ -37,7 +37,7 @@ export const useFormatCamel = () => {
         return formatedList;
       } else if (data === "user") {
         const formatedList: User[] = [];
-        list.map((item) => {
+        list.forEach((item) => {
           const formatedItem = {
             userId: item.user_id,
             userName: item.user_name,
@@ -55,7 +55,7 @@ export const useFormatCamel = () => {
         return formatedList;
       } else if (data === "work") {
         const formatedList: Work[] = [];
-        list.map((item) => {
+        list.forEach((item) => {
           const formatedItem = {
             id: item.work_id,
             workName: item.work_name,
@@ -68,7 +68,7 @@ export const useFormatCamel = () => {
         return formatedList;
       } else if (data === "smallGoal") {
         const formatedList: SmallGoal[] = [];
-        list.map((item) => {
+        list.forEach((item) => {
           const formatedItem = {
             id: item.small_goal_id,
             smallGoalName: item.small_goal_name,

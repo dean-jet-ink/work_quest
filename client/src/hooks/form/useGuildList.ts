@@ -10,6 +10,7 @@ import * as Yup from "yup";
 
 import { Guild } from "../../types/guild";
 import { useFileStringify } from "../useFileStringify";
+import { useFormatCamel } from "../useFormatCamel";
 
 type Props = {
   userId: number;
@@ -36,29 +37,15 @@ export const useGuildList = (props: Props) => {
     comment: "",
   };
   const { fileToString } = useFileStringify();
-
-  // スネークケースのデータをキャメルケースに変換
-  const snakeToCamel = useCallback((list: any[]) => {
-    const formatedList: Guild[] = [];
-    list.map((item) => {
-      const formatedItem = {
-        guildId: item.guild_id,
-        guildName: item.guild_name,
-        guildPicture: item.guild_picture,
-        comment: item.comment,
-        adminId: item.admin_id,
-      };
-      formatedList.push(formatedItem);
-    });
-    return formatedList;
-  }, []);
+  const { snakeToCamel } = useFormatCamel();
 
   useEffect(() => {
     axios.get("http://localhost:4000/fetch/guildlist").then((res) => {
-      const guildList = snakeToCamel(res.data);
-
+      const formatedList = snakeToCamel(res.data, "guild");
+      const guildList = formatedList as Guild[];
       setGuildList(guildList);
     });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmitGuild = useCallback(
@@ -73,27 +60,28 @@ export const useGuildList = (props: Props) => {
           comment,
         })
         .then((res) => {
-          const myGuildList = snakeToCamel(res.data);
+          const formatedList = snakeToCamel(res.data, "guild");
+          const myGuildList = formatedList as Guild[];
           setMyGuild(myGuildList);
-
-          axios
-            .get<any[]>("http://localhost:4000/fetch/guildlist")
-            .then((res) => {
-              const guildList = snakeToCamel(res.data);
-
-              setGuildList(guildList);
-            })
-            .catch((err) => {
-              if (err) throw err;
-              setSubmitting(false);
-            });
+        })
+        .catch((err) => {
+          setSubmitting(false);
+          throw err;
+        });
+      axios
+        .get<any[]>("http://localhost:4000/fetch/guildlist")
+        .then((res) => {
+          const formatedList = snakeToCamel(res.data, "guild");
+          const guildList = formatedList as Guild[];
+          setGuildList(guildList);
           setSubmitting(false);
         })
         .catch((err) => {
-          if (err) throw err;
           setSubmitting(false);
+          throw err;
         });
     },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [userId]
   );
 

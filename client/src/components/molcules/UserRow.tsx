@@ -20,8 +20,8 @@ export const UserRow = (props: Props) => {
   const { loginUserId } = useLoginUser();
   const { user, index, isRanking = false } = props;
   const { inspectedPicture } = useDefaultPicture(user.picture, "member/");
-  const noLink = loginUserId == user.userId ? "none" : "auto"; //リストの自分の行はリンク無効
-  const bgColor = loginUserId == user.userId ? "#f38484b5" : "#ede5adb5"; //リストの自分の行は背景色変更
+  const noLink = loginUserId === user.userId ? "none" : "auto"; //リストの自分の行はリンク無効
+  const bgColor = loginUserId === user.userId ? "#f38484b5" : "#ede5adb5"; //リストの自分の行は背景色変更
   const ranking = isRanking ? "block" : "none";
   const place = useCallback((index: number): string => {
     switch (true) {
@@ -79,10 +79,7 @@ export const UserRow = (props: Props) => {
               ml={{ base: 2, lg: 6 }}
             >
               <Text fontWeight="bold">{user.userName}</Text>
-              <Text fontWeight="bold">
-                Lv.
-                {user.level}
-              </Text>
+              <Text fontWeight="bold">Lv.{user.level}</Text>
             </Flex>
           </Flex>
           <Flex align="center" w={{ base: "147px", md: "200px" }}>

@@ -54,17 +54,18 @@ export const useSignup = () => {
         });
         throw err;
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // validation
   const validationSchema = Yup.object({
     userName: Yup.string().required("*入力必須です"),
     mail: Yup.string()
-      .email("メールアドレスが正しくありません")
+      .email("*メールアドレスが正しくありません")
       .required("*入力必須です")
       .test(
         "validateDuplicatedMail",
-        "このメールアドレスは既に登録されています",
+        "*このメールアドレスは既に登録されています",
         (value): Promise<boolean> => {
           const validation = axios
             .get(
@@ -81,11 +82,11 @@ export const useSignup = () => {
         }
       ),
     pass: Yup.string()
-      .min(4, "パスワードは最低4文字です")
+      .min(4, "*パスワードは最低4文字です")
       .required("*入力必須です"),
     passConfirm: Yup.string().oneOf(
       [Yup.ref("pass")],
-      "パスワードが一致しません"
+      "*パスワードが一致しません"
     ),
     sex: Yup.string().required("*選択必須です"),
   });

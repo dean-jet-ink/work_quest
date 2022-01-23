@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, Image, Stack, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
 import { Guild } from "../../types/guild";

@@ -10,7 +10,7 @@ export const useDeadline = (deadline: string | null) => {
     const fromDate = moment();
     const toDate = moment(deadline);
     const daysLeft = toDate.diff(fromDate, "days", true);
-    console.log(daysLeft);
+
     // 締め切りに対しての残り日数によって、締め切り日の文字色変化
     switch (true) {
       case daysLeft > 3:
@@ -34,6 +34,7 @@ export const useDeadline = (deadline: string | null) => {
     if (deadline) {
       handleDeadline(deadline);
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deadline]);
 
   return { colorInfo };

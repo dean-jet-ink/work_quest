@@ -26,6 +26,7 @@ export const useWhiteNoise = (sound: string) => {
       audio.play();
     }, 1000);
     return () => audio.pause();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { play, pause };

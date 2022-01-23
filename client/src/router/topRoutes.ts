@@ -54,7 +54,7 @@ export const topRoutes: Array<RouteProps & { key: number }> = [
   },
   {
     key: 8,
-    path: "/battle/:id",
+    path: "/battle/:workId/:smallGoalId",
     exact: false,
     component: Battle,
   },
