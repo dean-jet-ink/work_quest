@@ -1,10 +1,10 @@
-import axios from "axios";
 import { FormikHelpers } from "formik";
 import { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { useShowMessage } from "../useShowMessage";
 import { useLoginUser } from "../useLoginUser";
+import { axios } from "../../apis/axios";
 
 type InitialValuesType = {
   userName: string;
@@ -35,7 +35,7 @@ export const useSignup = () => {
     const { values, actions } = props;
 
     axios
-      .post("http://localhost:4000/signup", values)
+      .post("/signup", values)
       .then((res) => {
         setTimeout(() => {
           showMessage({
@@ -68,9 +68,7 @@ export const useSignup = () => {
         "*このメールアドレスは既に登録されています",
         (value): Promise<boolean> => {
           const validation = axios
-            .get(
-              `http://localhost:4000/get/validation/mail/duplicated/${value}`
-            )
+            .get(`/get/validation/mail/duplicated/${value}`)
             .then((res) => {
               if (res.data.duplicate) {
                 return false;

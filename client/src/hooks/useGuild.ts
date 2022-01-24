@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { axios } from "../apis/axios";
 import { Guild } from "../types/guild";
 
 export const useGuild = (guildId: number) => {
@@ -17,7 +17,7 @@ export const useGuild = (guildId: number) => {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/fetch/guild/${guildId}`).then((res) => {
+    axios.get(`/fetch/guild/${guildId}`).then((res) => {
       const guildData = formatedItem(res.data);
       setGuild(guildData);
     });
@@ -26,7 +26,7 @@ export const useGuild = (guildId: number) => {
   const onClickExit = useCallback(
     (userId: number) => {
       axios
-        .delete("http://localhost:4000/delete/guild/member", {
+        .delete("/delete/guild/member", {
           data: { userId, guildId },
         })
         .then(() => {
@@ -42,7 +42,7 @@ export const useGuild = (guildId: number) => {
 
   const onClickDelete = useCallback(() => {
     axios
-      .delete("http://localhost:4000/delete/guild", { data: { guildId } })
+      .delete("/delete/guild", { data: { guildId } })
       .then(() => {
         history.push("/top/guild");
       })

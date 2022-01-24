@@ -1,7 +1,7 @@
-import axios from "axios";
 import { FormikHelpers } from "formik";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import * as Yup from "yup";
+import { axios } from "../../apis/axios";
 
 import { User } from "../../types/user";
 import { useFileStringify } from "../useFileStringify";
@@ -41,7 +41,7 @@ export const useProfile = (
     const { userId, picture, name, mail, sex, comment } = values;
 
     axios
-      .put(`http://localhost:4000/update/profile/${userId}`, {
+      .put(`/update/profile/${userId}`, {
         picture: picture instanceof File ? fileToString(picture) : picture,
         name,
         mail,
@@ -78,9 +78,7 @@ export const useProfile = (
         "このメールアドレスは既に登録されています",
         (value): Promise<boolean> => {
           const validation = axios
-            .get(
-              `http://localhost:4000/get/validation/mail/duplicated/${value}`
-            )
+            .get(`/get/validation/mail/duplicated/${value}`)
             .then((res) => {
               // メールアドレスが重複している、かつ元の値と異なればfalse
               if (res.data.duplicate) {

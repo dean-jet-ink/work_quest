@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 import { FormikHelpers } from "formik";
 import * as Yup from "yup";
 
 import { User } from "../types/user";
 import { useFileStringify } from "./useFileStringify";
 import { useShowMessage } from "./useShowMessage";
+import { axios } from "../apis/axios";
 
 export type UserInitialValuesType = {
   picture: File | string | null;
@@ -45,7 +45,7 @@ export const useUser = (userId: number) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios
-        .get(`http://localhost:4000/fetch/user/${userId}`)
+        .get(`/fetch/user/${userId}`)
         .then((res) => {
           const user = snakeToCamel(res.data);
           return user;
@@ -79,7 +79,7 @@ export const useUser = (userId: number) => {
     const { userId, picture, name, mail, sex, comment } = values;
 
     axios
-      .put(`http://localhost:4000/update/profile/${userId}`, {
+      .put(`/update/profile/${userId}`, {
         picture: picture instanceof File ? fileToString(picture) : picture,
         name,
         mail,
@@ -117,9 +117,7 @@ export const useUser = (userId: number) => {
         "*このメールアドレスは既に登録されています",
         (value): Promise<boolean> => {
           const validation = axios
-            .get(
-              `http://localhost:4000/get/validation/mail/duplicated/${value}`
-            )
+            .get(`/get/validation/mail/duplicated/${value}`)
             .then((res) => {
               // メールアドレスが重複している、かつ元の値と異なればfalse
               if (res.data.duplicate) {

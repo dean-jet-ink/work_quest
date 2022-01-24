@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import villager from "../image/title/villager.png";
 import villagerStrong from "../image/title/villager_strong.png";
@@ -9,6 +8,7 @@ import royalKnight from "../image/title/royal_knight.png";
 import adventurer from "../image/title/adventurer.png";
 import breaver from "../image/title/breaver.png";
 import { User } from "../types/user";
+import { axios } from "../apis/axios";
 
 type Props = {
   onOpenLevelUp: () => void;
@@ -152,26 +152,24 @@ export const useLevelUp = (user: User) => {
         base++;
       }
       setLevel(base);
-      axios
-        .put(`http://localhost:4000/update/user/level/${id}`, { level: base })
-        .then((res) => {
-          setLevel(res.data.level);
+      axios.put(`/update/user/level/${id}`, { level: base }).then((res) => {
+        setLevel(res.data.level);
 
-          calcExperienceRate(
-            experience - levelComposition[res.data.level - 1],
-            levelComposition[res.data.level] -
-              levelComposition[res.data.level - 1]
-          );
+        calcExperienceRate(
+          experience - levelComposition[res.data.level - 1],
+          levelComposition[res.data.level] -
+            levelComposition[res.data.level - 1]
+        );
 
-          const newTitle = decideTitle(res.data.level);
-          if (title !== newTitle) {
-            axios.put(`http://localhost:4000/update/user/title/${id}`, {
-              title: newTitle,
-            });
-            setTitle(newTitle);
-            decideTitleImage(newTitle);
-          }
-        });
+        const newTitle = decideTitle(res.data.level);
+        if (title !== newTitle) {
+          axios.put(`/update/user/title/${id}`, {
+            title: newTitle,
+          });
+          setTitle(newTitle);
+          decideTitleImage(newTitle);
+        }
+      });
 
       setLevelUpFlag(false);
       onOpenLevelUp();

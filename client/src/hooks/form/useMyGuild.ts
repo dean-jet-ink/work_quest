@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { axios } from "../../apis/axios";
 import { Guild } from "../../types/guild";
 import { useFormatCamel } from "../useFormatCamel";
 
@@ -20,7 +20,7 @@ export const useMyGuild = (userId: number) => {
   const { snakeToCamel } = useFormatCamel();
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/fetch/myguild/${userId}`).then((res) => {
+    axios.get(`/fetch/myguild/${userId}`).then((res) => {
       const formatedList = snakeToCamel(res.data, "guild");
       const myGuild = formatedList as Guild[];
       setMyGuild(myGuild);
@@ -33,7 +33,7 @@ export const useMyGuild = (userId: number) => {
       const { values, setSubmitting } = props;
 
       axios
-        .post(`http://localhost:4000/post/guild_member/${userId}`, {
+        .post(`/post/guild_member/${userId}`, {
           guildId: values.guildId,
         })
         .then((res) => {
