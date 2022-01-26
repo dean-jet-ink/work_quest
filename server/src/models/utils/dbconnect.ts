@@ -23,6 +23,7 @@ export const dbConnect = async () => {
   });
 };
 
+// データベース切断
 export const dbDisconnect = async () => {
   await db.end((err) => {
     if (err) {
