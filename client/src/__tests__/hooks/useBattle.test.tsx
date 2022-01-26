@@ -8,7 +8,8 @@ import { useBattle } from "../../hooks/useBattle";
 const props = {
   limit: 1,
   rest: 1,
-  id: 1,
+  workId: 1,
+  smallGoalId: 1,
   userId: 1,
 };
 

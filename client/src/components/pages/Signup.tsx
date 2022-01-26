@@ -1,4 +1,3 @@
-import { VFC } from "react";
 import { Box, Stack } from "@chakra-ui/react";
 
 import { PrimaryButton } from "../atoms/forms/PrimarButton";
@@ -11,7 +10,7 @@ import { memo } from "react";
 import { useSignup } from "../../hooks/form/useSignup";
 import { FooterLayout } from "../templates/FooterLayout";
 
-export const Signup: VFC = memo(() => {
+export const Signup = memo(() => {
   const { initialValues, onSubmit, validationSchema } = useSignup();
 
   return (

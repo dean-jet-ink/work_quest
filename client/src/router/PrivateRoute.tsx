@@ -1,15 +1,14 @@
 import { memo, useEffect } from "react";
 import { Redirect, Route, RouteProps } from "react-router-dom";
-import axios from "axios";
+import { axios } from "../apis/axios";
 
 import { useLoginUser } from "../hooks/useLoginUser";
 
 export const PrivateRoute = memo((props: RouteProps & { key: number }) => {
   const { setLoginUserId } = useLoginUser();
 
-  axios.defaults.withCredentials = true;
   useEffect(() => {
-    axios.get<{ userId: number }>("http://localhost:4000/auth").then((res) => {
+    axios.get<{ userId: number }>("/auth").then((res) => {
       setLoginUserId(res.data.userId);
     });
   }, []);
