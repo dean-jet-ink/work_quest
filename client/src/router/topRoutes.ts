@@ -1,5 +1,4 @@
 import { Top } from "../components/pages/Top";
-import { Profile } from "../components/pages/Profile";
 import { Ranking } from "../components/pages/Ranking";
 import { Guild } from "../components/pages/Guild";
 import { MyGuild } from "../components/pages/MyGuild";
@@ -18,48 +17,42 @@ export const topRoutes: Array<RouteProps & { key: number }> = [
   },
   {
     key: 2,
-    path: "/profile",
-    exact: false,
-    component: Profile,
-  },
-  {
-    key: 3,
     path: "/ranking",
     exact: false,
     component: Ranking,
   },
   {
-    key: 4,
+    key: 3,
     path: "/guild",
     exact: false,
     component: Guild,
   },
   {
-    key: 5,
+    key: 4,
     path: "/myguild/:id",
     exact: false,
     component: MyGuild,
   },
   {
-    key: 6,
+    key: 5,
     path: "/report",
     exact: false,
     component: Report,
   },
   {
-    key: 7,
+    key: 6,
     path: "/work/:id",
     exact: false,
     component: Work,
   },
   {
-    key: 8,
+    key: 7,
     path: "/battle/:workId/:smallGoalId",
     exact: false,
     component: Battle,
   },
   {
-    key: 9,
+    key: 8,
     path: "/member/:id",
     exact: false,
     component: Member,

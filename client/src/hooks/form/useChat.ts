@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import moment from "moment";
-import axios from "axios";
 import { Chat } from "../../types/chat";
 import { useFormatCamel } from "../useFormatCamel";
+import { axios } from "../../apis/axios";
 
 type Props = {
   guildId: number;
@@ -27,7 +27,7 @@ export const useChat = (props: Props) => {
   const { snakeToCamel } = useFormatCamel();
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/fetch/chat/${guildId}`).then((res) => {
+    axios.get(`/fetch/chat/${guildId}`).then((res) => {
       const chatList = snakeToCamel(res.data, "chat");
       setChat(chatList as Chat[]);
     });
@@ -38,7 +38,7 @@ export const useChat = (props: Props) => {
     (values: ChatInitialValues) => {
       const { guildId, comment, time } = values;
       axios
-        .post(`http://localhost:4000/post/chat/${guildId}`, {
+        .post(`/post/chat/${guildId}`, {
           userId,
           comment,
           time,

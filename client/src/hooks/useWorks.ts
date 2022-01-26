@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 import { FormikHelpers } from "formik";
 import moment from "moment";
 import * as Yup from "yup";
@@ -7,6 +6,7 @@ import * as Yup from "yup";
 import { Work } from "../types/work";
 import { useShowMessage } from "./useShowMessage";
 import { useFormatCamel } from "../hooks/useFormatCamel";
+import { axios } from "../apis/axios";
 
 // topページからmodalへpropsとして渡すため,そこでの型定義のためにexport
 export type WorkInitialValuesType = {
@@ -41,7 +41,7 @@ export const useWorks = (userId: number) => {
 
   useEffect(() => {
     axios
-      .get<Array<any>>(`http://localhost:4000/fetch/works/${userId}`)
+      .get<Array<any>>(`/fetch/works/${userId}`)
       .then((res) => {
         const newIncompleteWorks: Work[] = [];
         const newCompleteWorks: Work[] = [];
@@ -68,7 +68,7 @@ export const useWorks = (userId: number) => {
       const { values, actions } = props;
 
       const result = await axios
-        .post(`http://localhost:4000/post/work/${userId}`, values)
+        .post(`/post/work/${userId}`, values)
         .then((res) => {
           showMessage({
             description: `${values.workName}を追加しました`,
@@ -110,7 +110,7 @@ export const useWorks = (userId: number) => {
   const onClickDelete = useCallback(
     (id: number, index: number) => {
       axios
-        .delete("http://localhost:4000/delete/work", { data: { id } })
+        .delete("/delete/work", { data: { id } })
         .then((res) => {
           deleteFromIncompleteState(index);
         })
@@ -125,7 +125,7 @@ export const useWorks = (userId: number) => {
   const onClickComplete = useCallback(
     (id: number, index: number) => {
       axios
-        .put("http://localhost:4000/update/work/completed", {
+        .put("/update/work/completed", {
           id,
           completed: true,
         })
@@ -145,7 +145,7 @@ export const useWorks = (userId: number) => {
   const onClickBack = useCallback(
     (id: number, index: number) => {
       axios
-        .put("http://localhost:4000/update/work/completed", {
+        .put("/update/work/completed", {
           id,
           completed: false,
         })
@@ -168,7 +168,7 @@ export const useWorks = (userId: number) => {
     (props: WorkUpdateProps) => {
       const { values, actions, workId } = props;
       axios
-        .put(`http://localhost:4000/update/work/${userId}`, {
+        .put(`/update/work/${userId}`, {
           workId,
           ...values,
         })

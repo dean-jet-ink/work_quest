@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import moment from "moment";
 
 import { useShowMessage } from "./useShowMessage";
-import axios from "axios";
 import { useReport } from "../hooks/useReport";
+import { axios } from "../apis/axios";
 
 type Props = {
   limit: number;
@@ -36,7 +36,7 @@ export const useBattle = (props: Props) => {
   useEffect(() => {
     const fetch = async () => {
       await axios
-        .get(`http://localhost:4000/fetch/smallgoal/battle/${smallGoalId}}`)
+        .get(`/fetch/smallgoal/battle/${smallGoalId}}`)
         .then((res) => {
           setSmallGoalName(res.data.small_goal_name);
           setTotalTime(res.data.total_time);
@@ -83,7 +83,7 @@ export const useBattle = (props: Props) => {
         setTotalTime((prev) => prev + addTime);
         const asyncUpdateTotalTime = async () => {
           await axios
-            .put(`http://localhost:4000/update/totaltime/${smallGoalId}`, {
+            .put(`/update/totaltime/${smallGoalId}`, {
               addTime,
               workId,
               userId,
@@ -123,7 +123,7 @@ export const useBattle = (props: Props) => {
   const onClickReset = async () => {
     if (!finish) {
       const addTime = await round(limit - timeLeft);
-      axios.put(`http://localhost:4000/update/totaltime/${smallGoalId}`, {
+      axios.put(`/update/totaltime/${smallGoalId}`, {
         addTime,
         workId,
         userId,

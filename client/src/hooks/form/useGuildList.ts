@@ -5,8 +5,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import axios from "axios";
 import * as Yup from "yup";
+import { axios } from "../../apis/axios";
 
 import { Guild } from "../../types/guild";
 import { useFileStringify } from "../useFileStringify";
@@ -40,7 +40,7 @@ export const useGuildList = (props: Props) => {
   const { snakeToCamel } = useFormatCamel();
 
   useEffect(() => {
-    axios.get("http://localhost:4000/fetch/guildlist").then((res) => {
+    axios.get("/fetch/guildlist").then((res) => {
       const formatedList = snakeToCamel(res.data, "guild");
       const guildList = formatedList as Guild[];
       setGuildList(guildList);
@@ -54,7 +54,7 @@ export const useGuildList = (props: Props) => {
       const { guildName, guildPicture, comment } = values;
 
       axios
-        .post<any[]>(`http://localhost:4000/post/guild/${userId}`, {
+        .post<any[]>(`/post/guild/${userId}`, {
           guildName,
           guildPicture: guildPicture ? fileToString(guildPicture) : null,
           comment,
@@ -69,7 +69,7 @@ export const useGuildList = (props: Props) => {
           throw err;
         });
       axios
-        .get<any[]>("http://localhost:4000/fetch/guildlist")
+        .get<any[]>("/fetch/guildlist")
         .then((res) => {
           const formatedList = snakeToCamel(res.data, "guild");
           const guildList = formatedList as Guild[];

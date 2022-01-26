@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { axios } from "../apis/axios";
 import { User } from "../types/user";
 import { useFormatCamel } from "./useFormatCamel";
 import { useShowMessage } from "./useShowMessage";
@@ -17,7 +17,7 @@ export const useCheer = (
 
   useEffect(() => {
     axios
-      .get<any[]>(`http://localhost:4000/fetch/cheer/${userId}`)
+      .get<any[]>(`/fetch/cheer/${userId}`)
       .then((res) => {
         const formatedList = snakeToCamel(res.data, "user");
         const users = formatedList as User[];
@@ -37,7 +37,7 @@ export const useCheer = (
     setProsessing(true); //処理中スピン表示
 
     axios
-      .post(`http://localhost:4000/post/cheer`, { userId, targetId })
+      .post(`/post/cheer`, { userId, targetId })
       .then(() => {
         setCheered(true);
         showMessage({
@@ -58,7 +58,7 @@ export const useCheer = (
     setProsessing(true);
 
     axios
-      .delete("http://localhost:4000/delete/cheer", {
+      .delete("/delete/cheer", {
         data: { targetId, userId },
       })
       .then(() => {

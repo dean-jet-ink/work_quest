@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { axios } from "../apis/axios";
 import { User } from "../types/user";
 import { useFormatCamel } from "./useFormatCamel";
 
@@ -9,7 +9,7 @@ export const useCheered = (userId: number) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/fetch/cheered/${userId}`)
+      .get(`/fetch/cheered/${userId}`)
       .then((res) => {
         const formatedList = snakeToCamel(res.data, "user");
         const users = formatedList as User[];

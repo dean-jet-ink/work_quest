@@ -1,8 +1,8 @@
-import axios from "axios";
 import { FormikHelpers } from "formik";
 import { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
+import { axios } from "../../apis/axios";
 
 import { useLoginUser } from "../useLoginUser";
 import { useShowMessage } from "../useShowMessage";
@@ -29,11 +29,8 @@ export const useLogin = () => {
   const onSubmit: (props: OnSubmitProps) => void = useCallback((props) => {
     const { values, actions } = props;
 
-    // cookieの通信を設定
-    axios.defaults.withCredentials = true;
-
     axios
-      .post(`http://localhost:4000/login`, values)
+      .post(`/login`, values)
       .then((res) => {
         if (res.data.err) {
           showMessage({

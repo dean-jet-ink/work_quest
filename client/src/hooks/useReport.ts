@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 import moment from "moment";
 import { Week } from "../types/week";
+import { axios } from "../apis/axios";
 
 export const useReport = (userId: number) => {
   const [week, setWeek] = useState<Week>({} as Week);
@@ -9,7 +9,7 @@ export const useReport = (userId: number) => {
   useEffect(() => {
     const fetch = async () => {
       await axios
-        .get(`http://localhost:4000/fetch/report/${userId}`)
+        .get(`/fetch/report/${userId}`)
         .then((res) => {
           setWeek(res.data);
         })
@@ -24,11 +24,9 @@ export const useReport = (userId: number) => {
     (time: number) => {
       const today = moment().format("dddd").toLowerCase();
 
-      axios
-        .put(`http://localhost:4000/update/report/${today}/${userId}`, { time })
-        .catch((err) => {
-          throw err;
-        });
+      axios.put(`/update/report/${today}/${userId}`, { time }).catch((err) => {
+        throw err;
+      });
     },
     [userId]
   );
