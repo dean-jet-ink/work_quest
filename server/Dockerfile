@@ -4,5 +4,5 @@ COPY ./package*.json ./
 RUN npm i
 COPY . .
 ENV CHOKIDAR_USEPOLLING=1
-CMD ["./node_modules/.bin/nodemon", "src/server.ts"]
+CMD sh -c "npm run start"
 EXPOSE 4000
