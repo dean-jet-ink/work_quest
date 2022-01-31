@@ -1,4 +1,4 @@
-import { memo, VFC } from "react";
+import { memo } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 
 import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
@@ -23,7 +23,7 @@ import { useCheer } from "../../hooks/useCheer";
 import { useCheered } from "../../hooks/useCheered";
 import { BackgroundCity } from "../molcules/BackgroundCity";
 
-export const Top: VFC = memo(() => {
+export const Top = memo(() => {
   const { loginUserId } = useLoginUser();
   const { user, userInitialValues, userOnSubmit, userValidationSchema } =
     useUser(loginUserId as number);
