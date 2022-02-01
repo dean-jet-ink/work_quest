@@ -3,12 +3,11 @@ import { FormikHelpers } from "formik";
 import * as Yup from "yup";
 
 import { User } from "../types/user";
-import { useFileStringify } from "./useFileStringify";
 import { useShowMessage } from "./useShowMessage";
 import { axios } from "../apis/axios";
 
 export type UserInitialValuesType = {
-  picture: File | string | null;
+  picture: string | null;
   name: string;
   mail: string;
   sex: string;
@@ -24,7 +23,6 @@ export type UserOnSubmitProps = {
 export const useUser = (userId: number) => {
   const [user, setUser] = useState<User>({} as User);
   const { showMessage } = useShowMessage();
-  const { fileToString } = useFileStringify();
 
   const snakeToCamel = useCallback((item: any) => {
     const formatedItem: User = {
@@ -57,9 +55,7 @@ export const useUser = (userId: number) => {
           });
           throw err;
         });
-      if (result) {
-        setUser(result);
-      }
+      setUser(result);
     };
     fetchData();
     //eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,7 +76,7 @@ export const useUser = (userId: number) => {
 
     axios
       .put(`/update/profile/${userId}`, {
-        picture: picture instanceof File ? fileToString(picture) : picture,
+        picture,
         name,
         mail,
         sex,
@@ -135,5 +131,10 @@ export const useUser = (userId: number) => {
       ),
   });
 
-  return { user, userInitialValues, userOnSubmit, userValidationSchema };
+  return {
+    user,
+    userInitialValues,
+    userOnSubmit,
+    userValidationSchema,
+  };
 };

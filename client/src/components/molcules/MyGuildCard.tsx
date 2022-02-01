@@ -1,10 +1,10 @@
 import { Box, Image, Stack, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
 import { Guild } from "../../types/guild";
 import { Comment } from "./Comment";
 import { PeopleOfNumber } from "./PeopleOfNumber";
 import paper from "../../image/paper.png";
+import { useFile } from "../../hooks/useFile";
 
 type Props = {
   guild: Guild;
@@ -12,7 +12,7 @@ type Props = {
 
 export const MyGuildCard = (props: Props) => {
   const { guild } = props;
-  const { inspectedPicture } = useDefaultPicture(guild.guildPicture, "guild/");
+  const { file } = useFile({ key: "guild", picture: guild.guildPicture });
 
   return (
     <Link to={`/top/myguild/${guild.guildId}`}>
@@ -24,12 +24,7 @@ export const MyGuildCard = (props: Props) => {
       >
         <Box bgColor="#b98b3a1f" h="100%" p="27px">
           <Stack spacing={4}>
-            <Image
-              src={inspectedPicture}
-              boxSize="160px"
-              mx="auto"
-              borderRadius="50%"
-            />
+            <Image src={file} boxSize="160px" mx="auto" borderRadius="50%" />
             <Text fontSize="14px" fontWeight="bold" textAlign="center">
               {guild.guildName}
             </Text>

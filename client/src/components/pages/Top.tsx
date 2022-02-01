@@ -9,7 +9,7 @@ import { WorkContainer } from "../atoms/WorkContainer";
 import { Status } from "../organisms/Status";
 import { useWorks } from "../../hooks/useWorks";
 import { DrawerButton } from "../molcules/DrawerButton";
-import { useFile } from "../../hooks/useFile";
+import { useFormFile } from "../../hooks/useFormFile";
 import { ProfileFormModal } from "../organisms/ProfileFormModal";
 import { CompleteWorkDrawer } from "../organisms/CompleteWorkDrawer";
 import { AddWorkModal } from "../organisms/AddWorkModal";
@@ -18,17 +18,15 @@ import { CheerDrawer } from "../organisms/CheerDrawer";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import { useUser } from "../../hooks/useUser";
 import { useLevelUp } from "../../hooks/useLevelup";
-import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
 import { useCheer } from "../../hooks/useCheer";
 import { useCheered } from "../../hooks/useCheered";
 import { BackgroundCity } from "../molcules/BackgroundCity";
+import { useFile } from "../../hooks/useFile";
 
 export const Top: VFC = memo(() => {
   const { loginUserId } = useLoginUser();
   const { user, userInitialValues, userOnSubmit, userValidationSchema } =
     useUser(loginUserId as number);
-  // プロフィール画像の設定が無ければ初期画像表示
-  const { inspectedPicture } = useDefaultPicture(user.picture, "member/");
   const {
     workInitialValues,
     incompleteWorks,
@@ -40,7 +38,11 @@ export const Top: VFC = memo(() => {
     onClickUpdate,
     workValidationSchema,
   } = useWorks(loginUserId as number);
-  const { file, fileLoad } = useFile(inspectedPicture);
+  const { file, selectedFile, handleFile, uploadFile } = useFile({
+    key: "member",
+    picture: user.picture,
+  });
+  const { formFile, fileLoad } = useFormFile(file);
   const {
     experienceRate,
     levelUpFlag,
@@ -68,11 +70,7 @@ export const Top: VFC = memo(() => {
 
   return (
     <BackgroundCity>
-      <PrimaryLayout
-        onOpenProfile={onOpen1}
-        onOpenCheer={onOpen4}
-        src={inspectedPicture}
-      >
+      <PrimaryLayout onOpenProfile={onOpen1} onOpenCheer={onOpen4} src={file}>
         <PrimaryWrapper>
           <Box py={{ md: "30px" }}>
             <Flex
@@ -138,7 +136,11 @@ export const Top: VFC = memo(() => {
           onClose={onClose1}
           isOpen={isOpen1}
           onChange={fileLoad}
-          src={file}
+          formSrc={formFile}
+          file={file}
+          selectedFile={selectedFile}
+          handleFile={handleFile}
+          uploadFile={uploadFile}
         />
         <AddWorkModal
           initialValues={workInitialValues}

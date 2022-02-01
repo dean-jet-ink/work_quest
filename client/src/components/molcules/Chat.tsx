@@ -2,8 +2,8 @@ import { memo } from "react";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 
 import { User } from "../../types/user";
-import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
 import moment from "moment";
+import { useFile } from "../../hooks/useFile";
 
 type Props = {
   loginUserId: number;
@@ -32,7 +32,7 @@ export const Chat = memo((props: Props) => {
   const { loginUserId, members, chat } = props;
   chat.time = moment.utc(chat.time).format("YYYY/MM/DD HH:mm");
   const user = members.find((member) => member.userId === chat.userId);
-  const { inspectedPicture } = useDefaultPicture(user!.picture, "member/");
+  const { file } = useFile({ key: "member", picture: user!.picture });
   const imageSize = {
     base: "45px",
     md: "60px",
@@ -70,11 +70,7 @@ export const Chat = memo((props: Props) => {
           borderRadius="50%"
           textAlign="center"
         >
-          <Image
-            src={inspectedPicture}
-            boxSize={imageSize}
-            borderRadius="50%"
-          />
+          <Image src={file} boxSize={imageSize} borderRadius="50%" />
         </Box>
       </Box>
       <Box position="relative" pr={rightOrLeft.pr} pl={rightOrLeft.pl}>

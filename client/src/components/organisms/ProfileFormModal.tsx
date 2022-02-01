@@ -12,8 +12,8 @@ import { PrimaryTextArea } from "../molcules/forms/PrimaryTextArea";
 import { User } from "../../types/user";
 import { SecondaryButton } from "../atoms/forms/SecondaryButton";
 import { useLogout } from "../../hooks/useLogout";
-import { useUploadFile } from "../../hooks/useUploadFile";
 import { UserInitialValuesType, UserOnSubmitProps } from "../../hooks/useUser";
+import { generateFileNameWithHash } from "../../utils/generateFileNameWithHash";
 
 type Props = {
   user: User;
@@ -23,7 +23,11 @@ type Props = {
   onClose: () => void;
   isOpen: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  src: string;
+  formSrc: string;
+  file: string;
+  selectedFile: File | null;
+  handleFile: (e: ChangeEvent<HTMLInputElement>) => void;
+  uploadFile: (newFile: string | null, preFile: string | null) => void;
 };
 
 export const ProfileFormModal = memo((props: Props) => {
@@ -35,10 +39,13 @@ export const ProfileFormModal = memo((props: Props) => {
     onClose,
     isOpen,
     onChange,
-    src,
+    formSrc,
+    file,
+    selectedFile,
+    handleFile,
+    uploadFile,
   } = props;
   const { logout } = useLogout();
-  const { selectedFile, handleFile, uploadFile } = useUploadFile();
 
   return (
     <PrimaryModal onClose={onClose} isOpen={isOpen}>
@@ -46,28 +53,28 @@ export const ProfileFormModal = memo((props: Props) => {
         <Formik
           initialValues={initialValues}
           onSubmit={(values, actions) => {
-            setTimeout(() => {
-              onSubmit({ values, actions });
-              uploadFile("member/", user.picture);
+            setTimeout(async () => {
+              await uploadFile(values.picture, user.picture);
+              await onSubmit({ values, actions });
             }, 500);
           }}
           validationSchema={validationSchema}
         >
-          {({ values, isSubmitting, handleSubmit, setFieldValue }) => (
+          {({ isSubmitting, handleSubmit, setFieldValue }) => (
             <Form
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSubmit();
                 setFieldValue(
                   "picture",
-                  selectedFile ? selectedFile : values.picture
+                  selectedFile ? generateFileNameWithHash(selectedFile) : null
                 );
               }}
             >
               <Stack spacing={3}>
                 <PrimaryInputFile
                   name="file"
-                  src={src}
+                  src={formSrc}
                   onChange={onChange}
                   handleFile={handleFile}
                 />

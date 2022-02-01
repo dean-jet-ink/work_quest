@@ -4,16 +4,17 @@ import { Formik, Form } from "formik";
 
 import { PrimaryModal } from "../molcules/PrimaryModal";
 import { PrimaryInputFile } from "../molcules/forms/PrimaryInputFile";
-import { useFile } from "../../hooks/useFile";
-import noImage from "../../image/no-image.png";
+import { useFormFile } from "../../hooks/useFormFile";
 import { PrimaryInputText } from "../molcules/forms/PrimaryInputText";
 import { SubmitOrCancel } from "../molcules/forms/SubmitOrCancel";
 import {
   GuildInitialValuesType,
   GuildOnSubmitProps,
 } from "../../hooks/form/useGuildList";
-import { useUploadFile } from "../../hooks/useUploadFile";
+import { useFile } from "../../hooks/useFile";
 import { OptionalObjectSchema } from "yup/lib/object";
+import { generateFileNameWithHash } from "../../utils/generateFileNameWithHash";
+import noImage from "../../image/no-image.png";
 
 type Props = {
   initialValues: GuildInitialValuesType;
@@ -25,9 +26,9 @@ type Props = {
 
 export const AddGuildModal = memo((props: Props) => {
   const { onSubmit, initialValues, onClose, isOpen, validationSchema } = props;
-  const { fileLoad, file, setFile } = useFile(noImage);
-  const { selectedFile, setSelectedFile, handleFile, uploadFile } =
-    useUploadFile();
+  const { file, selectedFile, setSelectedFile, handleFile, uploadFile } =
+    useFile({ key: "guild", picture: null });
+  const { fileLoad, formFile, setFormFile } = useFormFile(file);
 
   return (
     <PrimaryModal onClose={onClose} isOpen={isOpen}>
@@ -36,12 +37,12 @@ export const AddGuildModal = memo((props: Props) => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              onSubmit({ values, setSubmitting });
-              uploadFile("guild/");
-              setFile(noImage);
-              setSelectedFile(null);
-              onClose();
+            setTimeout(async () => {
+              await uploadFile(values.guildPicture);
+              await onSubmit({ values, setSubmitting });
+              await setSelectedFile(null);
+              await setFormFile(noImage);
+              await onClose();
             }, 500);
           }}
         >
@@ -52,13 +53,13 @@ export const AddGuildModal = memo((props: Props) => {
                 handleSubmit();
                 setFieldValue(
                   "guildPicture",
-                  selectedFile ? selectedFile : null
+                  selectedFile ? generateFileNameWithHash(selectedFile) : null
                 );
               }}
             >
               <PrimaryInputFile
                 name="file"
-                src={file}
+                src={formFile}
                 onChange={fileLoad}
                 handleFile={handleFile}
               />
