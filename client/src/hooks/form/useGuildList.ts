@@ -9,7 +9,6 @@ import * as Yup from "yup";
 import { axios } from "../../apis/axios";
 
 import { Guild } from "../../types/guild";
-import { useFileStringify } from "../useFileStringify";
 import { useFormatCamel } from "../useFormatCamel";
 
 type Props = {
@@ -19,7 +18,7 @@ type Props = {
 
 export type GuildInitialValuesType = {
   guildName: string;
-  guildPicture: File | null;
+  guildPicture: string | null;
   comment: string;
 };
 
@@ -36,7 +35,6 @@ export const useGuildList = (props: Props) => {
     guildPicture: null,
     comment: "",
   };
-  const { fileToString } = useFileStringify();
   const { snakeToCamel } = useFormatCamel();
 
   useEffect(() => {
@@ -56,7 +54,7 @@ export const useGuildList = (props: Props) => {
       axios
         .post<any[]>(`/post/guild/${userId}`, {
           guildName,
-          guildPicture: guildPicture ? fileToString(guildPicture) : null,
+          guildPicture,
           comment,
         })
         .then((res) => {

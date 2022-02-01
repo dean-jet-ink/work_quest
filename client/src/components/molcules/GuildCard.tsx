@@ -2,8 +2,8 @@ import { Box, Image, Stack, Text, WrapItem, Flex } from "@chakra-ui/react";
 
 import { Guild } from "../../types/guild";
 import { PeopleOfNumber } from "./PeopleOfNumber";
-import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
 import paper from "../../image/paper.png";
+import { useFile } from "../../hooks/useFile";
 
 type Props = {
   guild: Guild;
@@ -13,7 +13,10 @@ type Props = {
 
 export const GuildCard = (props: Props) => {
   const { guild, myGuildList, onClickSelect } = props;
-  const { inspectedPicture } = useDefaultPicture(guild.guildPicture, "guild/");
+  const { file } = useFile({
+    key: "guild",
+    picture: guild.guildPicture,
+  });
 
   const existMyGuild = myGuildList.find(
     (myGuild) => myGuild.guildId === guild.guildId
@@ -35,7 +38,7 @@ export const GuildCard = (props: Props) => {
         <Box bgColor="#b98b3a1f" h="100%">
           <Flex h="100%" align="center" justify="center" flexDir="column">
             <Image
-              src={inspectedPicture}
+              src={file}
               boxSize={{ base: "102px", lg: "140px", xl: "150px" }}
               borderRadius="50%"
               mx="auto"

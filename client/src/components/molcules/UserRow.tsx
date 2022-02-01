@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 import { TotalTime } from "./TotalTime";
 import { User } from "../../types/user";
-import { useDefaultPicture } from "../../hooks/useDefaultPicutre";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import rank1 from "../../image/rank1.png";
 import rank2 from "../../image/rank2.png";
 import rank3 from "../../image/rank3.png";
+import { useFile } from "../../hooks/useFile";
 
 type Props = {
   user: User;
@@ -19,7 +19,7 @@ type Props = {
 export const UserRow = (props: Props) => {
   const { loginUserId } = useLoginUser();
   const { user, index, isRanking = false } = props;
-  const { inspectedPicture } = useDefaultPicture(user.picture, "member/");
+  const { file } = useFile({ key: "member", picture: user.picture });
   const noLink = loginUserId === user.userId ? "none" : "auto"; //リストの自分の行はリンク無効
   const bgColor = loginUserId === user.userId ? "#f38484b5" : "#ede5adb5"; //リストの自分の行は背景色変更
   const ranking = isRanking ? "block" : "none";
@@ -34,7 +34,7 @@ export const UserRow = (props: Props) => {
       default:
         return "unset";
     }
-  }, []); //ランキングページにおいて、順位が3位以内ならば王冠表示
+  }, []); //ランキングページにおいて、順位が3位以内ならばその順位の王冠表示
   const rank = place(index);
 
   return (
@@ -66,12 +66,7 @@ export const UserRow = (props: Props) => {
                 {index + 1}
               </Text>
             </Box>
-            <Image
-              src={inspectedPicture}
-              boxSize="50px"
-              borderRadius="50%"
-              mr={2}
-            />
+            <Image src={file} boxSize="50px" borderRadius="50%" mr={2} />
             <Flex
               fontSize={{ base: "12px", lg: "15px" }}
               align="start"
