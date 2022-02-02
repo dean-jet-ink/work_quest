@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Box, Flex, Text, useDisclosure, Image } from "@chakra-ui/react";
+import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
@@ -12,14 +12,13 @@ import { SecondaryLayout } from "../templates/SecondaryLayout";
 import { useSmallGoal } from "../../hooks/useSmallGoal";
 import { AddSmallGoalModal } from "../organisms/AddSmallGoalModal";
 import { CompleteSmallGoalDrawer } from "../organisms/CompleteSmallGoalDrawer";
-import { useDisclosureComplete } from "../../hooks/useDisclosureComplete";
 import { Column } from "../organisms/Column";
 import { BackgroundCity } from "../molcules/BackgroundCity";
 import { PrimaryContainer } from "../atoms/PrimaryContainer";
 import king from "../../image/king.png";
 import { useKingsLine } from "../../hooks/useKingsLine";
-import { useDisclosureKing } from "../../hooks/useDisclosureKing";
 import { KingModal } from "../organisms/KingModal";
+import { useDisclosures } from "../../hooks/useDisclosures";
 
 export const Work = memo(() => {
   const { id } = useParams<{ id: string }>();
@@ -36,10 +35,17 @@ export const Work = memo(() => {
     onClickUpdate,
     smallGoalValidationSchema,
   } = useSmallGoal(Number(id));
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isOpenComplete, onOpenComplete, onCloseComplete } =
-    useDisclosureComplete();
-  const { isOpenKing, onOpenKing, onCloseKing } = useDisclosureKing();
+  const {
+    isOpen1,
+    onOpen1,
+    onClose1,
+    isOpen2,
+    onOpen2,
+    onClose2,
+    isOpen3,
+    onOpen3,
+    onClose3,
+  } = useDisclosures();
   const { line } = useKingsLine();
 
   return (
@@ -60,7 +66,7 @@ export const Work = memo(() => {
                 bg: "#bfbfa4",
                 borderColor: "#fffaba",
               }}
-              onClick={onOpenKing}
+              onClick={onOpen3}
             >
               <Image src={king} boxSize="50px" borderRadius="50%" />
             </Box>
@@ -155,7 +161,7 @@ export const Work = memo(() => {
                     <Box mb={{ base: 5 }}>
                       <AddContents
                         contents="スモールゴールの追加"
-                        onClick={onOpen}
+                        onClick={onOpen1}
                       />
                     </Box>
                     {incompletedSmallGoals.length !== 0 ? (
@@ -179,7 +185,7 @@ export const Work = memo(() => {
             <Box pt={{ base: "20px", md: "30px" }}>
               <DrawerButton
                 text={`完了したスモールゴール（${completedSmallGoals.length}）`}
-                onClick={onOpenComplete}
+                onClick={onOpen2}
               />
             </Box>
           </Box>
@@ -188,18 +194,18 @@ export const Work = memo(() => {
           initialValues={initialValues}
           onSubmit={onSubmit}
           validationSchema={smallGoalValidationSchema}
-          isOpen={isOpen}
-          onClose={onClose}
+          isOpen={isOpen1}
+          onClose={onClose1}
         />
         <CompleteSmallGoalDrawer
           completeSmallGoals={completedSmallGoals}
           onClick={onClickBack}
-          isOpen={isOpenComplete}
-          onClose={onCloseComplete}
+          isOpen={isOpen2}
+          onClose={onClose2}
         />
         <KingModal
-          onClose={onCloseKing}
-          isOpen={isOpenKing}
+          onClose={onClose3}
+          isOpen={isOpen3}
           line={line}
           king={king}
         />

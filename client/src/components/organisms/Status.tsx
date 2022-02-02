@@ -8,6 +8,7 @@ import {
   Image,
   Progress,
   Button,
+  useDisclosure,
 } from "@chakra-ui/react";
 import party from "party-js";
 
@@ -15,7 +16,6 @@ import { PrimaryContainer } from "../atoms/PrimaryContainer";
 import { TotalTime } from "../molcules/TotalTime";
 import { User } from "../../types/user";
 import { Comment } from "../molcules/Comment";
-import { useDisclosureLevelUp } from "../../hooks/useDisclosureLevelUp";
 import { LevelUpModal } from "./LevelUpModal";
 import praise from "../../assets/audio/praise.mp3";
 import { useSoundEffect } from "../../hooks/useSoundEffect";
@@ -56,8 +56,7 @@ export const Status = memo((props: Props) => {
   const profileLevel = myProfile ? level : user.level;
   const profileTitle = myProfile ? title : user.title;
 
-  const { isOpenLevelUp, onCloseLevelUp, onOpenLevelUp } =
-    useDisclosureLevelUp();
+  const { isOpen, onClose, onOpen } = useDisclosure();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [soundPraise, onClickPraise] = useSoundEffect(praise);
 
@@ -118,7 +117,7 @@ export const Status = memo((props: Props) => {
                   onClick={() => {
                     setTimeout(() => {
                       onClickLevelUp({
-                        onOpenLevelUp,
+                        onOpen,
                         onClickPraise,
                         onClickParty,
                       });
@@ -159,8 +158,8 @@ export const Status = memo((props: Props) => {
         <Comment>{`${user.userName}「 ${user.comment} 」`}</Comment>
       </Box>
       <LevelUpModal
-        onClose={onCloseLevelUp}
-        isOpen={isOpenLevelUp}
+        onClose={onClose}
+        isOpen={isOpen}
         user={user}
         level={level!}
         title={title!}
