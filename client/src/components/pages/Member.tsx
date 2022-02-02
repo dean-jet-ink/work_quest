@@ -2,17 +2,17 @@ import { memo } from "react";
 import { useParams } from "react-router-dom";
 import { Flex, Box, Text } from "@chakra-ui/react";
 
-import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
-import { CheerUp } from "../molcules/CheerUp";
-import { SecondaryLayout } from "../templates/SecondaryLayout";
-import { Status } from "../organisms/Status";
+import { PrimaryWrapper } from "../atoms/layout/PrimaryWrapper";
+import { CheerUp } from "../molcules/button/CheerUp";
+import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
+import { Status } from "../organisms/top/Status";
 import { useUser } from "../../hooks/useUser";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import { useCheer } from "../../hooks/useCheer";
-import { BackgroundCity } from "../molcules/BackgroundCity";
-import { LineChart } from "../molcules/LineChart";
+import { Background } from "../molcules/layout/Background";
+import { LineChart } from "../molcules/chart/LineChart";
 import { useReport } from "../../hooks/useReport";
-import { PrimaryContainer } from "../atoms/PrimaryContainer";
+import { PrimaryContainer } from "../atoms/layout/PrimaryContainer";
 import { useLevelUp } from "../../hooks/useLevelup";
 
 export const Member = memo(() => {
@@ -29,7 +29,7 @@ export const Member = memo(() => {
   const { titleImage } = useLevelUp(user);
 
   return (
-    <BackgroundCity>
+    <Background>
       <SecondaryLayout>
         <PrimaryWrapper>
           <Box w={{ base: "450px", md: "600px", lg: "auto" }} mx="auto">
@@ -69,6 +69,6 @@ export const Member = memo(() => {
           </Box>
         </PrimaryWrapper>
       </SecondaryLayout>
-    </BackgroundCity>
+    </Background>
   );
 });

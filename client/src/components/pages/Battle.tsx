@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from "react";
 import { Flex, Box, Image, Text, useDisclosure } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
-import { PrimaryContainer } from "../atoms/PrimaryContainer";
+import { PrimaryContainer } from "../atoms/layout/PrimaryContainer";
 import { useEnemyEncounter } from "../../hooks/useEnemyEncounter";
 import restTime from "../../image/restTime.png";
 import { useWhiteNoise } from "../../hooks/useWhiteNoise";
@@ -10,11 +10,11 @@ import clock from "../../assets/audio/clock.mp3";
 import victory from "../../assets/audio/victory.mp3";
 import breakIsOver from "../../assets/audio/breakIsOver.mp3";
 import { useSoundEffect } from "../../hooks/useSoundEffect";
-import { Dialog } from "../molcules/Dialog";
+import { Dialog } from "../molcules/popUp/Dialog";
 import { useBattle } from "../../hooks/useBattle";
-import { TotalTime } from "../molcules/TotalTime";
+import { TotalTime } from "../molcules/layout/TotalTime";
 import { useLoginUser } from "../../hooks/useLoginUser";
-import { BattleButtons } from "../molcules/BattleButtons";
+import { BattleButtons } from "../molcules/button/BattleButtons";
 
 export const Battle = memo(() => {
   // 制限時間設定

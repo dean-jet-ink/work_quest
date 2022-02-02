@@ -1,12 +1,12 @@
 import { memo } from "react";
 import { Image, Box, Text, Flex } from "@chakra-ui/react";
 
-import { SecondaryLayout } from "../templates/SecondaryLayout";
-import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
-import { PrimaryContainer } from "../atoms/PrimaryContainer";
+import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
+import { PrimaryWrapper } from "../atoms/layout/PrimaryWrapper";
+import { PrimaryContainer } from "../atoms/layout/PrimaryContainer";
 import book from "../../image/report.png";
-import { LineChart } from "../molcules/LineChart";
-import { PieChart } from "../molcules/PieChart";
+import { LineChart } from "../molcules/chart/LineChart";
+import { PieChart } from "../molcules/chart/PieChart";
 import { useReport } from "../../hooks/useReport";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import { useWorks } from "../../hooks/useWorks";

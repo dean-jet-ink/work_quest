@@ -2,22 +2,22 @@ import { memo } from "react";
 import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
-import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
-import { WorkContainer } from "../atoms/WorkContainer";
-import { AddContents } from "../molcules/AddContents";
-import { SmallGoalList } from "../molcules/SmallGoalList";
-import { DrawerButton } from "../molcules/DrawerButton";
-import { TotalTime } from "../molcules/TotalTime";
-import { SecondaryLayout } from "../templates/SecondaryLayout";
+import { PrimaryWrapper } from "../atoms/layout/PrimaryWrapper";
+import { WorkContainer } from "../atoms/layout/WorkContainer";
+import { AddContents } from "../molcules/button/AddContents";
+import { SmallGoalList } from "../organisms/work/SmallGoalList";
+import { DrawerButton } from "../molcules/display/DrawerButton";
+import { TotalTime } from "../molcules/layout/TotalTime";
+import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
 import { useSmallGoal } from "../../hooks/useSmallGoal";
-import { AddSmallGoalModal } from "../organisms/AddSmallGoalModal";
-import { CompleteSmallGoalDrawer } from "../organisms/CompleteSmallGoalDrawer";
-import { Column } from "../organisms/Column";
-import { BackgroundCity } from "../molcules/BackgroundCity";
-import { PrimaryContainer } from "../atoms/PrimaryContainer";
+import { AddSmallGoalModal } from "../organisms/work/AddSmallGoalModal";
+import { CompleteSmallGoalDrawer } from "../organisms/work/CompleteSmallGoalDrawer";
+import { Column } from "../molcules/layout/Column";
+import { Background } from "../molcules/layout/Background";
+import { PrimaryContainer } from "../atoms/layout/PrimaryContainer";
 import king from "../../image/king.png";
 import { useKingsLine } from "../../hooks/useKingsLine";
-import { KingModal } from "../organisms/KingModal";
+import { KingModal } from "../organisms/work/KingModal";
 import { useDisclosures } from "../../hooks/useDisclosures";
 
 export const Work = memo(() => {
@@ -49,7 +49,7 @@ export const Work = memo(() => {
   const { line } = useKingsLine();
 
   return (
-    <BackgroundCity>
+    <Background>
       <SecondaryLayout>
         <PrimaryWrapper>
           <Box px={{ sm: "40px" }} position="relative">
@@ -210,6 +210,6 @@ export const Work = memo(() => {
           king={king}
         />
       </SecondaryLayout>
-    </BackgroundCity>
+    </Background>
   );
 });
