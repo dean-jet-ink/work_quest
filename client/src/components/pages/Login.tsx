@@ -3,20 +3,20 @@ import { Box, Stack, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 
 import { useLogin } from "../../hooks/form/useLogin";
-import { PrimaryButton } from "../atoms/forms/PrimarButton";
-import { PrimaryInputText } from "../molcules/forms/PrimaryInputText";
-import { SpanFontWeight } from "../atoms/SpanFontWeight";
-import { LoginHeaderContainer } from "../molcules/LoginHeaderContainer";
-import { LoginHeaderForm } from "../molcules/LoginHeaderForm";
-import { DownArrow } from "../molcules/DownArrow";
-import { CTA } from "../molcules/CTA";
-import { Feature } from "../organisms/Feature";
-import { Column } from "../organisms/Column";
+import { PrimaryButton } from "../atoms/button/PrimarButton";
+import { PrimaryInputText } from "../molcules/input/PrimaryInputText";
+import { SpanFontWeight } from "../atoms/layout/SpanFontWeight";
+import { LoginHeaderContainer } from "../atoms/layout/LoginHeaderContainer";
+import { LoginHeaderForm } from "../molcules/layout/LoginHeaderForm";
+import { DownArrow } from "../molcules/layout/DownArrow";
+import { CTA } from "../molcules/layout/CTA";
+import { Feature } from "../organisms/login/Feature";
+import { Column } from "../molcules/layout/Column";
 import yuusya from "../../image/yuusya.png";
 import party from "../../image/party.png";
 import enemy from "../../image/enemy.png";
-import { FooterLayout } from "../templates/FooterLayout";
-import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
+import { FooterLayout } from "../templates/layout/FooterLayout";
+import { PrimaryWrapper } from "../atoms/layout/PrimaryWrapper";
 
 export const Login = memo(() => {
   const { initialValues, onSubmit, validationSchema } = useLogin();

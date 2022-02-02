@@ -1,26 +1,26 @@
 import { memo, VFC } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 
-import { PrimaryWrapper } from "../atoms/PrimaryWrapper";
-import { AddContents } from "../molcules/AddContents";
-import { WorkList } from "../molcules/WorkList";
-import { PrimaryLayout } from "../templates/PrimaryLayout";
-import { WorkContainer } from "../atoms/WorkContainer";
-import { Status } from "../organisms/Status";
+import { PrimaryWrapper } from "../atoms/layout/PrimaryWrapper";
+import { AddContents } from "../molcules/button/AddContents";
+import { WorkList } from "../organisms/top/WorkList";
+import { PrimaryLayout } from "../templates/layout/PrimaryLayout";
+import { WorkContainer } from "../atoms/layout/WorkContainer";
+import { Status } from "../organisms/top/Status";
 import { useWorks } from "../../hooks/useWorks";
-import { DrawerButton } from "../molcules/DrawerButton";
+import { DrawerButton } from "../molcules/display/DrawerButton";
 import { useFormFile } from "../../hooks/useFormFile";
-import { ProfileFormModal } from "../organisms/ProfileFormModal";
-import { CompleteWorkDrawer } from "../organisms/CompleteWorkDrawer";
-import { AddWorkModal } from "../organisms/AddWorkModal";
+import { ProfileFormModal } from "../organisms/top/ProfileFormModal";
+import { CompleteWorkDrawer } from "../organisms/top/CompleteWorkDrawer";
+import { AddWorkModal } from "../organisms/top/AddWorkModal";
 import { useDisclosures } from "../../hooks/useDisclosures";
-import { CheerDrawer } from "../organisms/CheerDrawer";
+import { CheerDrawer } from "../organisms/top/CheerDrawer";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import { useUser } from "../../hooks/useUser";
 import { useLevelUp } from "../../hooks/useLevelup";
 import { useCheer } from "../../hooks/useCheer";
 import { useCheered } from "../../hooks/useCheered";
-import { BackgroundCity } from "../molcules/BackgroundCity";
+import { Background } from "../molcules/layout/Background";
 import { useFile } from "../../hooks/useFile";
 
 export const Top: VFC = memo(() => {
@@ -69,7 +69,7 @@ export const Top: VFC = memo(() => {
   } = useDisclosures();
 
   return (
-    <BackgroundCity>
+    <Background>
       <PrimaryLayout onOpenProfile={onOpen1} onOpenCheer={onOpen4} src={file}>
         <PrimaryWrapper>
           <Box py={{ md: "30px" }}>
@@ -162,6 +162,6 @@ export const Top: VFC = memo(() => {
           listCheered={listCheered}
         />
       </PrimaryLayout>
-    </BackgroundCity>
+    </Background>
   );
 });

@@ -1,14 +1,14 @@
 import { Box, Stack } from "@chakra-ui/react";
 
-import { PrimaryButton } from "../atoms/forms/PrimarButton";
-import { PrimaryInputText } from "../molcules/forms/PrimaryInputText";
-import { PrimarySelect } from "../molcules/forms/PrimarySelect";
-import { LoginHeaderContainer } from "../molcules/LoginHeaderContainer";
-import { LoginHeaderForm } from "../molcules/LoginHeaderForm";
+import { PrimaryButton } from "../atoms/button/PrimarButton";
+import { PrimaryInputText } from "../molcules/input/PrimaryInputText";
+import { PrimarySelect } from "../molcules/input/PrimarySelect";
+import { LoginHeaderContainer } from "../atoms/layout/LoginHeaderContainer";
+import { LoginHeaderForm } from "../molcules/layout/LoginHeaderForm";
 import { Form, Formik } from "formik";
 import { memo } from "react";
 import { useSignup } from "../../hooks/form/useSignup";
-import { FooterLayout } from "../templates/FooterLayout";
+import { FooterLayout } from "../templates/layout/FooterLayout";
 
 export const Signup = memo(() => {
   const { initialValues, onSubmit, validationSchema } = useSignup();

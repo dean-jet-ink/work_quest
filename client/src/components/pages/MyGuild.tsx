@@ -2,19 +2,19 @@ import { memo } from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
-import { SecondaryLayout } from "../templates/SecondaryLayout";
+import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
 import guildBg from "../../image/guild_bg.jpg";
-import { Chat } from "../molcules/Chat";
+import { Chat } from "../organisms/guild/Chat";
 import { useChat } from "../../hooks/form/useChat";
-import { UserList } from "../organisms/UserList";
+import { UserList } from "../organisms/_common/UserList";
 import { useGuild } from "../../hooks/useGuild";
 import { useFetchGuildMembers } from "../../hooks/useFetchGuildMembers";
 import { useLoginUser } from "../../hooks/useLoginUser";
-import { PrimaryTab } from "../molcules/PrimaryTab";
-import { ChatModal } from "../organisms/ChatModal";
+import { PrimaryTab } from "../molcules/menu/PrimaryTab";
+import { ChatModal } from "../organisms/guild/ChatModal";
 import CommentIcon from "@material-ui/icons/Comment";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { ExitGuildDialog } from "../molcules/ExitGuildDialog";
+import { ExitGuildDialog } from "../molcules/popUp/ExitGuildDialog";
 import { useDisclosures } from "../../hooks/useDisclosures";
 
 export const MyGuild = memo(() => {

@@ -8,18 +8,18 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { SecondaryLayout } from "../templates/SecondaryLayout";
+import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
 import mister from "../../image/mister.png";
-import { AddContents } from "../molcules/AddContents";
-import { AddGuildModal } from "../organisms/AddGuildModal";
+import { AddContents } from "../molcules/button/AddContents";
+import { AddGuildModal } from "../organisms/guild/AddGuildModal";
 import { useGuildList } from "../../hooks/form/useGuildList";
-import { LineOfChara } from "../molcules/LineOfChara";
+import { LineOfChara } from "../molcules/layout/LineOfChara";
 import { useLine } from "../../hooks/useLine";
-import { GuildList } from "../organisms/GuildList";
+import { GuildList } from "../organisms/guild/GuildList";
 import { useLoginUser } from "../../hooks/useLoginUser";
-import { MyGuildList } from "../organisms/MyGuildList";
+import { MyGuildList } from "../organisms/guild/MyGuildList";
 import { useMyGuild } from "../../hooks/form/useMyGuild";
-import { PrimaryTab } from "../molcules/PrimaryTab";
+import { PrimaryTab } from "../molcules/menu/PrimaryTab";
 
 type AddGuildDisplayProps = {
   color: "white" | "#d0d0d099";

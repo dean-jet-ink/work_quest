@@ -1,12 +1,12 @@
 import { memo } from "react";
 import { Box, Image } from "@chakra-ui/react";
 
-import { SecondaryLayout } from "../templates/SecondaryLayout";
-import { UserList } from "../organisms/UserList";
+import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
+import { UserList } from "../organisms/_common/UserList";
 import queen from "../../image/queen.png";
-import { InfiniteScroller } from "../molcules/InfiniteScroller";
+import { InfiniteScroller } from "../molcules/loader/InfiniteScroller";
 import { useInfiniteScrollUser } from "../../hooks/useInfiniteScrollUser";
-import { LineOfChara } from "../../components/molcules/LineOfChara";
+import { LineOfChara } from "../molcules/layout/LineOfChara";
 import palace from "../../image/palace.jpg";
 
 export const Ranking = memo(() => {
