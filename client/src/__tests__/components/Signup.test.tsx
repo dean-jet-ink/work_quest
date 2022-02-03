@@ -10,6 +10,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import { Signup } from "../../components/pages/Signup";
+import { baseURL } from "../utils/baseURL";
 
 const mockHistoryPush = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -29,11 +30,11 @@ jest.mock("../../hooks/useLoginUser", () => ({
 }));
 
 const handlers = [
-  rest.post("http://localhost:4000/signup", (req, res, ctx) => {
+  rest.post(`${baseURL}/signup`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ userId: "1" }));
   }),
   rest.get(
-    "http://localhost:4000/get/validation/mail/duplicated/:mail",
+    `${baseURL}/get/validation/mail/duplicated/:mail`,
     (req, res, ctx) => {
       const { mail } = req.params;
       if (mail === "test@test.com") {
@@ -46,23 +47,24 @@ const handlers = [
 ];
 const server = setupServer(...handlers);
 
-beforeAll(() => server.listen());
-
-afterEach(() => {
-  server.resetHandlers();
-  cleanup();
-});
-
-afterAll(() => server.close());
-
 describe("Signupコンポーネントのテストケース", () => {
   beforeEach(async () => {
     await waitFor(() => {
       render(<Signup />);
     });
   });
+
+  beforeAll(() => server.listen());
+
+  afterEach(() => {
+    server.resetHandlers();
+    cleanup();
+  });
+
+  afterAll(() => server.close());
+
   it("サインアップフォームのrenderテスト", async () => {
-    const { getByPlaceholderText, getByTestId, getByText } = screen;
+    const { getByPlaceholderText } = screen;
 
     const userNameForm = getByPlaceholderText("ユーザーネーム");
     const mailForm = screen.getByPlaceholderText("メールアドレス");
@@ -80,6 +82,7 @@ describe("Signupコンポーネントのテストケース", () => {
       expect(button).toBeInTheDocument();
     });
   });
+
   it("サインアップフォームのバリデーションテスト", async () => {
     const { getByPlaceholderText, getByTestId, queryByText, queryAllByText } =
       screen;
@@ -133,6 +136,7 @@ describe("Signupコンポーネントのテストケース", () => {
       expect(queryByText("*選択必須です")).toBeInTheDocument();
     });
   });
+
   it("サインアップ成功時に、Topページに移動", async () => {
     const {
       getByPlaceholderText,

@@ -29,14 +29,14 @@ export const useBattle = (props: Props) => {
   // 小数第二位以下四捨五入
   // 一時間単位でtotal_timeにプラス
   const round = async (time: number) => {
-    return Math.round((time / 60 / 60) * 10) / 10;
+    return await (Math.round((time / 60 / 60) * 10) / 10);
   };
 
   // スモールゴール情報取得およびcountdown開始
   useEffect(() => {
     const fetch = async () => {
       await axios
-        .get(`/fetch/smallgoal/battle/${smallGoalId}}`)
+        .get(`/fetch/smallgoal/battle/${smallGoalId}`)
         .then((res) => {
           setSmallGoalName(res.data.small_goal_name);
           setTotalTime(res.data.total_time);
@@ -70,30 +70,31 @@ export const useBattle = (props: Props) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, timeLeft, countdown]);
 
+  const asyncUpdateTotalTime = async (addTime: number) => {
+    await axios
+      .put(`/update/totaltime/${smallGoalId}`, {
+        addTime,
+        workId,
+        userId,
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
   // timeLeftステイトが0になったときの処理
   const timeup = useCallback(async () => {
     if (timeLeft === 0) {
       clearInterval(countdown);
       setActive(false);
       if (!finish) {
+        const addTime = await round(limit);
+        // await recordTimeOnReport(addTime);
+        await asyncUpdateTotalTime(addTime);
         showMessage({ description: "敵を倒した！", status: "success" });
         setTimeLeft(rest);
-        setFinish(true);
-        const addTime = await round(limit);
         setTotalTime((prev) => prev + addTime);
-        const asyncUpdateTotalTime = async () => {
-          await axios
-            .put(`/update/totaltime/${smallGoalId}`, {
-              addTime,
-              workId,
-              userId,
-            })
-            .catch((err) => {
-              throw err;
-            });
-        };
-        await asyncUpdateTotalTime();
-        await recordTimeOnReport(addTime);
+        setFinish(true);
       } else {
         setTimeLeft(limit);
         setFinish(false);

@@ -31,8 +31,8 @@ jest.mock("../../hooks/useLoginUser.ts", () => ({
 }));
 
 const mockUploadFile = jest.fn();
-jest.mock("../../hooks/useUploadFile.ts", () => ({
-  useUploadFile: () => ({
+jest.mock("../../hooks/useFile.ts", () => ({
+  useFile: () => ({
     uploadFile: mockUploadFile,
   }),
 }));

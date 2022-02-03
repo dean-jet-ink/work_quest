@@ -108,17 +108,6 @@ const handlers = [
 ];
 const server = setupServer(...handlers);
 
-beforeAll(() => {
-  server.listen();
-});
-afterEach(() => {
-  server.resetHandlers();
-  cleanup();
-});
-afterAll(() => {
-  server.close();
-});
-
 describe("Workコンポーネントのテスト", () => {
   beforeEach(async () => {
     await waitFor(() => {
@@ -129,6 +118,20 @@ describe("Workコンポーネントのテスト", () => {
       );
     });
   });
+
+  beforeAll(() => {
+    server.listen();
+  });
+
+  afterEach(() => {
+    server.resetHandlers();
+    cleanup();
+  });
+
+  afterAll(() => {
+    server.close();
+  });
+
   it("ワークページのrenderテスト", async () => {
     const { getByText } = screen;
 
@@ -139,6 +142,7 @@ describe("Workコンポーネントのテスト", () => {
       expect(getByText("3h")).toBeTruthy();
     });
   });
+
   it("スモールゴールのcreateテスト", async () => {
     const { getByTestId, getByText, getByLabelText, getByDisplayValue } =
       screen;
@@ -157,36 +161,42 @@ describe("Workコンポーネントのテスト", () => {
     });
 
     await waitFor(() => {
-      expect(getByText("スモールゴール3"));
+      expect(getByText("スモールゴール3")).toBeTruthy();
     });
   });
+
   it("スモールゴールのupdateテスト", async () => {
     const { getByText, getByLabelText, getByDisplayValue } = screen;
 
     await waitFor(async () => {
       const accordionButton = await getByText("スモールゴール1");
-      await expect(accordionButton).toBeTruthy();
-      await userEvent.click(accordionButton);
-
-      const modalButton = await getByText("編集する");
-      expect(modalButton).toBeTruthy();
-      await userEvent.click(modalButton);
-
-      const nameForm = await getByLabelText("スモールゴール名");
-      expect(nameForm).toBeTruthy();
-      await fireEvent.change(nameForm, {
-        target: { value: "スモールゴール3" },
-      });
-      expect(getByDisplayValue("スモールゴール3")).toBeTruthy();
-      const submitButton = await getByText("編集");
-      expect(submitButton).toBeTruthy();
-      await userEvent.click(submitButton);
+      expect(accordionButton).toBeTruthy();
+      userEvent.click(accordionButton);
     });
+
+    const modalButton = getByText("編集する");
+    expect(modalButton).toBeTruthy();
+    await userEvent.click(modalButton);
+
+    const nameForm = getByLabelText("スモールゴール名");
+    expect(nameForm).toBeTruthy();
+    await fireEvent.change(nameForm, {
+      target: { value: "スモールゴール3" },
+    });
+
+    await waitFor(() => {
+      expect(getByDisplayValue("スモールゴール3")).toBeTruthy();
+    });
+
+    const submitButton = getByText("編集");
+    expect(submitButton).toBeTruthy();
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(getByText("スモールゴール3")).toBeTruthy();
     });
   });
+
   it("スモールゴールのdeleteテスト", async () => {
     const { getByText, queryByText } = screen;
 
@@ -206,6 +216,7 @@ describe("Workコンポーネントのテスト", () => {
       expect(queryByText("スモールゴール1")).toBeNull();
     });
   });
+
   it("スモールゴールの完了テスト", async () => {
     const { getByText, queryByText } = screen;
 
@@ -225,6 +236,7 @@ describe("Workコンポーネントのテスト", () => {
       expect(getByText("スモールゴール1")).toBeTruthy();
     });
   });
+
   it("スモールゴールの未完了テスト", async () => {
     const { getByText, getAllByText } = screen;
 

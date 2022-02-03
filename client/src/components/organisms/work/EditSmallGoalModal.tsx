@@ -29,10 +29,10 @@ export const EditSmallGoalModal = memo((props: Props) => {
             smallGoalName: smallGoal.smallGoalName,
           }}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              onSubmit({ values, smallGoalId: smallGoal.id });
-              setSubmitting(false);
-              onClose();
+            setTimeout(async () => {
+              await onSubmit({ values, smallGoalId: smallGoal.id });
+              await setSubmitting(false);
+              await onClose();
             }, 500);
           }}
           validationSchema={validationSchema}

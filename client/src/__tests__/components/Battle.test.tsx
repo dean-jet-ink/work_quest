@@ -9,17 +9,21 @@ import { Battle } from "../../components/pages/Battle";
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useParams: () => ({
-    id: 1,
+    workId: 1,
+    smallGoalId: 1,
   }),
 }));
+
 jest.mock("../../hooks/useLoginUser.ts", () => ({
   useLoginUser: () => ({
     loginUserId: 1,
   }),
 }));
+
 jest
   .spyOn(window.HTMLMediaElement.prototype, "play")
   .mockImplementation(jest.fn());
+
 jest
   .spyOn(window.HTMLMediaElement.prototype, "pause")
   .mockImplementation(jest.fn());
@@ -40,6 +44,23 @@ const handlers = [
       }
     }
   ),
+  rest.get("http://localhost:4000/fetch/report/:id", (req, res, ctx) => {
+    const { id } = req.params;
+    const userId = Number(id);
+    if (userId === 1) {
+      return res(
+        ctx.json({
+          monday: 1,
+          tuesday: 1,
+          wednesday: 1,
+          thursday: 1,
+          friday: 1,
+          saturday: 1,
+          sunday: 1,
+        })
+      );
+    }
+  }),
 ];
 const server = setupServer(...handlers);
 
