@@ -6,7 +6,7 @@ jobs:
       - image: node:16.13.2-alpine
     working_directory: ~/portfolio_work_quest/client
     steps:
-      - checkout
+      - checkout:
         path: ~/portfolio_work_quest
       - run:
         name: test_client
@@ -15,7 +15,7 @@ jobs:
           npm i
           npm test
   test_server:
-    working_directory: ~/work
+    working_directory: ~/portfolio_work_quest
     steps:
       - checkout
       - run:
