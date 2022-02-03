@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@aws-sdk/client-s3": "^3.49.0",
-    "@babel/runtime": "^7.15.4",
     "@chakra-ui/react": "^1.6.3",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
@@ -65,6 +64,7 @@
     "eject": "react-scripts eject"
   },
   "jest": {
+    "preset": "ts-jest",
     "roots": [
       "./src"
     ],
@@ -80,9 +80,12 @@
       "@testing-library/jest-dom/extend-expect"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/__mocks__/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/src/__mocks__/styleMock.js"
-    }
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/__tests__/__mocks__/fileMock.js",
+      "\\.(css|scss)$": "<rootDir>/src/__tests__/__mocks__/styleMock.js"
+    },
+    "setupFiles": [
+      "<rootDir>/src/__tests__/env/setEnvVars.js"
+    ]
   },
   "eslintConfig": {
     "extends": [

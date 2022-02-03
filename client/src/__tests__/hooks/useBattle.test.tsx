@@ -15,9 +15,7 @@ const props = {
 
 const today = moment().format("dddd").toLowerCase();
 
-const sleep = (period: number) => {
-  return new Promise((resolve) => setTimeout(resolve, period));
-};
+jest.setTimeout(30000);
 
 const handlers = [
   rest.get(
@@ -72,6 +70,10 @@ afterAll(() => {
 });
 
 describe("useBatttleカスタムフックのテスト", () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
   //状態遷移テストとして、1スイッチカバレッジを採用
   //関係行列
   //                         遷移後
@@ -88,9 +90,12 @@ describe("useBatttleカスタムフックのテスト", () => {
   //	           +----------+----------+----------+----------+
   //
   //              イベント P=プレイ S=ストップ TU=タイムアップ SorTU=ストップorタイムアップ
+
   it("プレイからプレイ(S->P)への状態遷移", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useBattle(props));
-    await waitForNextUpdate();
+    const { result, waitFor } = renderHook(() => useBattle(props));
+    await waitFor(() => {
+      expect(result.current.active).toBeTruthy();
+    });
     act(() => {
       result.current.onClickStop();
     });
@@ -100,13 +105,19 @@ describe("useBatttleカスタムフックのテスト", () => {
     });
     expect(result.current.active).toBeTruthy();
   });
+
   it("プレイから休憩(TU->P)への状態遷移", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useBattle(props));
-    await waitForNextUpdate();
-    await act(async () => {
-      await sleep(1000);
+    const { result, waitFor } = renderHook(() => useBattle(props));
+    await waitFor(() => {
+      expect(result.current.active).toBeTruthy();
     });
-    await waitForNextUpdate();
+    expect(result.current.active).toBeTruthy();
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    await waitFor(() => {
+      expect(result.current.finish).toBeTruthy();
+    });
     expect(result.current.active).toBeFalsy();
     expect(result.current.finish).toBeTruthy();
     act(() => {
@@ -115,9 +126,12 @@ describe("useBatttleカスタムフックのテスト", () => {
     expect(result.current.active).toBeTruthy();
     expect(result.current.finish).toBeTruthy();
   });
+
   it("停止から停止(P->S)への状態遷移", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useBattle(props));
-    await waitForNextUpdate();
+    const { result, waitFor } = renderHook(() => useBattle(props));
+    await waitFor(() => {
+      expect(result.current.active).toBeTruthy();
+    });
     act(() => {
       result.current.onClickStop();
     });
@@ -131,9 +145,12 @@ describe("useBatttleカスタムフックのテスト", () => {
     });
     expect(result.current.active).toBeFalsy();
   });
+
   it("停止から休憩待機(P->TU)への状態遷移", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useBattle(props));
-    await waitForNextUpdate();
+    const { result, waitFor } = renderHook(() => useBattle(props));
+    await waitFor(() => {
+      expect(result.current.active).toBeTruthy();
+    });
     act(() => {
       result.current.onClickStop();
     });
@@ -142,22 +159,28 @@ describe("useBatttleカスタムフックのテスト", () => {
       result.current.onClickStart();
     });
     expect(result.current.active).toBeTruthy();
-    await act(async () => {
-      await sleep(1000);
+    act(() => {
+      jest.advanceTimersByTime(1000);
     });
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current.finish).toBeTruthy();
+    });
     expect(result.current.active).toBeFalsy();
     expect(result.current.finish).toBeTruthy();
   });
+
   it("休憩待機から停止(P->S)への状態遷移", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useBattle(props));
-    await waitForNextUpdate();
-    await act(async () => {
-      await sleep(1000);
+    const { result, waitFor } = renderHook(() => useBattle(props));
+    await waitFor(() => {
+      expect(result.current.active).toBeTruthy();
     });
-    await waitForNextUpdate();
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    await waitFor(() => {
+      expect(result.current.finish).toBeTruthy();
+    });
     expect(result.current.active).toBeFalsy();
-    expect(result.current.finish).toBeTruthy();
     act(() => {
       result.current.onClickStart();
     });
@@ -169,35 +192,45 @@ describe("useBatttleカスタムフックのテスト", () => {
     expect(result.current.active).toBeFalsy();
     expect(result.current.finish).toBeFalsy();
   });
+
   it("休憩待機から停止(P->TU)への状態遷移2", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useBattle(props));
-    await waitForNextUpdate();
-    await act(async () => {
-      await sleep(1000);
+    const { result, waitFor } = renderHook(() => useBattle(props));
+    await waitFor(() => {
+      expect(result.current.active).toBeTruthy();
     });
-    await waitForNextUpdate();
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    await waitFor(() => {
+      expect(result.current.finish).toBeTruthy();
+    });
     expect(result.current.active).toBeFalsy();
-    expect(result.current.finish).toBeTruthy();
     act(() => {
       result.current.onClickStart();
     });
     expect(result.current.active).toBeTruthy();
     expect(result.current.finish).toBeTruthy();
-    await act(async () => {
-      await sleep(1000);
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    await waitFor(() => {
+      expect(result.current.finish).toBeFalsy();
     });
     expect(result.current.active).toBeFalsy();
-    expect(result.current.finish).toBeFalsy();
   });
+
   it("休憩からプレイ(S->P)への状態遷移", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useBattle(props));
-    await waitForNextUpdate();
-    await act(async () => {
-      await sleep(1000);
+    const { result, waitFor } = renderHook(() => useBattle(props));
+    await waitFor(() => {
+      expect(result.current.active).toBeTruthy();
     });
-    await waitForNextUpdate();
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    await waitFor(() => {
+      expect(result.current.finish).toBeTruthy();
+    });
     expect(result.current.active).toBeFalsy();
-    expect(result.current.finish).toBeTruthy();
     act(() => {
       result.current.onClickStart();
     });
@@ -213,25 +246,31 @@ describe("useBatttleカスタムフックのテスト", () => {
     });
     expect(result.current.active).toBeTruthy();
   });
+
   it("休憩からプレイ(TU->P)への状態遷移2", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useBattle(props));
-    await waitForNextUpdate();
-    await act(async () => {
-      await sleep(1000);
+    const { result, waitFor } = renderHook(() => useBattle(props));
+    await waitFor(() => {
+      expect(result.current.active).toBeTruthy();
     });
-    await waitForNextUpdate();
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    await waitFor(() => {
+      expect(result.current.finish).toBeTruthy();
+    });
     expect(result.current.active).toBeFalsy();
-    expect(result.current.finish).toBeTruthy();
     act(() => {
       result.current.onClickStart();
     });
     expect(result.current.active).toBeTruthy();
     expect(result.current.finish).toBeTruthy();
-    await act(async () => {
-      await sleep(1000);
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    await waitFor(() => {
+      expect(result.current.finish).toBeFalsy();
     });
     expect(result.current.active).toBeFalsy();
-    expect(result.current.finish).toBeFalsy();
     act(() => {
       result.current.onClickStart();
     });

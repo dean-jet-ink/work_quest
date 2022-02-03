@@ -31,19 +31,6 @@ jest.mock("../../hooks/useLoginUser.ts", () => ({
 
 jest.setTimeout(8000);
 
-type User = {
-  user_id: number;
-  user_name: string;
-  mail: string;
-  picture: string;
-  sex: string;
-  comment: string;
-  total_time: number;
-  title: string;
-  whiteNoise: string;
-  level: number;
-};
-
 const handlers = [
   rest.get("http://localhost:4000/fetch/guild/members/:id", (req, res, ctx) => {
     const { id } = req.params;
@@ -144,17 +131,6 @@ const handlers = [
 ];
 const server = setupServer(...handlers);
 
-beforeAll(() => {
-  server.listen();
-});
-afterEach(() => {
-  server.resetHandlers();
-  cleanup();
-});
-afterAll(() => {
-  server.close();
-});
-
 describe("MyGuildコンポーネントのテスト", () => {
   beforeEach(async () => {
     await waitFor(() => {
@@ -164,6 +140,19 @@ describe("MyGuildコンポーネントのテスト", () => {
         </MemoryRouter>
       );
     });
+  });
+
+  beforeAll(() => {
+    server.listen();
+  });
+
+  afterEach(() => {
+    server.resetHandlers();
+    cleanup();
+  });
+
+  afterAll(() => {
+    server.close();
   });
 
   it("MyGuildページのrenderテスト", async () => {
@@ -180,25 +169,29 @@ describe("MyGuildコンポーネントのテスト", () => {
       expect(getByText("こんにちは")).toBeTruthy();
     });
   });
+
   it("chatのcreateテスト", async () => {
     const { getByText, getByTestId, getByPlaceholderText, getByDisplayValue } =
       screen;
 
-    await waitFor(() => {
+    await waitFor(async () => {
       const modalButton = getByTestId("commentButton");
       expect(modalButton).toBeTruthy();
-      userEvent.click(modalButton);
+      await userEvent.click(modalButton);
       const massageForm = getByPlaceholderText("メッセージを入力");
-      fireEvent.change(massageForm, { target: { value: "コメントテスト" } });
+      await fireEvent.change(massageForm, {
+        target: { value: "コメントテスト" },
+      });
       expect(getByDisplayValue("コメントテスト")).toBeTruthy();
       const submitButton = getByText("送信");
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
     });
 
     await waitFor(() => {
       expect(getByText("コメントテスト")).toBeTruthy();
     });
   });
+
   it("guildのdeleteテスト", async () => {
     const { getByText, getByTestId } = screen;
 
@@ -217,6 +210,7 @@ describe("MyGuildコンポーネントのテスト", () => {
       expect(mockHistoryPush).toHaveBeenCalledWith("/top/guild");
     });
   });
+
   it("guildのメンバーdeleteテスト", async () => {
     const { getByTestId, getByText } = screen;
 

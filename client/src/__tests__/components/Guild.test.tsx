@@ -18,15 +18,15 @@ jest.mock("../../hooks/useLoginUser.ts", () => ({
   }),
 }));
 
-jest.mock("../../hooks/useUploadFile.ts", () => ({
-  useUploadFile: () => ({
+jest.mock("../../hooks/useFile.ts", () => ({
+  useFile: () => ({
     setSelectedFile: jest.fn(),
     handleFile: jest.fn(),
     uploadFile: jest.fn(),
   }),
 }));
 
-jest.setTimeout(8000);
+jest.setTimeout(10000);
 
 type Guild = {
   guild_id: number;
@@ -92,17 +92,6 @@ const handlers = [
 ];
 const server = setupServer(...handlers);
 
-beforeAll(() => {
-  server.listen();
-});
-afterEach(() => {
-  server.resetHandlers();
-  cleanup();
-});
-afterAll(() => {
-  server.close();
-});
-
 describe("Guildコンポーネントのテスト", () => {
   beforeEach(async () => {
     await waitFor(() => {
@@ -113,6 +102,20 @@ describe("Guildコンポーネントのテスト", () => {
       );
     });
   });
+
+  beforeAll(() => {
+    server.listen();
+  });
+
+  afterEach(() => {
+    server.resetHandlers();
+    cleanup();
+  });
+
+  afterAll(() => {
+    server.close();
+  });
+
   it("Guildページのrenderテスト", async () => {
     const { getAllByText, getByText } = screen;
 
@@ -130,6 +133,7 @@ describe("Guildコンポーネントのテスト", () => {
       expect(getAllByText("ギルド")).toHaveLength(20);
     });
   });
+
   it("ギルドのcreateテスト", async () => {
     const { getByText, getByTestId, getByLabelText, getByDisplayValue } =
       screen;
@@ -144,13 +148,13 @@ describe("Guildコンポーネントのテスト", () => {
       expect(nameForm).toBeTruthy();
       const commentForm = getByLabelText("コメント");
       expect(commentForm).toBeTruthy();
-      fireEvent.change(nameForm, { target: { value: "マイギルド2" } });
+      await fireEvent.change(nameForm, { target: { value: "マイギルド2" } });
       expect(getByDisplayValue("マイギルド2")).toBeTruthy();
-      fireEvent.change(commentForm, { target: { value: "テスト2です" } });
+      await fireEvent.change(commentForm, { target: { value: "テスト2です" } });
       expect(getByDisplayValue("テスト2です")).toBeTruthy();
       const submitButton = getByText("追加");
       expect(submitButton).toBeTruthy();
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
     });
 
     await waitFor(() => {

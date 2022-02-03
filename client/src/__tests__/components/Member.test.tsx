@@ -1,13 +1,7 @@
 import { MemoryRouter } from "react-router-dom";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import {
-  render,
-  screen,
-  cleanup,
-  waitFor,
-  fireEvent,
-} from "@testing-library/react";
+import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Member } from "../../components/pages/Member";
@@ -29,7 +23,7 @@ jest.mock("../../hooks/useLoginUser.ts", () => ({
   }),
 }));
 
-jest.mock("../../components/molcules/LineChart.tsx", () => ({
+jest.mock("../../components/molcules/chart/LineChart.tsx", () => ({
   LineChart: jest.fn().mockImplementation(() => {
     return <div></div>;
   }),
