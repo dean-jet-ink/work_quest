@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon dist/bundle.js",
     "build": "webpack",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand --silent"
   },
   "jest": {
     "testEnvironment": "node",

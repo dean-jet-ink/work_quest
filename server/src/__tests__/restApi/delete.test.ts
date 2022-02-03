@@ -6,9 +6,11 @@ describe("getリクエストのテスト", () => {
   beforeEach(async () => {
     await resetDB();
   });
+
   afterAll(async () => {
     await dbDisconnect();
   });
+
   it("deleteWorkのテスト", async () => {
     const payload = {
       id: 1,

@@ -9,7 +9,6 @@ services:
       - 4000:4000
     volumes:
       - ./server:/usr/src/app
-
     # .envファイルの値よりも、ここでのシステム環境変数が優先される
     environment:
       DB_HOST: test_db
@@ -17,6 +16,7 @@ services:
       DB_PASS: nre50678
       DB_PORT: 3306
       DB_DATABASE: test_db
+
   test_db:
     image: mysql:8.0.27
     container_name: test_db

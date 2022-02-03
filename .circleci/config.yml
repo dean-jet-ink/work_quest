@@ -1,0 +1,29 @@
+version: 2.1
+
+jobs:
+  test_client:
+    docker:
+      - image: node:16.13.2-alpine
+    working_directory: ~/portfolio_work_quest/client
+    steps:
+      - checkout
+        path: ~/portfolio_work_quest
+      - run:
+        name: test_client
+        command: |
+          cd ./client
+          npm i
+          npm test
+  test_server:
+    working_directory: ~/work
+    steps:
+      - checkout
+      - run:
+        name: docker-compose install
+        command: |
+          curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+          chmod +x ~/docker-compose
+          sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - run:
+        name: test_server
+        command: docker-compose -f unit-test.yml up --abort-on-container-exit --exit-code-from test_server
