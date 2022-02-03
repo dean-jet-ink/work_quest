@@ -7,23 +7,25 @@ jobs:
     working_directory: ~/portfolio_work_quest/client
     steps:
       - checkout:
-        path: ~/portfolio_work_quest
+          path: ~/portfolio_work_quest
       - run:
-        name: test_client
-        command: |
-          cd ./client
-          npm i
-          npm test
+          name: test_client
+          command: |
+            cd ./client
+            npm i
+            npm test
   test_server:
+    machine:
+      image: circleci/classic:edge
     working_directory: ~/portfolio_work_quest
     steps:
       - checkout
       - run:
-        name: docker-compose install
-        command: |
-          curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-          chmod +x ~/docker-compose
-          sudo mv ~/docker-compose /usr/local/bin/docker-compose
+          name: docker-compose install
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - run:
-        name: test_server
-        command: docker-compose -f unit-test.yml up --abort-on-container-exit --exit-code-from test_server
+          name: test_server
+          command: docker-compose -f unit-test.yml up --abort-on-container-exit --exit-code-from test_server
