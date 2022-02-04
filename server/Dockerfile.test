@@ -1,7 +1,9 @@
 FROM node:16.13.2-alpine
 WORKDIR /usr/src/app
 COPY ./package*.json ./
-RUN npm i
+RUN npm i\
+    && apk add bash\
+    && wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh\
+    && chmod 744 wait-for-it.sh
 COPY . .
-CMD ["npm","test"]
 EXPOSE 4000

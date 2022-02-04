@@ -7,7 +7,11 @@ services:
     container_name: test_server
     ports:
       - 4000:4000
-    # .envファイルの値よりも、ここでのシステム環境変数が優先される
+    depends_on:
+      - test_db
+    command: >
+      sh -c "./wait-for-it.sh -t 0 test_db:3306
+      && npm test"
     environment:
       DB_HOST: test_db
       DB_USER: root

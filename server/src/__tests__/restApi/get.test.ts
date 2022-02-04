@@ -6,9 +6,11 @@ describe("getリクエストのテスト", () => {
   beforeEach(async () => {
     await resetDB();
   });
+
   afterAll(async () => {
     await dbDisconnect();
   });
+
   it("fetchUserのレスポンステスト", async () => {
     const res = await request.get("/fetch/user/1");
     expect(res.status).toBe(200);
@@ -22,6 +24,7 @@ describe("getリクエストのテスト", () => {
     expect(res.body.title).toBe("村人A");
     expect(res.body.white_noise).toBe("clock");
   });
+
   it("fetchUserListのレスポンステスト", async () => {
     const res = await request.get("/fetch/userlist/20");
     const user1 = res.body[0];
@@ -45,6 +48,7 @@ describe("getリクエストのテスト", () => {
     expect(user2.mail).toBe("test2@test.com");
     expect(user2.sex).toBe("female");
   });
+
   it("fetchWorksのレスポンステスト", async () => {
     const res = await request.get("/fetch/works/1");
     const work1 = res.body[0];
@@ -69,6 +73,7 @@ describe("getリクエストのテスト", () => {
     expect(res2.body[0].work_id).toBe(3);
     expect(res2.body[0].completed).toBe(0);
   });
+
   it("fetchSmallGoalsのレスポンステスト", async () => {
     const res = await request.get("/fetch/smallgoals/1");
     const smallGoal1 = res.body[0];
@@ -87,6 +92,7 @@ describe("getリクエストのテスト", () => {
     expect(smallGoal2.small_goal_name).toBe("テスト");
     expect(smallGoal2.completed).toBe(0);
   });
+
   it("fetchSmallGoalOnBattleのレスポンステスト", async () => {
     const res = await request.get("/fetch/smallgoal/battle/1");
 
@@ -95,6 +101,7 @@ describe("getリクエストのテスト", () => {
     expect(res.body.small_goal_name).toBe("テスト");
     expect(res.body.total_time).toBe(0);
   });
+
   it("fetchGuildのレスポンステスト", async () => {
     const res = await request.get("/fetch/guild/1");
 
@@ -105,6 +112,7 @@ describe("getリクエストのテスト", () => {
     expect(res.body.comment).toBe("テスト");
     expect(res.body.admin_id).toBe(1);
   });
+
   it("fetchGuildListのレスポンステスト", async () => {
     const res = await request.get("/fetch/guildlist");
     const guild = res.body[0];
@@ -116,6 +124,7 @@ describe("getリクエストのテスト", () => {
     expect(guild.comment).toBe("テスト");
     expect(guild.admin_id).toBe(1);
   });
+
   it("fetchMyGuildのレスポンステスト", async () => {
     const res = await request.get("/fetch/myguild/1");
     const guild = res.body[0];
@@ -127,6 +136,7 @@ describe("getリクエストのテスト", () => {
     expect(guild.comment).toBe("テスト");
     expect(guild.admin_id).toBe(1);
   });
+
   it("fetchGuildMembersのレスポンステスト", async () => {
     const res = await request.get("/fetch/guild/members/1");
     const guildMember1 = res.body[0];
@@ -140,6 +150,7 @@ describe("getリクエストのテスト", () => {
     // ユーザー2
     expect(guildMember2.user_id).toBe(2);
   });
+
   it("fetchChatのレスポンステスト", async () => {
     const res = await request.get("/fetch/chat/1");
     const chat1 = res.body[0];
@@ -161,6 +172,7 @@ describe("getリクエストのテスト", () => {
     expect(chat2.comment).toBe("テスト\nテスト");
     expect(chat2.created).toBe("2022-01-12T22:09:54.000Z");
   });
+
   it("fetchCheerのレスポンステスト", async () => {
     const res = await request.get("/fetch/cheer/1");
     const user = res.body[0];
@@ -176,6 +188,7 @@ describe("getリクエストのテスト", () => {
 
     expect(user2.user_id).toBe(1);
   });
+
   it("fetchReportのレスポンステスト", async () => {
     const res = await request.get("/fetch/report/1");
 
@@ -188,6 +201,7 @@ describe("getリクエストのテスト", () => {
     expect(res.body.saturday).toBe(2);
     expect(res.body.sunday).toBe(1);
   });
+
   it("fetchReportTodayのレスポンステスト", async () => {
     const res = await request.get("/fetch/report/monday/1");
 
