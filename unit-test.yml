@@ -7,23 +7,23 @@ services:
     container_name: test_server
     ports:
       - 4000:4000
-    volumes:
-      - ./server:/usr/src/app
-
-    # .envファイルの値よりも、ここでのシステム環境変数が優先される
+    depends_on:
+      - test_db
+    command: >
+      sh -c "./wait-for-it.sh -t 0 test_db:3306
+      && npm test"
     environment:
       DB_HOST: test_db
       DB_USER: root
       DB_PASS: nre50678
       DB_PORT: 3306
       DB_DATABASE: test_db
+
   test_db:
     image: mysql:8.0.27
     container_name: test_db
     ports:
       - 3306:3306
-    volumes:
-      - ./db/data:/var/lib/mysql
     environment:
       MYSQL_DATABASE: test_db
       MYSQL_ROOT_PASSWORD: nre50678
