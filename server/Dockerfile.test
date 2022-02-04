@@ -1,7 +1,8 @@
 FROM node:16.13.2-alpine
 WORKDIR /usr/src/app
 COPY ./package*.json ./
-RUN ls
 COPY . .
+RUN npm i
+RUN ls
 CMD ["npm","test"]
 EXPOSE 4000
