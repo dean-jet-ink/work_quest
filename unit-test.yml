@@ -9,7 +9,7 @@ services:
       - 4000:4000
     # .envファイルの値よりも、ここでのシステム環境変数が優先される
     environment:
-      DB_HOST: test_db
+      DB_HOST: db
       DB_USER: root
       DB_PASS: nre50678
       DB_PORT: 3306
