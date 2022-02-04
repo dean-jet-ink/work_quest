@@ -7,8 +7,6 @@ services:
     container_name: test_server
     ports:
       - 4000:4000
-    volumes:
-      - ./server:/usr/src/app
     # .envファイルの値よりも、ここでのシステム環境変数が優先される
     environment:
       DB_HOST: test_db
