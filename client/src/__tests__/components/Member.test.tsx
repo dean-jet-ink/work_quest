@@ -116,10 +116,13 @@ describe("Memberコンポーネントのテスト", () => {
     const { getByText, getByTestId } = screen;
 
     await waitFor(() => {
-      const cheerButton = getByTestId("cheerButton");
-      expect(cheerButton).toBeTruthy();
-      userEvent.click(cheerButton);
+      expect(getByText("ケンタ")).toBeTruthy();
     });
+
+    const cheerButton = getByTestId("cheerButton");
+    expect(cheerButton).toBeTruthy();
+    userEvent.click(cheerButton);
+
     await waitFor(() => {
       expect(getByText("ケンタさんを応援しました")).toBeTruthy();
     });

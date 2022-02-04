@@ -138,24 +138,33 @@ describe("Guildコンポーネントのテスト", () => {
     const { getByText, getByTestId, getByLabelText, getByDisplayValue } =
       screen;
 
-    await waitFor(async () => {
-      await expect(getByText("マイギルド")).toBeTruthy();
-      userEvent.click(getByText("ギルド一覧"));
-      const modalButton = getByTestId("addButton");
-      expect(modalButton).toBeTruthy();
-      await userEvent.click(modalButton);
-      const nameForm = getByLabelText("ギルド名");
-      expect(nameForm).toBeTruthy();
-      const commentForm = getByLabelText("コメント");
-      expect(commentForm).toBeTruthy();
-      await fireEvent.change(nameForm, { target: { value: "マイギルド2" } });
+    const guildListTabButton = getByText("ギルド一覧");
+    expect(guildListTabButton).toBeTruthy();
+    await userEvent.click(guildListTabButton);
+
+    const modalButton = getByTestId("addButton");
+    expect(modalButton).toBeTruthy();
+    await userEvent.click(modalButton);
+
+    const nameForm = getByLabelText("ギルド名");
+    expect(nameForm).toBeTruthy();
+
+    const commentForm = getByLabelText("コメント");
+    expect(commentForm).toBeTruthy();
+
+    fireEvent.change(nameForm, { target: { value: "マイギルド2" } });
+    await waitFor(() => {
       expect(getByDisplayValue("マイギルド2")).toBeTruthy();
-      await fireEvent.change(commentForm, { target: { value: "テスト2です" } });
-      expect(getByDisplayValue("テスト2です")).toBeTruthy();
-      const submitButton = getByText("追加");
-      expect(submitButton).toBeTruthy();
-      await userEvent.click(submitButton);
     });
+
+    fireEvent.change(commentForm, { target: { value: "テスト2です" } });
+    await waitFor(() => {
+      expect(getByDisplayValue("テスト2です")).toBeTruthy();
+    });
+
+    const submitButton = getByText("追加");
+    expect(submitButton).toBeTruthy();
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(getByText("マイギルド2")).toBeTruthy();
