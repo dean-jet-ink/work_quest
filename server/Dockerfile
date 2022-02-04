@@ -1,7 +1,7 @@
 FROM node:16.13.2-alpine
 WORKDIR /usr/src/app
 COPY ./package*.json ./
-RUN ls
+RUN npm i
 COPY . .
 ENV CHOKIDAR_USEPOLLING=1
 CMD sh -c "npm run start"
