@@ -3,6 +3,5 @@ WORKDIR /usr/src/app
 COPY ./package*.json ./
 COPY . .
 RUN npm i
-RUN ls
-CMD ["npm","test"]
+CMD ["ls"]
 EXPOSE 4000
