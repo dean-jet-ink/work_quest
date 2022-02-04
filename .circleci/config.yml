@@ -29,3 +29,10 @@ jobs:
       - run:
           name: test_server
           command: docker-compose -f unit-test.yml up --abort-on-container-exit --exit-code-from test_server
+
+workflows:
+  version: 2
+  test_client_and_server:
+    jobs:
+      - test_client
+      - test_server
