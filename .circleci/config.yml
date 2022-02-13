@@ -34,43 +34,43 @@ jobs:
     jobs:
       build-and-deploy-client:
         working_directory: ~/portfolio_work_quest
-          steps:
-            - checkout
-            - command: cd ./client
-            - aws-ecr/build-and-push-image:
-                account-url: AWS_ECR_ACCOUNT_URL
-                aws-access-key-id: AWS_ACCESS_KEY_ID
-                aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-                region: AWS_DEFAULT_REGION
-                repo: "${AWS_RESOURCE_NAME_PREFIX}-client"
-                tag: "${CIRCLE_SHA1}"
-            - aws-ecs/deploy-service-update:
-                requires:
-                  - aws-ecr/build-and-push-image
-                family: "${AWS_RESOURCE_NAME_PREFIX}-task"
-                cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
-                service-name: "${AWS_RESOURCE_NAME_PREFIX}"
-                container-image-name-updates: "container=client,tag=${CIRCLE_SHA1}"
+        steps:
+          - checkout
+          - command: cd ./client
+          - aws-ecr/build-and-push-image:
+              account-url: AWS_ECR_ACCOUNT_URL
+              aws-access-key-id: AWS_ACCESS_KEY_ID
+              aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+              region: AWS_DEFAULT_REGION
+              repo: "${AWS_RESOURCE_NAME_PREFIX}-client"
+              tag: "${CIRCLE_SHA1}"
+          - aws-ecs/deploy-service-update:
+              requires:
+                - aws-ecr/build-and-push-image
+              family: "${AWS_RESOURCE_NAME_PREFIX}-task"
+              cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+              service-name: "${AWS_RESOURCE_NAME_PREFIX}"
+              container-image-name-updates: "container=client,tag=${CIRCLE_SHA1}"
 
       build-and-deploy-server:
         working_directory: ~/portfolio_work_quest
-          steps:
-            - checkout
-            - command: cd ./server
-            - aws-ecr/build-and-push-image:
-                account-url: AWS_ECR_ACCOUNT_URL
-                aws-access-key-id: AWS_ACCESS_KEY_ID
-                aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-                region: AWS_DEFAULT_REGION
-                repo: "${AWS_RESOURCE_NAME_PREFIX}-server"
-                tag: "${CIRCLE_SHA1}"
-            - aws-ecs/deploy-service-update:
-                requires:
-                  - aws-ecr/build-and-push-image
-                family: "${AWS_RESOURCE_NAME_PREFIX}-task"
-                cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
-                service-name: "${AWS_RESOURCE_NAME_PREFIX}"
-                container-image-name-updates: "container=server,tag=${CIRCLE_SHA1}"
+        steps:
+          - checkout
+          - command: cd ./server
+          - aws-ecr/build-and-push-image:
+              account-url: AWS_ECR_ACCOUNT_URL
+              aws-access-key-id: AWS_ACCESS_KEY_ID
+              aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+              region: AWS_DEFAULT_REGION
+              repo: "${AWS_RESOURCE_NAME_PREFIX}-server"
+              tag: "${CIRCLE_SHA1}"
+          - aws-ecs/deploy-service-update:
+              requires:
+                - aws-ecr/build-and-push-image
+              family: "${AWS_RESOURCE_NAME_PREFIX}-task"
+              cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+              service-name: "${AWS_RESOURCE_NAME_PREFIX}"
+              container-image-name-updates: "container=server,tag=${CIRCLE_SHA1}"
 
 workflows:
   version: 2
