@@ -39,9 +39,7 @@ jobs:
       - aws-cli/install:
           override-installed: true
       - checkout
-      - run:
-          name: move client directory
-          command: cd ./client
+      - working_directory: client
       - aws-ecr/build-and-push-image:
           dockerfile: Dockerfile.prod
           account-url: AWS_ECR_ACCOUNT_URL
@@ -59,9 +57,7 @@ jobs:
       - aws-cli/install:
           override-installed: true
       - checkout
-      - run:
-          name: move server directory
-          command: cd ./server
+      - working_directory: server
       - aws-ecr/build-and-push-image:
           dockerfile: Dockerfile.prod
           account-url: AWS_ECR_ACCOUNT_URL
