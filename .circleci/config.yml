@@ -43,7 +43,7 @@ jobs:
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: AWS_DEFAULT_REGION
+          region: AWS_REGION
           repo: "${AWS_RESOURCE_NAME_PREFIX}-client"
           tag: "${CIRCLE_SHA1}"
 
@@ -60,7 +60,7 @@ jobs:
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: AWS_DEFAULT_REGION
+          region: AWS_REGION
           repo: "${AWS_RESOURCE_NAME_PREFIX}-server"
           tag: "${CIRCLE_SHA1}"
 
@@ -76,14 +76,14 @@ workflows:
             - test_server
           filters:
             branches:
-              only: master
+              only: deploy
       - build-and-push-server:
           requires:
             - test_client
             - test_server
           filters:
             branches:
-              only: master
+              only: deploy
       - aws-ecs/deploy-service-update: #ECSにおけるclient containerの元image更新
           requires:
             - build-and-push-client
