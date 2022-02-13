@@ -76,14 +76,14 @@ workflows:
             - test_server
           filters:
             branches:
-              only: master
+              only: implementCD
       - build-and-push-server:
           requires:
             - test_client
             - test_server
           filters:
             branches:
-              only: master
+              only: implementCD
       - aws-ecs/deploy-service-update: #ECSにおけるclient containerの元image更新
           requires:
             - build-and-push-client
