@@ -1,6 +1,7 @@
 version: 2.1
 
 orbs:
+  aws-cli: circleci/aws-cli@2.0.3
   aws-ecr: circleci/aws-ecr@7.3.0
   aws-ecs: circleci/aws-ecs@2.2.1
   docker: circleci/docker@2.0.1
@@ -35,6 +36,8 @@ jobs:
       image: circleci/classic:edge
     working_directory: ~/portfolio_work_quest
     steps:
+      - aws-cli/install:
+          override-installed: true
       - checkout
       - run:
           name: move client directory
@@ -52,6 +55,8 @@ jobs:
       image: circleci/classic:edge
     working_directory: ~/portfolio_work_quest
     steps:
+      - aws-cli/install:
+          override-installed: true
       - checkout
       - run:
           name: move server directory
