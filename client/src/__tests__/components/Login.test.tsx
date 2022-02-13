@@ -10,6 +10,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import { Login } from "../../components/pages/Login";
+import { baseURL } from "../testUtils/baseURL";
 
 const mockHistoryPush = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -29,7 +30,7 @@ jest.mock("../../hooks/useLoginUser", () => ({
 }));
 
 const handlers = [
-  rest.post("http://localhost:4000/login", (req, res, ctx) => {
+  rest.post(`${baseURL}/login`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ userId: "1" }));
   }),
 ];

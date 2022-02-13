@@ -1,21 +1,6 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import {
-  S3Client,
-  PutObjectCommand,
-  DeleteObjectCommand,
-} from "@aws-sdk/client-s3";
 
-const bucket = "work-quest";
-const region = "ap-northeast-3";
-const credentials = {
-  accessKeyId: process.env.REACT_APP_ACCESS_KEY!,
-  secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY!,
-};
-
-const s3 = new S3Client({
-  region,
-  credentials,
-});
+import { axios } from "../apis/axios";
 
 type Props = {
   picture: string | null;
@@ -56,15 +41,12 @@ export const useFile = (props: Props) => {
 
   // ファイルの削除
   const deleteFile = useCallback(async (file: string) => {
+    const preKeyName = `${key}/${file}`;
+
     try {
-      await s3.send(
-        new DeleteObjectCommand({
-          Bucket: bucket,
-          Key: `${key}/${file}`,
-        })
-      );
+      await axios.delete("/delete/file", { data: { preKeyName } });
     } catch (err) {
-      if (err) throw err;
+      throw err;
     }
   }, []);
 
@@ -74,21 +56,18 @@ export const useFile = (props: Props) => {
       try {
         if (selectedFile) {
           const keyName = `${key}/${newFile}`;
+          const data = new FormData(); //multipart/form-dataのため、FormData使用
+          data.append("keyName", keyName); //type/textのformデータも取り扱える
+          data.append("file", selectedFile);
+          const headers = { "content-type": "multipart/form-data" };
 
-          await s3.send(
-            new PutObjectCommand({
-              Bucket: bucket,
-              Key: keyName,
-              Body: selectedFile,
-              ACL: "public-read",
-            })
-          );
+          await axios.post("/post/file", data, { headers });
 
           const uploadedFile = await getFile(keyName);
           setFile(uploadedFile);
         }
 
-        // アップロード済みならば、以前の画像を削除
+        // 以前の画像があれば削除
         if (preFile) {
           await deleteFile(preFile);
         }

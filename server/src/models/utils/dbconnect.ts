@@ -1,7 +1,8 @@
 import { createConnection } from "mysql";
-import dotenv from "dotenv";
 
-dotenv.config();
+import { dotenvConfigure } from "./dotenvConfigure";
+
+dotenvConfigure();
 
 // データベース定義
 export const db = createConnection({

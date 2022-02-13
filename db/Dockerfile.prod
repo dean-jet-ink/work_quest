@@ -1,0 +1,4 @@
+FROM mysql:8.0.27
+COPY ./sql /sql
+CMD ["mysqld"]
+EXPOSE 3306

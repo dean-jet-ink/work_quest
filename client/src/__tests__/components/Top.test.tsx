@@ -11,6 +11,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import { Top } from "../../components/pages/Top";
+import { baseURL } from "../testUtils/baseURL";
 
 // モック
 const mockHistoryPush = jest.fn();
@@ -43,7 +44,7 @@ jest
 jest.setTimeout(8000);
 
 const handlers = [
-  rest.get("http://localhost:4000/fetch/user/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/user/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {
@@ -64,7 +65,7 @@ const handlers = [
       );
     }
   }),
-  rest.get("http://localhost:4000/fetch/works/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/works/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {
@@ -89,7 +90,7 @@ const handlers = [
       );
     }
   }),
-  rest.get("http://localhost:4000/fetch/cheer/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/cheer/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {
@@ -112,7 +113,7 @@ const handlers = [
       );
     }
   }),
-  rest.get("http://localhost:4000/fetch/cheered/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/cheered/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {
@@ -136,7 +137,7 @@ const handlers = [
     }
   }),
   rest.get(
-    "http://localhost:4000/get/validation/mail/duplicated/:mail",
+    `${baseURL}/get/validation/mail/duplicated/:mail`,
     (req, res, ctx) => {
       const { mail } = req.params;
       if (mail === "test@test.com") {
@@ -146,7 +147,7 @@ const handlers = [
       }
     }
   ),
-  rest.put("http://localhost:4000/update/profile/:id", (req, res, ctx) => {
+  rest.put(`${baseURL}/update/profile/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {
@@ -167,10 +168,10 @@ const handlers = [
       );
     }
   }),
-  rest.get("http://localhost:4000/logout", (req, res, ctx) => {
+  rest.get(`${baseURL}/logout`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.text("test"));
   }),
-  rest.post("http://localhost:4000/post/work/:id", (req, res, ctx) => {
+  rest.post(`${baseURL}/post/work/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {
@@ -188,7 +189,7 @@ const handlers = [
       );
     }
   }),
-  rest.put("http://localhost:4000/update/work/:id", (req, res, ctx) => {
+  rest.put(`${baseURL}/update/work/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {
@@ -206,10 +207,10 @@ const handlers = [
       );
     }
   }),
-  rest.delete("http://localhost:4000/delete/work", (req, res, ctx) => {
+  rest.delete(`${baseURL}/delete/work`, (req, res, ctx) => {
     return res(ctx.status(200));
   }),
-  rest.put("http://localhost:4000/update/work/completed", (req, res, ctx) => {
+  rest.put(`${baseURL}/update/work/completed`, (req, res, ctx) => {
     return res(ctx.status(200));
   }),
 ];

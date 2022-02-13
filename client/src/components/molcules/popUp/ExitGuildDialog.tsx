@@ -9,10 +9,12 @@ type Props = {
   onClose: () => void;
   onClickDelete: () => void;
   onClickExit: () => void;
+  deleteFile: () => void;
 };
 
 export const ExitGuildDialog = memo((props: Props) => {
-  const { id, guild, isOpen, onClose, onClickDelete, onClickExit } = props;
+  const { id, guild, isOpen, onClose, onClickDelete, onClickExit, deleteFile } =
+    props;
   const dialog =
     id === guild.adminId
       ? `「${guild.guildName}」を解散させますか？`
@@ -25,6 +27,7 @@ export const ExitGuildDialog = memo((props: Props) => {
       onClick={onClick}
       isOpen={isOpen}
       onClose={onClose}
+      deleteFile={deleteFile}
     />
   );
 });

@@ -5,6 +5,7 @@ import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Member } from "../../components/pages/Member";
+import { baseURL } from "../testUtils/baseURL";
 
 const mockHistoryPush = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -30,7 +31,7 @@ jest.mock("../../components/molcules/chart/LineChart.tsx", () => ({
 }));
 
 const handlers = [
-  rest.get("http://localhost:4000/fetch/user/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/user/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {
@@ -50,14 +51,14 @@ const handlers = [
       );
     }
   }),
-  rest.get("http://localhost:4000/fetch/cheer/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/cheer/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {
       return res(ctx.json([]));
     }
   }),
-  rest.get("http://localhost:4000/fetch/report/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/report/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {
@@ -74,7 +75,7 @@ const handlers = [
       );
     }
   }),
-  rest.post("http://localhost:4000/post/cheer", (req, res, ctx) => {
+  rest.post(`${baseURL}/post/cheer`, (req, res, ctx) => {
     return res(ctx.status(200));
   }),
 ];

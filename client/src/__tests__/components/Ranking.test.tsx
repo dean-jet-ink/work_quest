@@ -4,6 +4,7 @@ import { setupServer } from "msw/node";
 import { render, screen, cleanup, waitFor } from "@testing-library/react";
 
 import { Ranking } from "../../components/pages/Ranking";
+import { baseURL } from "../testUtils/baseURL";
 
 type User = {
   user_id: number;
@@ -39,7 +40,7 @@ const createUsers = () => {
 createUsers();
 
 const handlers = [
-  rest.get("http://localhost:4000/fetch/userlist/20", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/userlist/20`, (req, res, ctx) => {
     return res(ctx.json([...dummyUsers]));
   }),
 ];

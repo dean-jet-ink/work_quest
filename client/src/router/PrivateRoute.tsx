@@ -1,17 +1,17 @@
 import { memo, useEffect } from "react";
 import { Redirect, Route, RouteProps } from "react-router-dom";
-import { axios } from "../apis/axios";
+// import { axios } from "../apis/axios";
 
-import { useLoginUser } from "../hooks/useLoginUser";
+// import { useLoginUser } from "../hooks/useLoginUser";
 
 export const PrivateRoute = memo((props: RouteProps & { key: number }) => {
-  const { setLoginUserId } = useLoginUser();
+  // const { setLoginUserId } = useLoginUser();
 
-  useEffect(() => {
-    axios.get<{ userId: number }>("/auth").then((res) => {
-      setLoginUserId(res.data.userId);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get<{ userId: number }>("/auth").then((res) => {
+  //     setLoginUserId(res.data.userId);
+  //   });
+  // }, []);
 
   // cookie authの値("true")を真偽値に変換するための関数
   const toBoolean = (data: string) => {

@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { db } from "../utils/dbconnect";
-import { fetchCheer } from "./fetchCheer";
 
 export const deleteCheer = (req: Request, res: Response) => {
   const placeholder = [

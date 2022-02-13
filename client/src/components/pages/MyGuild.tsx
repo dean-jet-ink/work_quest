@@ -16,12 +16,17 @@ import CommentIcon from "@material-ui/icons/Comment";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { ExitGuildDialog } from "../molcules/popUp/ExitGuildDialog";
 import { useDisclosures } from "../../hooks/useDisclosures";
+import { useFile } from "../../hooks/useFile";
 
 export const MyGuild = memo(() => {
   const { id } = useParams<{ id: string }>();
   const { loginUserId } = useLoginUser();
   const { guildMembers } = useFetchGuildMembers(Number(id));
   const { guild, onClickExit, onClickDelete } = useGuild(Number(id));
+  const { file, deleteFile } = useFile({
+    picture: guild.guildPicture,
+    key: "guild",
+  });
   const { chat, initialValues, onSubmit } = useChat({
     guildId: Number(id),
     userId: loginUserId as number,
@@ -135,6 +140,7 @@ export const MyGuild = memo(() => {
         onClose={onClose1}
         onClickDelete={onClickDelete}
         onClickExit={() => onClickExit(loginUserId!)}
+        deleteFile={() => deleteFile(guild.guildPicture)}
       />
     </SecondaryLayout>
   );

@@ -1,4 +1,5 @@
 import { Router, json, urlencoded } from "express";
+
 import { auth } from "../models/utils/auth";
 import { completedSmallGoal } from "../models/rest/completedSmallGoal";
 import { completedWork } from "../models/rest/completedWork";
@@ -38,6 +39,9 @@ import { updateWork } from "../models/rest/updateWork";
 import { validateDuplicatedMail } from "../models/rest/validateDuplicatedMail";
 import { logout } from "../models/utils/logout";
 import { fetchReportOfToday } from "../models/rest/fetchReportOfToday";
+import { uploadFile } from "../models/rest/uploadFile";
+import { deleteFile } from "../models/rest/deleteFile";
+import { fileParser } from "../models/utils/multerConfigure";
 
 export const router = Router();
 
@@ -120,6 +124,9 @@ router
   .post("/post/cheer", (req, res) => {
     postCheer(req, res);
   })
+  .post("/post/file", fileParser.single("file"), (req, res) => {
+    uploadFile(req, res);
+  })
   .put("/update/profile/:id", (req, res) => {
     updateProfile(req, res);
   })
@@ -161,4 +168,7 @@ router
   })
   .delete("/delete/guild", (req, res) => {
     deleteGuild(req, res);
+  })
+  .delete("/delete/file", (req, res) => {
+    deleteFile(req, res);
   });

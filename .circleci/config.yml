@@ -1,7 +1,12 @@
 version: 2.1
 
+orbs:
+  aws-ecr: circleci/aws-ecr@7.3.0
+  aws-ecs: circleci/aws-ecs@2.2.1
+  docker: circleci/docker@2.0.1
+
 jobs:
-  test_client:
+  test_client: #client containerのテスト
     docker:
       - image: node:16.13.2-alpine
     working_directory: ~/portfolio_work_quest/client
@@ -13,25 +18,83 @@ jobs:
           command: |
             npm i
             npm test
-  test_server:
+
+  test_server: #server containerのテスト
+    machine:
+      image: circleci/classic:edge
+    working_directory: ~/portfolio_work_quest
+    steps:
+      - checkout
+      - docker/install-docker-compose
+      - run:
+          name: test_server
+          command: docker-compose -f unit-test.yml up --abort-on-container-exit --exit-code-from test_server
+
+  build-and-push-client: #ECRへ、client imageのpush
     machine:
       image: circleci/classic:edge
     working_directory: ~/portfolio_work_quest
     steps:
       - checkout
       - run:
-          name: docker-compose install
-          command: |
-            curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+          name: move client directory
+          command: cd ./client
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_DEFAULT_REGION
+          repo: "${AWS_RESOURCE_NAME_PREFIX}-client"
+          tag: "${CIRCLE_SHA1}"
+
+  build-and-push-server: #ECRへ、server imageのpush
+    machine:
+      image: circleci/classic:edge
+    working_directory: ~/portfolio_work_quest
+    steps:
+      - checkout
       - run:
-          name: test_server
-          command: docker-compose -f unit-test.yml up --abort-on-container-exit --exit-code-from test_server
+          name: move server directory
+          command: cd ./server
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_DEFAULT_REGION
+          repo: "${AWS_RESOURCE_NAME_PREFIX}-server"
+          tag: "${CIRCLE_SHA1}"
 
 workflows:
   version: 2
-  test_client_and_server:
+  test_and_deploy:
     jobs:
       - test_client
       - test_server
+      - build-and-push-client:
+          requires:
+            - test_client
+            - test_server
+          filters:
+            branches:
+              only: master
+      - build-and-push-server:
+          requires:
+            - test_client
+            - test_server
+          filters:
+            branches:
+              only: master
+      - aws-ecs/deploy-service-update: #ECSにおけるclient containerの元image更新
+          requires:
+            - build-and-push-client
+          family: "${AWS_RESOURCE_NAME_PREFIX}-task"
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          service-name: "${AWS_RESOURCE_NAME_PREFIX}"
+          container-image-name-updates: "container=client,tag=${CIRCLE_SHA1}"
+      - aws-ecs/deploy-service-update: #ECSにおけるserver containerの元image更新
+          requires:
+            - build-and-push-server
+          family: "${AWS_RESOURCE_NAME_PREFIX}-task"
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          service-name: "${AWS_RESOURCE_NAME_PREFIX}"
+          container-image-name-updates: "container=server,tag=${CIRCLE_SHA1}"

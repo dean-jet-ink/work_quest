@@ -1,1 +1,1 @@
-process.env.REACT_APP_URL = "http://localhost:4000";
+process.env.REACT_APP_SWITCH = "1";

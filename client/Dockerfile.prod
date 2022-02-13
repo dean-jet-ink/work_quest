@@ -1,0 +1,11 @@
+FROM node:16.13.2-alpine as build
+WORKDIR /usr/src/app
+COPY . .
+RUN npm i\
+    && npm run build
+
+FROM nginx:alpine
+COPY --from=build /usr/src/app/public /var/www
+COPY ./nginx /etc/nginx/conf.d
+WORKDIR /usr/share/nginx/html
+CMD ["nginx", "-g", "daemon off;"]

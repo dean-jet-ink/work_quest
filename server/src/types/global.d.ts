@@ -6,5 +6,7 @@ declare namespace NodeJS {
     readonly DB_PASS: string;
     readonly DB_PORT: string;
     readonly DB_DATABASE: string;
+    readonly AWS_ACCESS_KEY: string;
+    readonly AWS_SECRET_ACCESS_KEY: string;
   }
 }

@@ -11,6 +11,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import { Work } from "../../components/pages/Work";
+import { baseURL } from "../testUtils/baseURL";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -25,7 +26,7 @@ jest
 jest.setTimeout(8000);
 
 const handlers = [
-  rest.get("http://localhost:4000/fetch/smallgoals/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/smallgoals/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const workId = Number(id);
     if (workId === 1) {
@@ -49,7 +50,7 @@ const handlers = [
       );
     }
   }),
-  rest.post("http://localhost:4000/post/smallgoal/:id", (req, res, ctx) => {
+  rest.post(`${baseURL}/post/smallgoal/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const workId = Number(id);
     if (workId === 1) {
@@ -73,7 +74,7 @@ const handlers = [
       );
     }
   }),
-  rest.put("http://localhost:4000/update/smallgoal/:id", (req, res, ctx) => {
+  rest.put(`${baseURL}/update/smallgoal/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const workId = Number(id);
     if (workId === 1) {
@@ -90,21 +91,15 @@ const handlers = [
       );
     }
   }),
-  rest.delete("http://localhost:4000/delete/smallgoal", (req, res, ctx) => {
+  rest.delete(`${baseURL}/delete/smallgoal`, (req, res, ctx) => {
     return res(ctx.status(200));
   }),
-  rest.put(
-    "http://localhost:4000/update/smallgoal/completed",
-    (req, res, ctx) => {
-      return res(ctx.status(200));
-    }
-  ),
-  rest.put(
-    "http://localhost:4000/update/smallgoal/completed",
-    (req, res, ctx) => {
-      return res(ctx.status(200));
-    }
-  ),
+  rest.put(`${baseURL}/update/smallgoal/completed`, (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
+  rest.put(`${baseURL}/update/smallgoal/completed`, (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
 ];
 const server = setupServer(...handlers);
 

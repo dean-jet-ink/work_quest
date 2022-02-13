@@ -1,12 +1,12 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
 
 import { router } from "./routes/router";
 import { dbConnect } from "./models/utils/dbconnect";
+import { dotenvConfigure } from "./models/utils/dotenvConfigure";
 
-dotenv.config();
+dotenvConfigure();
 
 export const app = express();
 const corsOptions = {
