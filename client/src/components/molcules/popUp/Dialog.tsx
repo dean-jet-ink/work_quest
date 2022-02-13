@@ -15,13 +15,21 @@ import { SecondaryButton } from "../../atoms/button/SecondaryButton";
 type Props = {
   onClick: () => void;
   onClose: () => void;
+  deleteFile?: () => void;
   isOpen: boolean;
   header: string;
   color?: string;
 };
 
 export const Dialog = memo((props: Props) => {
-  const { onClick, onClose, isOpen, header, color = "white" } = props;
+  const {
+    onClick,
+    onClose,
+    deleteFile,
+    isOpen,
+    header,
+    color = "white",
+  } = props;
   const cancelRef = useRef(null);
 
   return (
@@ -42,6 +50,9 @@ export const Dialog = memo((props: Props) => {
               <SecondaryButton
                 onClick={() => {
                   onClose();
+                  if (deleteFile) {
+                    deleteFile();
+                  }
                   onClick();
                 }}
               >

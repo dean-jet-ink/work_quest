@@ -23,6 +23,7 @@ export const useGuild = (guildId: number) => {
     });
   }, [guildId]);
 
+  //ギルドから退会
   const onClickExit = useCallback(
     (userId: number) => {
       axios
@@ -40,6 +41,7 @@ export const useGuild = (guildId: number) => {
     [guildId]
   );
 
+  //ギルド解散
   const onClickDelete = useCallback(() => {
     axios
       .delete("/delete/guild", { data: { guildId } })

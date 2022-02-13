@@ -6,6 +6,7 @@ import { Router } from "./router/Router";
 import "./assets/css/font.css";
 
 function App() {
+  console.log(process.env.CHOKIDAR_USEPOLLING);
   return (
     <ChakraProvider theme={theme}>
       <BrowserRouter>

@@ -11,6 +11,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import { MyGuild } from "../../components/pages/MyGuild";
+import { baseURL } from "../testUtils/baseURL";
 
 const mockHistoryPush = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -29,10 +30,17 @@ jest.mock("../../hooks/useLoginUser.ts", () => ({
   }),
 }));
 
+jest.mock("../../hooks/useFile.ts", () => ({
+  useFile: () => ({
+    uploadFile: jest.fn(),
+    deleteFile: jest.fn(),
+  }),
+}));
+
 jest.setTimeout(8000);
 
 const handlers = [
-  rest.get("http://localhost:4000/fetch/guild/members/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/guild/members/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const guildId = Number(id);
     if (guildId === 1) {
@@ -66,7 +74,7 @@ const handlers = [
       );
     }
   }),
-  rest.get("http://localhost:4000/fetch/guild/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/guild/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const guildId = Number(id);
     if (guildId === 1) {
@@ -81,7 +89,7 @@ const handlers = [
       );
     }
   }),
-  rest.get("http://localhost:4000/fetch/chat/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/chat/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const guildId = Number(id);
     if (guildId === 1) {
@@ -105,7 +113,7 @@ const handlers = [
       );
     }
   }),
-  rest.post("http://localhost:4000/post/chat/:id", (req, res, ctx) => {
+  rest.post(`${baseURL}/post/chat/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const guildId = Number(id);
     if (guildId === 1) {
@@ -122,10 +130,10 @@ const handlers = [
       );
     }
   }),
-  rest.delete("http://localhost:4000/delete/guild/", (req, res, ctx) => {
+  rest.delete(`${baseURL}/delete/guild/`, (req, res, ctx) => {
     return res(ctx.status(200));
   }),
-  rest.delete("http://localhost:4000/delete/guild/member", (req, res, ctx) => {
+  rest.delete(`${baseURL}/delete/guild/member`, (req, res, ctx) => {
     return res(ctx.status(200));
   }),
 ];

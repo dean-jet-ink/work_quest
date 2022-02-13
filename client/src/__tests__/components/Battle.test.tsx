@@ -5,6 +5,7 @@ import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Battle } from "../../components/pages/Battle";
+import { baseURL } from "../testUtils/baseURL";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -29,22 +30,19 @@ jest
   .mockImplementation(jest.fn());
 
 const handlers = [
-  rest.get(
-    "http://localhost:4000/fetch/smallgoal/battle/:id",
-    (req, res, ctx) => {
-      const { id } = req.params;
-      const smallGoalId = Number(id);
-      if (smallGoalId === 1) {
-        return res(
-          ctx.json({
-            small_goal_name: "テスト",
-            total_time: 5,
-          })
-        );
-      }
+  rest.get(`${baseURL}/fetch/smallgoal/battle/:id`, (req, res, ctx) => {
+    const { id } = req.params;
+    const smallGoalId = Number(id);
+    if (smallGoalId === 1) {
+      return res(
+        ctx.json({
+          small_goal_name: "テスト",
+          total_time: 5,
+        })
+      );
     }
-  ),
-  rest.get("http://localhost:4000/fetch/report/:id", (req, res, ctx) => {
+  }),
+  rest.get(`${baseURL}/fetch/report/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {

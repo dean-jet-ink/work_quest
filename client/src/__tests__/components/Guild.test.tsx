@@ -11,6 +11,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import { Guild } from "../../components/pages/Guild";
+import { baseURL } from "../testUtils/baseURL";
 
 jest.mock("../../hooks/useLoginUser.ts", () => ({
   useLoginUser: () => ({
@@ -52,10 +53,10 @@ const createGuilds = () => {
 createGuilds();
 
 const handlers = [
-  rest.get("http://localhost:4000/fetch/guildlist", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/guildlist`, (req, res, ctx) => {
     return res(ctx.json([...dummyGuilds]));
   }),
-  rest.get("http://localhost:4000/fetch/myguild/:id", (req, res, ctx) => {
+  rest.get(`${baseURL}/fetch/myguild/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {
@@ -72,7 +73,7 @@ const handlers = [
       );
     }
   }),
-  rest.post("http://localhost:4000/post/guild/:id", (req, res, ctx) => {
+  rest.post(`${baseURL}/post/guild/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const userId = Number(id);
     if (userId === 1) {

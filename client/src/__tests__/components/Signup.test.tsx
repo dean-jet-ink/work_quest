@@ -10,7 +10,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import { Signup } from "../../components/pages/Signup";
-import { baseURL } from "../utils/baseURL";
+import { baseURL } from "../testUtils/baseURL";
 
 const mockHistoryPush = jest.fn();
 jest.mock("react-router-dom", () => ({
