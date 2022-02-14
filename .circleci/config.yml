@@ -38,9 +38,10 @@ jobs:
     steps:
       - checkout:
           path: ~/work_quest
-      # - aws-cli/install:
-      #     override-installed: true
+      - aws-cli/install:
+          override-installed: true
       - aws-ecr/build-and-push-image:
+          checkout: false
           dockerfile: Dockerfile.prod
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
@@ -56,9 +57,10 @@ jobs:
     steps:
       - checkout:
           path: ~/work_quest
-      # - aws-cli/install:
-      #     override-installed: true
+      - aws-cli/install:
+          override-installed: true
       - aws-ecr/build-and-push-image:
+          checkout: false
           dockerfile: Dockerfile.prod
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
