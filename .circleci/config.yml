@@ -40,8 +40,6 @@ jobs:
           override-installed: true
       - checkout:
           path: ~/portfolio_work_quest
-      - run:
-          working_directory: client
       - aws-ecr/build-and-push-image:
           dockerfile: Dockerfile.prod
           account-url: AWS_ECR_ACCOUNT_URL
@@ -60,8 +58,6 @@ jobs:
           override-installed: true
       - checkout:
           path: ~/portfolio_work_quest
-      - run:
-          working_directory: server
       - aws-ecr/build-and-push-image:
           dockerfile: Dockerfile.prod
           account-url: AWS_ECR_ACCOUNT_URL
