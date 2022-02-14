@@ -10,10 +10,10 @@ jobs:
   test_client: #client containerのテスト
     docker:
       - image: node:16.13.2-alpine
-    working_directory: ~/portfolio_work_quest/client
+    working_directory: ~/work_quest/client
     steps:
       - checkout:
-          path: ~/portfolio_work_quest
+          path: ~/work_quest
       - run:
           name: test_client
           command: |
@@ -23,7 +23,7 @@ jobs:
   test_server: #server containerのテスト
     machine:
       image: circleci/classic:edge
-    working_directory: ~/portfolio_work_quest
+    working_directory: ~/work_quest
     steps:
       - checkout
       - docker/install-docker-compose
@@ -34,10 +34,13 @@ jobs:
   build-and-push-client: #ECRへ、client imageのpush
     machine:
       image: circleci/classic:edge
-    working_directory: ~/portfolio_work_quest/client
+    working_directory: ~/work_quest/client
     steps:
+      - run:
+          name: display list
+          command: ls
       - checkout:
-          path: ~/portfolio_work_quest
+          path: ~/work_quest
       - aws-cli/install:
           override-installed: true
       - aws-ecr/build-and-push-image:
@@ -52,10 +55,10 @@ jobs:
   build-and-push-server: #ECRへ、server imageのpush
     machine:
       image: circleci/classic:edge
-    working_directory: ~/portfolio_work_quest/server
+    working_directory: ~/work_quest/server
     steps:
       - checkout:
-          path: ~/portfolio_work_quest
+          path: ~/work_quest
       - aws-cli/install:
           override-installed: true
       - aws-ecr/build-and-push-image:
