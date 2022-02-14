@@ -34,11 +34,12 @@ jobs:
   build-and-push-client: #ECRへ、client imageのpush
     machine:
       image: circleci/classic:edge
-    working_directory: ~/portfolio_work_quest
+    working_directory: ~/portfolio_work_quest/client
     steps:
       - aws-cli/install:
           override-installed: true
-      - checkout
+      - checkout:
+          path: ~/portfolio_work_quest
       - run:
           working_directory: client
       - aws-ecr/build-and-push-image:
@@ -53,11 +54,12 @@ jobs:
   build-and-push-server: #ECRへ、server imageのpush
     machine:
       image: circleci/classic:edge
-    working_directory: ~/portfolio_work_quest
+    working_directory: ~/portfolio_work_quest/server
     steps:
       - aws-cli/install:
           override-installed: true
-      - checkout
+      - checkout:
+          path: ~/portfolio_work_quest
       - run:
           working_directory: server
       - aws-ecr/build-and-push-image:
