@@ -1,6 +1,7 @@
 version: 2.1
 
 orbs:
+  aws-cli: circleci/aws-cli@2.0.3
   aws-ecr: circleci/aws-ecr@7.3.0
   aws-ecs: circleci/aws-ecs@2.2.1
   docker: circleci/docker@2.0.1
@@ -9,10 +10,10 @@ jobs:
   test_client: #client containerのテスト
     docker:
       - image: node:16.13.2-alpine
-    working_directory: ~/portfolio_work_quest/client
+    working_directory: ~/work_quest/client
     steps:
       - checkout:
-          path: ~/portfolio_work_quest
+          path: ~/work_quest
       - run:
           name: test_client
           command: |
@@ -22,7 +23,7 @@ jobs:
   test_server: #server containerのテスト
     machine:
       image: circleci/classic:edge
-    working_directory: ~/portfolio_work_quest
+    working_directory: ~/work_quest
     steps:
       - checkout
       - docker/install-docker-compose
@@ -33,34 +34,38 @@ jobs:
   build-and-push-client: #ECRへ、client imageのpush
     machine:
       image: circleci/classic:edge
-    working_directory: ~/portfolio_work_quest
+    working_directory: ~/work_quest/client
     steps:
-      - checkout
-      - run:
-          name: move client directory
-          command: cd ./client
+      - checkout:
+          path: ~/work_quest
+      - aws-cli/install:
+          override-installed: true
       - aws-ecr/build-and-push-image:
+          checkout: false
+          dockerfile: Dockerfile.prod
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: AWS_DEFAULT_REGION
+          region: AWS_REGION
           repo: "${AWS_RESOURCE_NAME_PREFIX}-client"
           tag: "${CIRCLE_SHA1}"
 
   build-and-push-server: #ECRへ、server imageのpush
     machine:
       image: circleci/classic:edge
-    working_directory: ~/portfolio_work_quest
+    working_directory: ~/work_quest/server
     steps:
-      - checkout
-      - run:
-          name: move server directory
-          command: cd ./server
+      - checkout:
+          path: ~/work_quest
+      - aws-cli/install:
+          override-installed: true
       - aws-ecr/build-and-push-image:
+          checkout: false
+          dockerfile: Dockerfile.prod
           account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: AWS_DEFAULT_REGION
+          region: AWS_REGION
           repo: "${AWS_RESOURCE_NAME_PREFIX}-server"
           tag: "${CIRCLE_SHA1}"
 
@@ -76,14 +81,14 @@ workflows:
             - test_server
           filters:
             branches:
-              only: master
+              only: deploy
       - build-and-push-server:
           requires:
             - test_client
             - test_server
           filters:
             branches:
-              only: master
+              only: deploy
       - aws-ecs/deploy-service-update: #ECSにおけるclient containerの元image更新
           requires:
             - build-and-push-client
