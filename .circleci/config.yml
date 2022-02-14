@@ -36,10 +36,10 @@ jobs:
       image: circleci/classic:edge
     working_directory: ~/portfolio_work_quest/client
     steps:
-      - aws-cli/install:
-          override-installed: true
       - checkout:
           path: ~/portfolio_work_quest
+      - aws-cli/install:
+          override-installed: true
       - aws-ecr/build-and-push-image:
           dockerfile: Dockerfile.prod
           account-url: AWS_ECR_ACCOUNT_URL
@@ -54,10 +54,10 @@ jobs:
       image: circleci/classic:edge
     working_directory: ~/portfolio_work_quest/server
     steps:
-      - aws-cli/install:
-          override-installed: true
       - checkout:
           path: ~/portfolio_work_quest
+      - aws-cli/install:
+          override-installed: true
       - aws-ecr/build-and-push-image:
           dockerfile: Dockerfile.prod
           account-url: AWS_ECR_ACCOUNT_URL
