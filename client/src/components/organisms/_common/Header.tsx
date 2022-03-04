@@ -37,9 +37,9 @@ export const Header = memo((props: Props) => {
         </Box>
         <Text
           d={{ base: "none", md: "block" }}
-          color="white"
           fontSize={{ md: "35px", lg: "42px" }}
           ml="15%"
+          fontFamily="fantasy"
         >
           Work Quest
         </Text>

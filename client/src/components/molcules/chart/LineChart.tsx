@@ -70,15 +70,16 @@ export const LineChart = memo((props: Props) => {
           color: "#636363",
         },
         ticks: {
-          color: "white",
+          color: "#e9e4e4",
         },
       },
       yAxis: {
+        min: 0,
         grid: {
           color: "#636363",
         },
         ticks: {
-          color: "white",
+          color: "#e9e4e4",
           display: true,
         },
       },
@@ -86,7 +87,7 @@ export const LineChart = memo((props: Props) => {
   };
 
   return (
-    <Box border="1px solid white" py={3} px={5}>
+    <Box border="1px solid #e9e4e4" py={3} px={5}>
       <Line data={data} options={options} />
     </Box>
   );

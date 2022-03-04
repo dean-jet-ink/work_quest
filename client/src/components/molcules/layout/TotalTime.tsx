@@ -9,10 +9,10 @@ type Props = {
 };
 
 export const TotalTime = memo((props: Props) => {
-  const { totalTime, color = "white", fontSize = "15px" } = props;
+  const { totalTime, color = "inherit", fontSize = "15px" } = props;
 
   return (
-    <Flex align="center" color={color} fontSize={fontSize}>
+    <Flex color={color} fontSize={fontSize} fontWeight="normal">
       <TimerIcon />
       <Text>{totalTime}h</Text>
     </Flex>

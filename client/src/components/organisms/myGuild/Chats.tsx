@@ -28,15 +28,15 @@ type RightOrLeftProps = {
   bg: "#d4f3c0" | "white";
 };
 
-export const Chat = memo((props: Props) => {
+export const Chats = memo((props: Props) => {
   const { loginUserId, members, chat } = props;
   chat.time = moment.utc(chat.time).format("YYYY/MM/DD HH:mm");
   const user = members.find((member) => member.userId === chat.userId);
   const { file } = useFile({ key: "member", picture: user!.picture });
   const imageSize = {
     base: "45px",
-    md: "60px",
-    lg: "80px",
+    md: "50px",
+    lg: "60px",
   };
   const rightOrLeft: RightOrLeftProps =
     loginUserId === user?.userId
@@ -74,12 +74,7 @@ export const Chat = memo((props: Props) => {
         </Box>
       </Box>
       <Box position="relative" pr={rightOrLeft.pr} pl={rightOrLeft.pl}>
-        <Text
-          fontSize={{ base: "10px", md: "12px" }}
-          mb={1}
-          fontWeight="bold"
-          color="white"
-        >
+        <Text fontSize={{ base: "10px", md: "12px" }} mb={1} fontWeight="bold">
           {user?.userName}
         </Text>
         <Box
@@ -99,6 +94,7 @@ export const Chat = memo((props: Props) => {
           shadow="2px 2px 5px 0px rgba(0 0 0 / 0.3)"
         >
           <Text
+            color="#3e3e3e"
             fontWeight="bold"
             fontSize={{ base: "12px", md: "14px", lg: "16px" }}
             whiteSpace="pre-wrap"
@@ -106,7 +102,9 @@ export const Chat = memo((props: Props) => {
             {chat.comment}
           </Text>
         </Box>
-        <Text color="#d5d5d5">{chat.time}</Text>
+        <Text color="#d5d5d5" fontSize={{ base: "12px" }}>
+          {chat.time}
+        </Text>
       </Box>
     </Flex>
   );

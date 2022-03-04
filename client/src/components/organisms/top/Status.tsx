@@ -19,6 +19,7 @@ import { Comment } from "../../molcules/layout/Comment";
 import { LevelUpModal } from "./LevelUpModal";
 import praise from "../../../assets/audio/praise.mp3";
 import { useSoundEffect } from "../../../hooks/useSoundEffect";
+import { MotionBox } from "../../../animation/MotionBox";
 
 type Props = {
   user: User;
@@ -71,36 +72,24 @@ export const Status = memo((props: Props) => {
   return (
     <PrimaryContainer>
       <Flex
-        py={{ base: "40px", md: "70px" }}
+        py={{ base: "25px", md: "40px" }}
         px={{ base: 4, md: 8 }}
-        color="white"
         align="center"
         justify="space-around"
-        height={{ xl: "440px" }}
+        height={{ md: "420px" }}
       >
-        <Box w="50%">
+        <Box>
           <Box mb={6}>
-            <TotalTime
-              totalTime={user.totalTime}
-              fontSize="18px"
-              color="orange"
-            />
+            <TotalTime totalTime={user.totalTime} fontSize="18px" />
           </Box>
-          <Box mb={8}>
-            <Heading
-              fontSize={{ base: "18px", xl: "22px" }}
-              fontFamily="inherit"
-            >
-              {user.userName}
-            </Heading>
+          <Box mb={3}>
+            <Text fontSize={{ base: "18px", xl: "22px" }}>{user.userName}</Text>
           </Box>
           <Stack spacing={{ base: 5, md: 8 }}>
             <Box>
               <Flex align="center">
                 <Text fontSize={{ base: "15px", xl: "20px" }}>Level</Text>
-                <Text ml={5} fontWeight="bold">
-                  {profileLevel}
-                </Text>
+                <Text ml={5}>{profileLevel}</Text>
               </Flex>
               <Progress
                 d={progressDisplay}
@@ -113,49 +102,58 @@ export const Status = memo((props: Props) => {
 
               {/* レベルアップボタン */}
               <Box mt={4} d={levelUpDisplay}>
-                <Button
-                  onClick={() => {
-                    setTimeout(() => {
-                      onClickLevelUp({
-                        onOpen,
-                        onClickPraise,
-                        onClickParty,
-                      });
-                    }, 200);
+                <MotionBox
+                  animate={{
+                    backgroundColor: ["#9e5d3d", "#da652b", "#9e5d3d"],
                   }}
-                  bg="#ff9800"
-                  color="#ffe13e"
-                  fontSize="14px"
-                  h="fit-content"
-                  p={2}
+                  transition={{
+                    duration: 2,
+                    ease: "easeInOut",
+                    times: [0, 0.8, 1],
+                    repeat: Infinity,
+                    repeatType: "loop",
+                  }}
+                  w="fit-content"
+                  borderRadius={4}
                 >
-                  level up
-                </Button>
+                  <Button
+                    onClick={() => {
+                      setTimeout(() => {
+                        onClickLevelUp({
+                          onOpen,
+                          onClickPraise,
+                          onClickParty,
+                        });
+                      }, 200);
+                    }}
+                    bg="transparent"
+                    color="#ddc421"
+                    fontSize="14px"
+                    h="fit-content"
+                    p={2}
+                  >
+                    level up
+                  </Button>
+                </MotionBox>
               </Box>
             </Box>
             <Flex align="center">
               <Text fontSize="15px">称号</Text>
-              <Text ml={5} fontWeight="bold">
-                {profileTitle}
-              </Text>
+              <Text ml={5}>{profileTitle}</Text>
             </Flex>
           </Stack>
-          <Box mt={3}>
-            <Text
-              color="whiteAlpha.800"
-              fontSize={{ base: "12px", md: "14px" }}
-              lineHeight={2}
-            >
-              あなたの進化はここから始まります！
-            </Text>
-          </Box>
         </Box>
         <Box>
-          <Image src={titleImage} w={{ base: "180px", xl: "257px" }} />
+          <Image
+            src={titleImage}
+            w={{ base: "135px", md: "170px", xl: "200px" }}
+          />
         </Box>
       </Flex>
-      <Box d={commentDisplay} mx={2} mb={3}>
-        <Comment>{`${user.userName}「 ${user.comment} 」`}</Comment>
+      <Box d={commentDisplay} mx={2} mb={3} mt={{ md: "-65px" }}>
+        <Comment
+          height={{ base: "63px" }}
+        >{`${user.userName}「 ${user.comment} 」`}</Comment>
       </Box>
       <LevelUpModal
         onClose={onClose}

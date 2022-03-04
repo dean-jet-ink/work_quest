@@ -23,13 +23,21 @@ export const DrawerContainer = memo((props: Props) => {
       closeButtonColor={closeButtonColor}
     >
       <PrimaryContainer>
-        <Box p={8} color="white" overflow="auto" h="369px">
+        <Box
+          pt={{ base: "73px", md: "100px", xl: "65px" }}
+          px={{ base: "20px", sm: "50px", md: "75px" }}
+          overflow="auto"
+          h="369px"
+        >
           <Image
             src={image}
-            w={{ base: "75px", lg: "90px", xl: "120px" }}
+            w={{ base: "51px", md: "60px", lg: "80px", xl: "115px" }}
             objectFit="cover"
+            position="absolute"
+            top={{ base: "15px", md: "28px" }}
+            left={{ base: "35px", md: "55px" }}
           />
-          <Stack spacing={8} py={8} px={{ lg: "80px", xl: "220px" }}>
+          <Stack spacing={8} px={{ lg: "80px", xl: "220px" }}>
             {children}
           </Stack>
         </Box>

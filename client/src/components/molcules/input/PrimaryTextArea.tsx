@@ -6,20 +6,42 @@ type Props = {
   placeholder?: string;
   name: string;
   children?: string;
+  rows?: number;
+  bg?: string;
+  border?: string;
+  borderColor?: string;
+  shadow?: string;
+  color?: string;
+  fontSize?: any;
 };
 
 export const PrimaryTextArea = memo((props: Props) => {
   const [field, meta] = useField(props);
-  const { children, placeholder } = props;
+  const {
+    children,
+    placeholder,
+    rows = 3,
+    bg = "unset",
+    border = "1px solid",
+    borderColor = "#3182ce",
+    shadow = "0 0 0 1px #3182ce",
+    color = "inherit",
+    fontSize = "16px",
+  } = props;
 
   return (
     <Box>
       <Textarea
         resize="none"
-        fontSize={{ base: "14px" }}
+        fontSize={fontSize}
         {...field}
         placeholder={placeholder}
-        size="md"
+        size="sm"
+        rows={rows}
+        bg={bg}
+        border={border}
+        color={color}
+        _focus={{ borderColor, shadow }}
       >
         {children}
       </Textarea>

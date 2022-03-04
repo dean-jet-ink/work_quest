@@ -11,7 +11,7 @@ import { User } from "../types/user";
 import { axios } from "../apis/axios";
 
 type Props = {
-  onOpenLevelUp: () => void;
+  onOpen: () => void;
   onClickPraise: () => void;
   onClickParty: () => void;
 };
@@ -145,7 +145,7 @@ export const useLevelUp = (user: User) => {
 
   const onClickLevelUp = useCallback(
     (props: Props) => {
-      const { onOpenLevelUp, onClickPraise, onClickParty } = props;
+      const { onOpen, onClickPraise, onClickParty } = props;
 
       let base = 1;
       while (experience >= levelComposition[base]) {
@@ -172,7 +172,7 @@ export const useLevelUp = (user: User) => {
       });
 
       setLevelUpFlag(false);
-      onOpenLevelUp();
+      onOpen();
       onClickPraise();
       onClickParty();
     },

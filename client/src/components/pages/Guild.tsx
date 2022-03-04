@@ -20,9 +20,10 @@ import { useLoginUser } from "../../hooks/useLoginUser";
 import { MyGuildList } from "../organisms/guild/MyGuildList";
 import { useMyGuild } from "../../hooks/form/useMyGuild";
 import { PrimaryTab } from "../molcules/menu/PrimaryTab";
+import guildBg from "../../image/guild_bg.jpg";
 
 type AddGuildDisplayProps = {
-  color: "white" | "#d0d0d099";
+  color: "inherit" | "#d0d0d099";
   pointerEvents: "none" | "auto";
 };
 
@@ -46,45 +47,40 @@ export const Guild = memo(() => {
           pointerEvents: "none",
         }
       : {
-          color: "white",
+          color: "inherit",
           pointerEvents: "auto",
         };
 
   return (
     <SecondaryLayout>
-      <Center>
-        <Box position="relative" zIndex={-1} w="500px" h="220px">
-          <Box
-            position="absolute"
-            top={{ base: "35px", lg: "110px" }}
-            left={{
-              base: "10px",
-              sm: "30px",
-              md: "-15px",
-              lg: "15px",
-              xl: "75px",
+      <Flex
+        align="center"
+        justify="center"
+        zIndex="-1"
+        pt={{ lg: 3 }}
+        bg={`center/cover url(${guildBg}) no-repeat`}
+      >
+        <Box h="fit-content" pb={14}>
+          <LineOfChara
+            line={line}
+            position="right"
+            width={{
+              base: "154px",
+              sm: "180px",
+              md: "220px",
+              lg: "285px",
             }}
-          >
-            <LineOfChara
-              line={line}
-              position="right"
-              width={{ base: "154px", sm: "180px", md: "220px", lg: "285px" }}
-            />
-          </Box>
-          <Image
-            src={mister}
-            mt={3}
-            w={{ base: "285px", md: "301px", lg: "435px", xl: "560px" }}
-            h={{ base: "220px", md: "231px", lg: "343px", xl: "365px" }}
-            objectFit="cover"
-            ml="auto"
-            position="absolute"
-            right={{ base: "-10px", sm: "30px", lg: "-205px", xl: "-300px" }}
           />
         </Box>
-      </Center>
+        <Image
+          src={mister}
+          boxSize={{ base: "195px", md: "210px", lg: "243px" }}
+          height={{ md: "195px", lg: "189px" }}
+          objectFit="cover"
+        />
+      </Flex>
 
-      <Box mt={{ base: "-40px", lg: "65px", xl: "90px" }}>
+      <Box mt={{ base: "-66px", lg: "-50px" }}>
         <PrimaryTab
           defaultIndex={1}
           tab1="ギルド一覧"
@@ -94,12 +90,8 @@ export const Guild = memo(() => {
         >
           {/* ギルド一覧 */}
 
-          <Box>
-            <Flex
-              mb={{ base: 2, md: 8, lg: 10 }}
-              align="center"
-              justify="start"
-            >
+          <Box mx="auto" w={{ sm: "436px", md: "540px", lg: "760px" }}>
+            <Flex mb={{ base: 2, sm: 4, lg: 6 }} align="center" justify="start">
               <AddContents
                 contents="ギルドを作成する"
                 onClick={onOpen}
@@ -107,7 +99,7 @@ export const Guild = memo(() => {
                 pointerEvents={addGuildDisplay.pointerEvents}
               />
               <Box ml={4} fontSize={{ base: "16px", lg: "18px" }}>
-                <Text color="white">({myGuild.length}/3)</Text>
+                <Text>({myGuild.length}/3)</Text>
               </Box>
             </Flex>
             <GuildList
@@ -120,7 +112,9 @@ export const Guild = memo(() => {
 
           {/* 所属ギルド一覧 */}
 
-          <MyGuildList myGuildList={myGuild} />
+          <Box mx="auto" w={{ sm: "436px", md: "540px", lg: "760px" }}>
+            <MyGuildList myGuildList={myGuild} />
+          </Box>
         </PrimaryTab>
       </Box>
 

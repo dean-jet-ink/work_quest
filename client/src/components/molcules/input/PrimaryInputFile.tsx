@@ -20,7 +20,7 @@ export const PrimaryInputFile = (props: Props) => {
           <Image
             src={src}
             borderRadius="full"
-            boxSize={{ base: "80px" }}
+            boxSize={{ base: "70px" }}
             objectFit="cover"
             cursor="pointer"
             _hover={{ opacity: 0.8 }}

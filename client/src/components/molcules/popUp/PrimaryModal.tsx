@@ -13,10 +13,11 @@ type Props = {
   isOpen: boolean;
   children: ReactNode;
   isCentered?: boolean;
+  margin?: number;
 };
 
 export const PrimaryModal = memo((props: Props) => {
-  const { onClose, isOpen, children, isCentered = true } = props;
+  const { onClose, isOpen, children, isCentered = true, margin = 5 } = props;
 
   return (
     <Modal
@@ -26,7 +27,7 @@ export const PrimaryModal = memo((props: Props) => {
       isCentered={isCentered}
     >
       <ModalOverlay>
-        <ModalContent mx={5} color="white">
+        <ModalContent mx={margin} bg="transparent">
           <ModalCloseButton />
           <PrimaryContainer>{children}</PrimaryContainer>
         </ModalContent>

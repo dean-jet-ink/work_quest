@@ -7,7 +7,7 @@ export const Background = (props: { children: ReactNode }) => {
 
   return (
     <Box background={`center/cover url(${bg}) no-repeat`}>
-      <Box bg="#00000012">{children}</Box>
+      <Box bg="#70685229">{children}</Box>
     </Box>
   );
 };

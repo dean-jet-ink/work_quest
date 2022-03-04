@@ -21,7 +21,7 @@ export const UserRow = (props: Props) => {
   const { user, index, isRanking = false } = props;
   const { file } = useFile({ key: "member", picture: user.picture });
   const noLink = loginUserId === user.userId ? "none" : "auto"; //リストの自分の行はリンク無効
-  const bgColor = loginUserId === user.userId ? "#f38484b5" : "#ede5adb5"; //リストの自分の行は背景色変更
+  const border = loginUserId === user.userId ? "3px solid #dadada" : "none"; //リストの自分の行はborder表示
   const ranking = isRanking ? "block" : "none";
   const place = useCallback((index: number): string => {
     switch (true) {
@@ -36,33 +36,29 @@ export const UserRow = (props: Props) => {
     }
   }, []); //ランキングページにおいて、順位が3位以内ならばその順位の王冠表示
   const rank = place(index);
+  const numberDisplay = isRanking && rank === "unset" ? "block" : "none";
 
   return (
     <ListItem
       h={{ base: "70px" }}
-      bg={bgColor}
+      bg="#302e3494"
+      border={border}
       px={{ base: 4 }}
       borderRadius="4px"
     >
       <Link to={`/top/member/${user.userId}`} style={{ pointerEvents: noLink }}>
-        <Flex align="center" justify="space-between" h="100%">
+        <Flex align="center" justify="space-between" h="100%" fontWeight="bold">
           <Flex align="center" justify="start" w="50%">
-            <Box
-              position="relative"
-              mr={{ base: 3 }}
-              fontWeight="bold"
-              color="#785117"
-              d={ranking}
-            >
+            <Box w="22px" position="relative" mr={{ base: 3 }} d={ranking}>
               <Image
                 src={rank}
                 position="absolute"
                 maxW="unset"
-                w="60px"
-                top="-15px"
-                left="-26px"
+                w="38px"
+                top="-18px"
+                left="-10px"
               />
-              <Text w="5%" d={ranking}>
+              <Text d={numberDisplay} color="#9e9383" fontSize="14px">
                 {index + 1}
               </Text>
             </Box>
@@ -73,27 +69,19 @@ export const UserRow = (props: Props) => {
               flexDir="column"
               ml={{ base: 2, lg: 6 }}
             >
-              <Text fontWeight="bold">{user.userName}</Text>
-              <Text fontWeight="bold">Lv.{user.level}</Text>
+              <Text>{user.userName}</Text>
+              <Text>Lv.{user.level}</Text>
             </Flex>
           </Flex>
-          <Flex align="center" w={{ base: "147px", md: "200px" }}>
-            <Flex
-              textAlign="center"
-              justify="center"
-              align="center"
-              w={{ base: "70px", md: "100px" }}
-              bg="red.500"
-              borderRadius="md"
-              mr={{ md: 2 }}
-              py={{ base: 1, md: "8px" }}
-            >
-              <Text fontWeight="bold" fontSize="15px" color="white">
-                {user.title}
-              </Text>
-            </Flex>
-            <Box fontSize={{ lg: "18px" }}>
-              <TotalTime totalTime={user.totalTime} fontSize="inherit" />
+          <Flex
+            align="center"
+            justify="space-around"
+            w={{ base: "147px", md: "200px" }}
+            fontSize={{ base: "12px", lg: "15px" }}
+          >
+            <Text>{user.title}</Text>
+            <Box>
+              <TotalTime totalTime={user.totalTime} />
             </Box>
           </Flex>
         </Flex>

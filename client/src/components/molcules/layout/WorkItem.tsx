@@ -1,5 +1,6 @@
-import { AccordionIcon, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useDeadline } from "../../../hooks/form/useDaedline";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import moment from "moment";
 
 type Props = {
@@ -16,25 +17,28 @@ export const WorkItem = (props: Props) => {
 
   return (
     <Flex
-      bg="#eacfad"
-      h="60px"
+      h="45px"
       w="100%"
       align="center"
       justify="space-between"
-      borderRadius="md"
-      borderWidth="2px"
-      borderColor="#906e43"
-      p={{ base: 3 }}
       cursor="pointer"
+      hover={{ bg: "#e1e1e124" }}
     >
-      <Text fontSize="15px" fontWeight="bold" color="blackAlpha.800">
-        {name}
-      </Text>
       <Flex align="center">
-        <Text color={colorInfo} mr={2} fontWeight="bold">
+        <Box mr={1} pb="3px" fontSize="30px">
+          <ArrowRightIcon color="inherit" fontSize="inherit" />
+        </Box>
+        <Text
+          fontSize={{ base: "15px", md: "16px", lg: "18px" }}
+          textAlign="start"
+        >
+          {name}
+        </Text>
+      </Flex>
+      <Flex align="center">
+        <Text color={colorInfo} ml={2} fontSize="14px">
           {deadlineFormat}
         </Text>
-        <AccordionIcon />
       </Flex>
     </Flex>
   );

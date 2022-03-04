@@ -13,7 +13,7 @@ export const UserList = memo((props: Props) => {
   const { users, isRanking } = props;
 
   return (
-    <List w="100%" px={{ base: 2, lg: 5 }} py={7} minH="50vh">
+    <List w="100%" px={{ base: 2, lg: 5 }} py={4} minH="50vh">
       <Stack spacing={2}>
         {users.map((user, index) => (
           <UserRow

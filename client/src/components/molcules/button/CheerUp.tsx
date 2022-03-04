@@ -15,16 +15,23 @@ export const CheerUp = memo((props: Props) => {
   const { cheered, prosessing, onClickSubmit, onClickDelete } = props;
 
   return (
-    <>
+    <Box
+      background="#191e2bd6"
+      border="3px solid #dadada"
+      box-shadow="md"
+      border-radius="md"
+    >
       {cheered ? (
         <Flex
+          py={1}
+          px={2}
           align="center"
           cursor="pointer"
           _hover={{ opacity: 0.8 }}
           userSelect="none"
           onClick={onClickDelete}
         >
-          <Text mr={1} fontWeight="bold" fontSize={{ lg: "18px" }}>
+          <Text mr={1} fontWeight="bold">
             応援する
           </Text>
           <Box position="relative">
@@ -51,7 +58,7 @@ export const CheerUp = memo((props: Props) => {
                 times: [0, 0.5, 1],
               }}
             >
-              <Flex fontSize={{ base: "26px", lg: "32px" }} color="#debd0b">
+              <Flex fontSize="25px" color="#debd0b">
                 <InsertEmoticonIcon color="inherit" fontSize="inherit" />
               </Flex>
             </MotionBox>
@@ -59,6 +66,8 @@ export const CheerUp = memo((props: Props) => {
         </Flex>
       ) : (
         <Flex
+          py={1}
+          px={2}
           data-testid="cheerButton"
           align="center"
           cursor="pointer"
@@ -83,6 +92,6 @@ export const CheerUp = memo((props: Props) => {
         </Flex>
       )}
       <ProsessingModal prosessing={prosessing} />
-    </>
+    </Box>
   );
 });

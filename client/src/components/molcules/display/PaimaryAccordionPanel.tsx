@@ -11,16 +11,9 @@ export const PrimaryAccordionPanel = memo((props: Props) => {
   const { children } = props;
 
   return (
-    <Box
-      bg="#f5e8c3"
-      mx={1}
-      p={{ base: 6, lg: 12 }}
-      px={{ xl: "90px" }}
-      borderBottomEndRadius={5}
-      borderBottomLeftRadius={5}
-    >
+    <Box w="235px" mx="auto" mb="10px" fontSize={{ base: "14px", md: "16px" }}>
       <PrimaryContainer>
-        <Box color="white" fontWeight="bold" p={5}>
+        <Box p={{ base: 2 }}>
           <Flex align="center" justify="space-around">
             <Flex align="center" justify="center" w="50%">
               {children[0]}
