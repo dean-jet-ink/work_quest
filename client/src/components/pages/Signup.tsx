@@ -3,8 +3,8 @@ import { Box, Center, Flex, Stack } from "@chakra-ui/react";
 import { PrimaryButton } from "../atoms/button/PrimarButton";
 import { PrimaryInputText } from "../molcules/input/PrimaryInputText";
 import { PrimarySelect } from "../molcules/input/PrimarySelect";
-import { LoginHeaderContainer } from "../atoms/layout/LoginHeaderContainer";
-import { LoginHeaderForm } from "../molcules/layout/LoginHeaderForm";
+import { LoginWrapper } from "../atoms/layout/LoginWrapper";
+import { LoginContainer } from "../molcules/layout/LoginContainer";
 import { Form, Formik } from "formik";
 import { memo } from "react";
 import { useSignup } from "../../hooks/form/useSignup";
@@ -17,8 +17,8 @@ export const Signup = memo(() => {
   return (
     <FooterLayout>
       <Box>
-        <LoginHeaderContainer color={color}>
-          <LoginHeaderForm signup={true} color={color}>
+        <LoginWrapper color={color}>
+          <LoginContainer signup={true} color={color}>
             <Formik
               initialValues={initialValues}
               onSubmit={(values, actions) => onSubmit({ values, actions })}
@@ -68,8 +68,8 @@ export const Signup = memo(() => {
                 </Form>
               )}
             </Formik>
-          </LoginHeaderForm>
-        </LoginHeaderContainer>
+          </LoginContainer>
+        </LoginWrapper>
       </Box>
     </FooterLayout>
   );

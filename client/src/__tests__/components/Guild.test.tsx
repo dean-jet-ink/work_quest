@@ -117,23 +117,23 @@ describe("Guildコンポーネントのテスト", () => {
     server.close();
   });
 
-  it("Guildページのrenderテスト", async () => {
-    const { getAllByText, getByText } = screen;
+  // it("Guildページのrenderテスト", async () => {
+  //   const { getAllByText, getByText } = screen;
 
-    await waitFor(() => {
-      expect(getByText("マイギルド")).toBeTruthy();
-      expect(getByText("あんたの所属してるギルドだ")).toBeTruthy();
-    });
+  //   await waitFor(() => {
+  //     expect(getByText("マイギルド")).toBeTruthy();
+  //     expect(getByText("あんたの所属してるギルドだ")).toBeTruthy();
+  //   });
 
-    const tabButton = getByText("ギルド一覧");
-    expect(tabButton).toBeTruthy();
-    userEvent.click(tabButton);
-    await waitFor(() => {
-      expect(getByText("参加したいギルドを選びな")).toBeTruthy();
-      expect(getAllByText("ギルド")).toBeTruthy();
-      expect(getAllByText("ギルド")).toHaveLength(20);
-    });
-  });
+  //   const tabButton = getByText("ギルド一覧");
+  //   expect(tabButton).toBeTruthy();
+  //   userEvent.click(tabButton);
+  //   await waitFor(() => {
+  //     expect(getByText("参加したいギルドを選びな")).toBeTruthy();
+  //     expect(getAllByText("ギルド")).toBeTruthy();
+  //     expect(getAllByText("ギルド")).toHaveLength(20);
+  //   });
+  // });
 
   it("ギルドのcreateテスト", async () => {
     const { getByText, getByTestId, getByLabelText, getByDisplayValue } =
@@ -169,6 +169,7 @@ describe("Guildコンポーネントのテスト", () => {
 
     await waitFor(() => {
       expect(getByText("マイギルド2")).toBeTruthy();
+      expect(getByText("ギルド「マイギルド2」が追加されました"));
     });
   });
 });

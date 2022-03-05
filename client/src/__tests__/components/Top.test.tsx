@@ -424,7 +424,7 @@ describe("Topコンポーネントのテストケース", () => {
     });
     await waitFor(async () => {
       await expect(getByText("work2")).toBeTruthy();
-      expect(getAllByText("Workへすすむ")).toHaveLength(2);
+      expect(getAllByText("Work")).toHaveLength(2);
     });
   });
   it("応援リストのrenderテスト", async () => {

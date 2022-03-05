@@ -1,9 +1,6 @@
 import { ReactNode } from "react";
-import { Flex, Box, Text, Image, useDisclosure } from "@chakra-ui/react";
+import { Flex, Box, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-
-import soldier from "../../../image/title/soldier.png";
-import { HowToUseModal } from "../../organisms/login/HowToUseModal";
 
 type Props = {
   children: ReactNode;
@@ -11,10 +8,8 @@ type Props = {
   color: string;
 };
 
-export const LoginHeaderForm = (props: Props) => {
+export const LoginContainer = (props: Props) => {
   const { children, signup, color } = props;
-  const { onClose, onOpen, isOpen } = useDisclosure();
-  const howToDisplay = signup ? "none" : "flex";
 
   return (
     <Flex
@@ -66,44 +61,6 @@ export const LoginHeaderForm = (props: Props) => {
           </Box>
         )}
       </Box>
-
-      <Flex
-        w="100%"
-        align="center"
-        justify="space-around"
-        pt={7}
-        fontSize={{ base: "12px" }}
-        display={howToDisplay}
-      >
-        <Box
-          color={color}
-          _hover={{ color: "orange", borderBottomColor: "orange" }}
-          cursor="pointer"
-          onClick={onOpen}
-          border-bottom="1px solid #d2c9c9"
-          width="90px"
-          pb={3}
-        >
-          <Text
-            fontFamily="fantasy"
-            fontSize={{ base: "17px", sm: "20px" }}
-            fontWeight="bold"
-          >
-            使い方
-          </Text>
-        </Box>
-        <Image
-          src={soldier}
-          w={{ base: "85px", sm: "128px", lg: "210px" }}
-          h={{ base: "125px", sm: "163px", lg: "265px" }}
-          objectFit="cover"
-          position={{ lg: "absolute" }}
-          bottom={{ lg: "64px" }}
-          right={{ lg: "115px" }}
-        />
-      </Flex>
-
-      <HowToUseModal onClose={onClose} isOpen={isOpen} color={color} />
     </Flex>
   );
 };

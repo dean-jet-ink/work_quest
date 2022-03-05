@@ -2,9 +2,6 @@ import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ReactNode } from "react";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
-import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
-import { Box } from "@chakra-ui/react";
 import { Settings } from "react-slick";
 
 type Props = {

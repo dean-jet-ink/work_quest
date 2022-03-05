@@ -6,7 +6,7 @@ type Props = {
   color: string;
 };
 
-export const LoginHeaderContainer = (props: Props) => {
+export const LoginWrapper = (props: Props) => {
   const { children, color } = props;
 
   return (

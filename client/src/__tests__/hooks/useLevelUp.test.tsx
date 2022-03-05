@@ -74,10 +74,10 @@ describe("useLevelUpカスタムフックのテスト", () => {
     //経験値 3, 5, 9, 16, 24, 34, 45, 58, 72
     //以上9つの境界値のon/offポイントをテスト
 
-    const onOpenLevelUp = () => {};
-    const onClickPraise = () => {};
-    const onClickParty = () => {};
-    const props = { onOpenLevelUp, onClickPraise, onClickParty };
+    const onOpen = jest.fn();
+    const onClickPraise = jest.fn();
+    const onClickParty = jest.fn();
+    const props = { onOpen, onClickPraise, onClickParty };
 
     act(() => {
       result.current.onClickLevelUp(props);

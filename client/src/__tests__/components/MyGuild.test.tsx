@@ -183,9 +183,6 @@ describe("MyGuildコンポーネントのテスト", () => {
       screen;
 
     await waitFor(async () => {
-      const modalButton = getByTestId("commentButton");
-      expect(modalButton).toBeTruthy();
-      await userEvent.click(modalButton);
       const massageForm = getByPlaceholderText("メッセージを入力");
       await fireEvent.change(massageForm, {
         target: { value: "コメントテスト" },
