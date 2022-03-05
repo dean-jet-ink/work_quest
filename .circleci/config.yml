@@ -79,16 +79,10 @@ workflows:
           requires:
             - test_client
             - test_server
-          filters:
-            branches:
-              only: deploy
       - build-and-push-server:
           requires:
             - test_client
             - test_server
-          filters:
-            branches:
-              only: deploy
       - aws-ecs/deploy-service-update: #ECSにおけるclient containerの元image更新
           requires:
             - build-and-push-client
