@@ -43,6 +43,7 @@
     "@types/react-infinite-scroller": "^1.2.2",
     "@types/react-router-dom": "^5.3.2",
     "@types/react-slick": "^0.23.8",
+    "@types/slick-carousel": "^1.6.37",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
