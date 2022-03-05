@@ -6,8 +6,9 @@ export const PrimaryWrapper = memo((props: { children: ReactNode }) => {
 
   return (
     <Box
-      px={{ base: 2, md: 8, lg: 14, xl: "140px" }}
-      py={{ base: "30px", md: "50px" }}
+      px={{ base: 2, lg: 14, xl: "140px" }}
+      pt={{ base: "25px", md: "40px" }}
+      pb={{ base: "25px", md: "56px" }}
     >
       {children}
     </Box>

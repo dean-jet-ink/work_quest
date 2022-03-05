@@ -7,12 +7,10 @@ export const PrimaryContainer = memo((props: { children: ReactNode }) => {
 
   return (
     <Box
-      color="white"
-      bg="gray.900"
-      borderWidth="4px"
-      borderColor="white"
-      borderRadius="md"
+      bg="#191e2bd6"
+      border="4px solid #dadada"
       shadow="md"
+      borderRadius="md"
     >
       {children}
     </Box>

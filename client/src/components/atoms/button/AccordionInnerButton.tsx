@@ -9,7 +9,7 @@ export const AccordionInnerButton = memo((props: { children: string }) => {
       bg="transparent"
       w="auto"
       p="0"
-      fontWeight="bold"
+      fontSize="inherit"
       _hover={{ bg: "unset", color: "orange" }}
       _focus={{
         boxShadow: "unset",

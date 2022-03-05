@@ -74,7 +74,7 @@ export const ProfileFormModal = memo((props: Props) => {
                 );
               }}
             >
-              <Stack spacing={3}>
+              <Stack spacing={2}>
                 <PrimaryInputFile
                   name="file"
                   src={formSrc}
@@ -103,13 +103,19 @@ export const ProfileFormModal = memo((props: Props) => {
                   コメント
                   <PrimaryTextArea name="comment"></PrimaryTextArea>
                 </FormLabel>
-                <Flex justify="center" pt={4}>
-                  <PrimaryButton color="facebook" isLoading={isSubmitting}>
+                <Flex justify="center" align="center">
+                  <PrimaryButton
+                    fontSize="14px"
+                    color="facebook"
+                    isLoading={isSubmitting}
+                  >
                     プロフィールを変更する
                   </PrimaryButton>
                 </Flex>
                 <Flex justify="center" pt={2}>
-                  <SecondaryButton onClick={logout}>ログアウト</SecondaryButton>
+                  <SecondaryButton fontSize="14px" onClick={logout}>
+                    ログアウト
+                  </SecondaryButton>
                 </Flex>
               </Stack>
             </Form>

@@ -44,13 +44,13 @@ export const WorkList = memo((props: Props) => {
 
   return (
     <Accordion allowToggle>
-      <Stack spacing={{ base: 2 }}>
+      <Stack spacing={{ base: 1 }}>
         {works.map((work, index) => (
           <AccordionItem key={work.id} border="unset">
             <AccordionButton p="0" _focus={{ boxShadow: "unset" }}>
               <WorkItem name={work.workName} deadline={work.deadline} />
             </AccordionButton>
-            <AccordionPanel p="0">
+            <AccordionPanel p={0}>
               <PrimaryAccordionPanel>
                 <Link to={`/top/work/${work.id}`}>
                   <Flex
@@ -58,7 +58,7 @@ export const WorkList = memo((props: Props) => {
                     justify="center"
                     _hover={{ color: "orange" }}
                   >
-                    <Text mr={2}>Workへすすむ</Text>
+                    <Text mr={2}>Work</Text>
                   </Flex>
                 </Link>
                 <SecondaryButton onClick={onOpen1}>編集する</SecondaryButton>

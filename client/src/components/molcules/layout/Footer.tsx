@@ -4,9 +4,11 @@ import { memo } from "react";
 export const Footer = memo(() => {
   return (
     <>
-      <Box h="60px" bgColor="gray.800">
+      <Box h="35px" bg="gray.800">
         <Flex h="100%" align="center" justify="center">
-          <Text color="gray.300">Copyright Kenta All right reserved.</Text>
+          <Text color="#a4a4a4" fontSize={{ base: "12px", sm: "14px" }}>
+            Copyright Kenta All right reserved.
+          </Text>
         </Flex>
       </Box>
     </>

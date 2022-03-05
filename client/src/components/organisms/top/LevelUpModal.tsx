@@ -21,24 +21,21 @@ export const LevelUpModal = memo((props: Props) => {
   return (
     <PrimaryModal onClose={onClose} isOpen={isOpen}>
       <Box p={5}>
-        <Flex justify="center" textAlign="center">
-          <Stack spacing={3}>
-            <Text fontSize="25px" color="orange">
-              LEVEL UP !!
-            </Text>
-            <Flex justify="space-around" color="#43da3e">
-              <Flex justify="center">
-                <ArrowUpwardIcon color="inherit" />
-                <Text ml={2} fontSize="18px" fontWeight="bold">
-                  level {level}
-                </Text>
-              </Flex>
-              <Text ml={2} fontSize="18px" fontWeight="bold">
-                {title}
-              </Text>
+        <Box textAlign="center">
+          <Text fontSize="25px" color="#d49b33">
+            LEVEL UP !!
+          </Text>
+        </Box>
+        <Flex justify="space-around" textAlign="center" mt={3}>
+          <Flex flexDir="column" justify="center" align="center" w="120px">
+            <Flex justify="space-around">
+              <Text>level {level}</Text>
             </Flex>
-            <Image src={titleImage} w="150px" />
-          </Stack>
+            <Text mt={3}>{title}</Text>
+          </Flex>
+          <Flex align="center" justify="center">
+            <Image src={titleImage} w="130px" />
+          </Flex>
         </Flex>
       </Box>
     </PrimaryModal>

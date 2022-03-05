@@ -22,6 +22,10 @@ jest.mock("react-router-dom", () => ({
   }),
 }));
 
+jest.mock("react-slick", () => ({
+  Slick: jest.fn(),
+}));
+
 const setUserLoginUserId = jest.fn();
 jest.mock("../../hooks/useLoginUser", () => ({
   useLoginUser: () => ({
@@ -52,12 +56,10 @@ describe("Loginコンポーネントのテストケース", () => {
     const mailForm = screen.getByPlaceholderText("メールアドレス");
     const passForm = screen.getByPlaceholderText("パスワード");
     const loginButton = screen.getByText("ログイン");
-    const signupButton = screen.getByText("新規登録");
 
     expect(mailForm).toBeInTheDocument();
     expect(passForm).toBeInTheDocument();
     expect(loginButton).toBeInTheDocument();
-    expect(signupButton).toBeInTheDocument();
   });
   it("ログインフォームのバリデーションテスト", async () => {
     render(<Login />);

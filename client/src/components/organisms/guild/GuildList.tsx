@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useDisclosure, Wrap } from "@chakra-ui/react";
+import { Box, List, Stack, useDisclosure, Wrap } from "@chakra-ui/react";
 
 import { useSelectGuild } from "../../../hooks/useSelectGuild";
 import { GuildDetailModal } from "./GuildDetailModal";
@@ -8,7 +8,7 @@ import {
   MyGuildInitialValuesType,
   MyGuildOnSubmitProps,
 } from "../../../hooks/form/useMyGuild";
-import { GuildCard } from "../../molcules/layout/GuildCard";
+import { GuildRow } from "../../molcules/layout/GuildRow";
 
 type Props = {
   guildList: Guild[];
@@ -31,15 +31,17 @@ export const GuildList = (props: Props) => {
   );
 
   return (
-    <Wrap spacing={{ base: 5, lg: 10 }} justify="center">
-      {guildList.map((guild) => (
-        <GuildCard
-          key={guild.guildId}
-          guild={guild}
-          myGuildList={myGuildList}
-          onClickSelect={onClickSelect}
-        />
-      ))}
+    <List>
+      <Stack spacing={{ base: 2, md: 3 }}>
+        {guildList.map((guild) => (
+          <GuildRow
+            key={guild.guildId}
+            guild={guild}
+            myGuilds={myGuildList}
+            onClickSelect={onClickSelect}
+          />
+        ))}
+      </Stack>
       <GuildDetailModal
         onClose={onClose}
         isOpen={isOpen}
@@ -48,6 +50,6 @@ export const GuildList = (props: Props) => {
         initialValues={initialValues}
         onSubmit={onSubmit}
       />
-    </Wrap>
+    </List>
   );
 };

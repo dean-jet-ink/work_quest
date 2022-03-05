@@ -15,15 +15,16 @@ export const DrawerButton = (props: Props) => {
     <PrimaryContainer>
       <Flex
         onClick={onClick}
-        my={8}
+        my={4}
         mx="auto"
         align="center"
         justify="center"
         _hover={{ cursor: "pointer", color: "orange" }}
-        w="fit-content"
+        w="100%"
+        maxW="500px"
       >
-        <Text fontWeight="bold">{text}</Text>
         <ArrowDropUpIcon />
+        <Text>{text}</Text>
       </Flex>
     </PrimaryContainer>
   );

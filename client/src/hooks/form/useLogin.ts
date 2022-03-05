@@ -7,18 +7,18 @@ import { axios } from "../../apis/axios";
 import { useLoginUser } from "../useLoginUser";
 import { useShowMessage } from "../useShowMessage";
 
-type InitialValuesType = {
+export type LoginInitialValuesType = {
   mail: string;
   pass: string;
 };
 
-type OnSubmitProps = {
-  values: InitialValuesType;
-  actions: FormikHelpers<InitialValuesType>;
+export type LoginOnSubmitProps = {
+  values: LoginInitialValuesType;
+  actions: FormikHelpers<LoginInitialValuesType>;
 };
 
 export const useLogin = () => {
-  const initialValues: InitialValuesType = {
+  const initialValues: LoginInitialValuesType = {
     mail: "",
     pass: "",
   };
@@ -26,7 +26,7 @@ export const useLogin = () => {
   const { showMessage } = useShowMessage();
   const { setLoginUserId } = useLoginUser();
 
-  const onSubmit: (props: OnSubmitProps) => void = useCallback((props) => {
+  const onSubmit: (props: LoginOnSubmitProps) => void = useCallback((props) => {
     const { values, actions } = props;
 
     axios

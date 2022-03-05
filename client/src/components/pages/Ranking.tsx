@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
 
 import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
 import { UserList } from "../organisms/_common/UserList";
@@ -16,34 +16,25 @@ export const Ranking = memo(() => {
     <Box bg={`center/cover url(${palace}) no-repeat`} bgAttachment="fixed">
       <Box bg="#00000052">
         <SecondaryLayout>
-          <Box
-            position="relative"
-            mx="auto"
-            w={{ sm: "500px" }}
-            h={{ base: "231px", lg: "261px" }}
-          >
-            <Box
-              position="absolute"
-              top={{ base: "65px" }}
-              left={{ base: "5px", sm: "38px", md: "-10px", lg: "-110px" }}
-              zIndex={1}
-            >
-              <LineOfChara
-                line="せいぜい頑張んなさい!"
-                position="right"
-                width={{ base: "154px", sm: "180px", md: "220px", lg: "285px" }}
-              />
-            </Box>
-            <Box position="absolute" right={{ base: "0", sm: "30px" }}>
-              <Image
-                src={queen}
-                mt={4}
-                boxSize={{ base: "250px", lg: "280px" }}
-                mr={{ base: "unset", md: "auto" }}
-                ml={{ base: "auto", md: "auto" }}
-              />
-            </Box>
-          </Box>
+          <Flex align="center" justify="center" pt={4}>
+            <Flex align="center" justify="center">
+              <Box h="fit-content">
+                <LineOfChara
+                  line="せいぜい頑張ったら？"
+                  position="right"
+                  width={{
+                    base: "154px",
+                    sm: "180px",
+                    md: "220px",
+                    lg: "285px",
+                  }}
+                />
+              </Box>
+            </Flex>
+            <Flex justify="center" align="center">
+              <Image src={queen} boxSize={{ base: "160px", lg: "220px" }} />
+            </Flex>
+          </Flex>
           <Box minH="100vh">
             <Box px={{ md: "40px", lg: "120px", xl: "220px" }}>
               <InfiniteScroller hasMore={hasMore} loadMore={loadMoreUser}>

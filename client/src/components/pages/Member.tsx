@@ -27,47 +27,61 @@ export const Member = memo(() => {
   );
   const { week } = useReport(loginUserId as number);
   const { titleImage } = useLevelUp(user);
+  const width = { base: "100%", sm: "440px", md: "440px", lg: "520px" };
 
   return (
     <Background>
       <SecondaryLayout>
-        <PrimaryWrapper>
-          <Box w={{ base: "450px", md: "600px", lg: "auto" }} mx="auto">
-            <Flex w="100%" p={5} align="center" justify="flex-end">
-              <CheerUp
-                cheered={cheered}
-                onClickSubmit={onClickSubmit}
-                onClickDelete={onClickDelete}
-                prosessing={prosessing}
-              />
-            </Flex>
-            <Flex
-              flexDir={{ base: "column", lg: "row" }}
-              justify="space-between"
+        <Flex
+          flexDir="column"
+          justify="center"
+          pt={{ base: "60px", sm: "75px", md: "85px" }}
+          pb={{ base: "15px", sm: "30px", md: "105px" }}
+          px={{ base: 2, md: 4 }}
+        >
+          <Flex
+            flexDir={{ base: "column", lg: "row" }}
+            justify="center"
+            align="center"
+          >
+            <Box
+              mb={{ base: 5, lg: "unset" }}
+              w={width}
+              mr={{ lg: 6 }}
+              position="relative"
             >
-              <Box
-                mb={{ base: 5, lg: "unset" }}
-                w={{ lg: "50%" }}
-                mr={{ lg: 5 }}
-              >
-                <Status user={user} titleImage={titleImage} />
+              <Box position="absolute" top={{ base: "-52px", sm: "-59px" }}>
+                <CheerUp
+                  cheered={cheered}
+                  onClickSubmit={onClickSubmit}
+                  onClickDelete={onClickDelete}
+                  prosessing={prosessing}
+                />
               </Box>
-              <Box w={{ lg: "50%" }}>
-                <PrimaryContainer>
-                  <Box
-                    px={5}
-                    pb={8}
-                    pt={{ base: 8, lg: "100px" }}
-                    h={{ lg: "474px", xl: "521px" }}
-                  >
-                    <Text mb={2}>一週間の戦績</Text>
-                    <LineChart week={week} />
-                  </Box>
-                </PrimaryContainer>
-              </Box>
-            </Flex>
-          </Box>
-        </PrimaryWrapper>
+              <Status user={user} titleImage={titleImage} />
+            </Box>
+            <Box
+              maxW={{ md: "600px" }}
+              w={{ base: "100%", sm: "440px", lg: "600px" }}
+            >
+              <PrimaryContainer>
+                <Flex
+                  flexDir="column"
+                  justify="center"
+                  px={5}
+                  pb={8}
+                  pt={{ base: 4 }}
+                  h={{ md: "430px" }}
+                >
+                  <Text mb={2} mt={{ md: "10px" }}>
+                    一週間の戦績
+                  </Text>
+                  <LineChart week={week} />
+                </Flex>
+              </PrimaryContainer>
+            </Box>
+          </Flex>
+        </Flex>
       </SecondaryLayout>
     </Background>
   );

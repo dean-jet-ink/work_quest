@@ -4,13 +4,13 @@ import {
   Stack,
   AccordionItem,
   AccordionButton,
-  AccordionIcon,
   Flex,
   Text,
   Spacer,
   AccordionPanel,
   Box,
 } from "@chakra-ui/react";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 
 import { AccordionInnerButton } from "../../atoms/button/AccordionInnerButton";
 import { TotalTime } from "../../molcules/layout/TotalTime";
@@ -58,33 +58,27 @@ export const SmallGoalList = memo((props: Props) => {
           <AccordionItem border="unset" key={smallGoal.id}>
             <AccordionButton p="0" _focus={{ boxShadow: "unset" }}>
               <Flex
-                bg="whiteAlpha.700"
-                h="60px"
+                h="35px"
                 w="100%"
                 align="center"
                 justify="space-between"
-                borderRadius="md"
-                borderWidth="2px"
-                borderColor="#3c3c3c"
-                p={{ base: 3 }}
                 cursor="pointer"
+                hover={{ bg: "#e1e1e124" }}
               >
-                <Text fontSize="15px" fontWeight="bold">
+                <Box mr={1} pb="3px" fontSize="30px">
+                  <ArrowRightIcon color="inherit" fontSize="inherit" />
+                </Box>
+                <Text fontSize="15px" textAlign="start">
                   {smallGoal.smallGoalName}
                 </Text>
                 <Spacer />
                 <TotalTime totalTime={smallGoal.totalTime} color="inherit" />
-                <AccordionIcon />
               </Flex>
             </AccordionButton>
 
             <AccordionPanel p="0">
               <PrimaryAccordionPanel>
-                <Flex
-                  justify="center"
-                  color="white"
-                  _hover={{ color: "orange" }}
-                >
+                <Flex justify="center" _hover={{ color: "orange" }}>
                   <Link to={`/top/battle/${workId}/${smallGoal.id}`}>
                     <Text fontWeight="bold">たたかう</Text>
                   </Link>

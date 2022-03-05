@@ -15,11 +15,11 @@ type Props = {
 export const PrimaryTab = (props: Props) => {
   const { defaultIndex, tab1, tab2, children, onClickTab1, onClickTab2 } =
     props;
-  const tabColor = "white";
+  const tabColor = "inherit";
   const tabBg = "#523209";
   const tabNonSelectedColor = "#cebfb5";
-  const tabWidth = { md: "180px" };
-  const tabHeight = { md: "65px" };
+  const tabWidth = { md: "125px", lg: "150px" };
+  const tabHeight = { md: "50px", lg: "55px" };
 
   return (
     <Tabs variant="enclosed" defaultIndex={defaultIndex}>
@@ -32,7 +32,6 @@ export const PrimaryTab = (props: Props) => {
             bg: `url(${wood}) no-repeat`,
             color: tabColor,
           }}
-          fontWeight="bold"
           fontSize="inherit"
           w={tabWidth}
           h={tabHeight}
@@ -48,7 +47,6 @@ export const PrimaryTab = (props: Props) => {
             bg: `url(${wood}) no-repeat`,
             color: tabColor,
           }}
-          fontWeight="bold"
           fontSize="inherit"
           w={tabWidth}
           h={tabHeight}
@@ -58,20 +56,10 @@ export const PrimaryTab = (props: Props) => {
         </Tab>
       </TabList>
       <TabPanels>
-        <TabPanel
-          bg={`url(${wood})`}
-          py={{ base: 5, sm: 8, md: "40px", lg: "60px" }}
-          px={{ base: 5, sm: 8, md: "40px", lg: "120px", xl: "190px" }}
-          minH="50vh"
-        >
+        <TabPanel bg={`url(${wood})`} py={{ base: 5, sm: 6 }} minH="50vh">
           {children[0]}
         </TabPanel>
-        <TabPanel
-          bg={`url(${wood}) `}
-          minH="50vh"
-          py={{ base: 5, sm: 8, md: "40px", lg: "60px" }}
-          px={{ base: 5, sm: 8, md: "40px", lg: "120px", xl: "190px" }}
-        >
+        <TabPanel bg={`url(${wood}) `} minH="50vh" py={{ base: 5, sm: 6 }}>
           {children[1]}
         </TabPanel>
       </TabPanels>

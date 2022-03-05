@@ -40,7 +40,7 @@ export const Dialog = memo((props: Props) => {
       isCentered={true}
     >
       <AlertDialogOverlay />
-      <AlertDialogContent m={5}>
+      <AlertDialogContent m={5} bg="transparent">
         <PrimaryContainer>
           <Box p={5} textAlign="center">
             <Heading as="h2" color={color} fontSize="18px" fontWeight="normal">

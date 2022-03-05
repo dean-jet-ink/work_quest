@@ -28,41 +28,44 @@ export const CompleteWorkDrawer = (props: Props) => {
     >
       {completeWorks.length !== 0 ? (
         completeWorks.map((work, index) => (
-          <Flex align="center" justify="center" key={work.id}>
-            <Flex
-              w="70%"
-              align="center"
-              fontSize={{ base: "12px", sm: "15px", lg: "18px" }}
-            >
-              <Text color="gold" fontWeight="bold">
+          <Flex
+            align="center"
+            justify="space-between"
+            key={work.id}
+            fontSize={{ base: "14px", sm: "15px", md: "16px", lg: "18px" }}
+          >
+            <Box>
+              <Text color="#e8cf45" fontWeight="bold">
                 {work.workName}
               </Text>
-              <Box ml={{ base: 4 }}>
+            </Box>
+
+            <Flex pl={5} justify="center" align="center">
+              <Box mr={{ base: 4 }}>
                 <TotalTime totalTime={work.totalTime} />
               </Box>
+              <Button
+                bg="transparent"
+                color="inherit"
+                p="0"
+                _hover={{ bg: "unset", color: "orange" }}
+                _focus={{
+                  boxShadow: "unset",
+                }}
+                _active={{ bg: "unset" }}
+                onClick={() => {
+                  onClick(work.id, index);
+                  onClickPlaySoundEffect();
+                }}
+              >
+                もどす
+              </Button>
             </Flex>
-
-            <Button
-              bg="transparent"
-              w="30%"
-              p="0"
-              _hover={{ bg: "unset", color: "orange" }}
-              _focus={{
-                boxShadow: "unset",
-              }}
-              _active={{ bg: "unset" }}
-              onClick={() => {
-                onClick(work.id, index);
-                onClickPlaySoundEffect();
-              }}
-            >
-              もどす
-            </Button>
           </Flex>
         ))
       ) : (
         <Flex justify="center" p={6}>
-          <Text>完了したWorkがありません</Text>
+          <Text>完了したWorkはありません</Text>
         </Flex>
       )}
     </DrawerContainer>

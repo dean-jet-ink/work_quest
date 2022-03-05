@@ -5,29 +5,34 @@ import { Link } from "react-router-dom";
 type Props = {
   children: ReactNode;
   signup: boolean;
+  color: string;
 };
 
-export const LoginHeaderForm = (props: Props) => {
-  const { children, signup } = props;
+export const LoginContainer = (props: Props) => {
+  const { children, signup, color } = props;
 
   return (
     <Flex
       w="100%"
-      bg="gray.100"
+      flexDir="column"
       align="center"
       justify="center"
       textAlign="center"
       py={7}
+      px={3}
+      border={`2px solid ${color}`}
+      borderRadius={5}
     >
-      <Box>
+      <Box w="100%">
         <Text
-          fontSize={{ base: "30px", md: "80px", lg: "100px" }}
+          fontSize={{ base: "35px", sm: "45px", md: "80px", lg: "100px" }}
           fontWeight="bold"
           mb={{ sm: 3, md: 8 }}
+          fontFamily="fantasy"
         >
           Work Quest
         </Text>
-        <Box py={7} spacing={20} w={{ base: "170px", md: "200px" }} mx="auto">
+        <Box py={7} spacing={20} w="100%" mx="auto">
           {children}
         </Box>
         {signup ? (
@@ -36,7 +41,7 @@ export const LoginHeaderForm = (props: Props) => {
               <Text
                 fontSize="sm"
                 textDecor="underline"
-                _hover={{ color: "blue.400" }}
+                _hover={{ color: "orange" }}
               >
                 登録済みの方
               </Text>
@@ -48,7 +53,7 @@ export const LoginHeaderForm = (props: Props) => {
               <Text
                 fontSize="sm"
                 textDecor="underline"
-                _hover={{ color: "blue.400" }}
+                _hover={{ color: "orange" }}
               >
                 新規ご登録の方
               </Text>

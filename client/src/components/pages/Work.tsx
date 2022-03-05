@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Box, Flex, Text, Image } from "@chakra-ui/react";
+import { Box, Flex, Text, Image, Heading } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 import { PrimaryWrapper } from "../atoms/layout/PrimaryWrapper";
@@ -12,13 +12,12 @@ import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
 import { useSmallGoal } from "../../hooks/useSmallGoal";
 import { AddSmallGoalModal } from "../organisms/work/AddSmallGoalModal";
 import { CompleteSmallGoalDrawer } from "../organisms/work/CompleteSmallGoalDrawer";
-import { Column } from "../molcules/layout/Column";
 import { Background } from "../molcules/layout/Background";
-import { PrimaryContainer } from "../atoms/layout/PrimaryContainer";
-import king from "../../image/king.png";
+import kanban from "../../image/wood_kanban.png";
 import { useKingsLine } from "../../hooks/useKingsLine";
 import { KingModal } from "../organisms/work/KingModal";
 import { useDisclosures } from "../../hooks/useDisclosures";
+import { LineOfChara } from "../molcules/layout/LineOfChara";
 
 export const Work = memo(() => {
   const { id } = useParams<{ id: string }>();
@@ -53,117 +52,50 @@ export const Work = memo(() => {
       <SecondaryLayout>
         <PrimaryWrapper>
           <Box px={{ sm: "40px" }} position="relative">
-            <Box
-              d={{ base: "block", md: "none" }}
-              position="absolute"
-              top="-13px"
-              right="0"
-              borderRadius="50%"
-              bg="#000"
-              border="3px solid white"
-              _hover={{
-                cursor: "pointer",
-                bg: "#bfbfa4",
-                borderColor: "#fffaba",
-              }}
-              onClick={onOpen3}
-            >
-              <Image src={king} boxSize="50px" borderRadius="50%" />
-            </Box>
-            <Box pt={{ base: "70px", md: "20px" }}>
-              <Column title={workName} />
-            </Box>
-            <Flex
-              flexDir={{ base: "column", md: "row" }}
-              justify="space-between"
-            >
-              <Flex
-                d={{ base: "none", md: "flex" }}
-                align="center"
-                justify="center"
-                flexDir="column"
-                flex="50%"
-                mr={{ md: "60px" }}
-              >
-                <Box>
-                  <Box position="relative" zIndex={1}>
-                    <PrimaryContainer>
-                      <Box py={3} px={6}>
-                        <Text color="#d7d7d7">"{line.saying}"</Text>
-                        <Text fontSize="12px" color="#989898" mt="15px">
-                          - {line.who} -
-                        </Text>
-                        <Text mt="15px">じゃぞ。</Text>
-                      </Box>
-                    </PrimaryContainer>
-                  </Box>
-                  <Box
-                    position="relative"
-                    w={0}
-                    top="-4px"
-                    right={0}
-                    left={0}
-                    mx="auto"
-                    border={{
-                      base: "11px solid transparent",
-                      lg: "16px solid transparent",
-                    }}
-                    borderTopColor={{ base: "#171923", lg: "#171923" }}
-                    zIndex={3}
-                  ></Box>
-                  <Box
-                    position="relative"
-                    w={0}
-                    top={{ base: "-24px", lg: "-34px" }}
-                    right={0}
-                    left={0}
-                    mx="auto"
-                    border={{
-                      base: "15px solid transparent",
-                      lg: "21px solid transparent",
-                    }}
-                    borderTopColor={{ base: "white", lg: "white" }}
-                    zIndex={2}
-                  ></Box>
-                </Box>
-                <Flex
-                  boxSize={{ base: "210px", lg: "250px" }}
-                  borderRadius="50%"
-                  bg="#fefcda"
-                  align="center"
-                  justify="center"
-                >
-                  <Image src={king} boxSize={{ base: "150px", lg: "220px" }} />
-                </Flex>
-              </Flex>
+            <Flex align="center" justify="center" mb={4}>
+              <Image src={kanban} boxSize={{ base: "75px", lg: "90px" }} />
+              <Box ml={2} maxW="400px">
+                <LineOfChara
+                  line={
+                    <>
+                      <Text
+                        color="#d7d7d7"
+                        fontSize={{ base: "12px", md: "13px" }}
+                      >
+                        "{line.saying}"
+                      </Text>
+                      <Text fontSize="12px" color="#989898" mt={1}>
+                        - {line.who} -
+                      </Text>
+                    </>
+                  }
+                  position="left"
+                  width="fit-content"
+                />
+              </Box>
+            </Flex>
 
-              <Box flex={{ md: "50%" }}>
-                <Flex
-                  w={{ base: "110px", md: "150px" }}
-                  justify="center"
-                  mb="-10px"
-                  position="relative"
-                  zIndex={3}
-                >
-                  <PrimaryContainer>
-                    <Box p={{ base: "5px 10px" }}>
-                      <TotalTime
-                        totalTime={workTotalTime}
-                        color="orange"
-                        fontSize="18px"
-                      />
-                    </Box>
-                  </PrimaryContainer>
-                </Flex>
-
-                <WorkContainer>
-                  <Box py={{ base: "20px", md: "30px" }} px="20px">
-                    <Box mb={{ base: 5 }}>
-                      <AddContents
-                        contents="スモールゴールの追加"
-                        onClick={onOpen1}
-                      />
-                    </Box>
+            <Box w="100%" maxW="580px" mx="auto">
+              <WorkContainer>
+                <Box py={{ base: "20px", md: "30px" }} px="20px" minH="360px">
+                  <Flex
+                    justify="space-between"
+                    align="center"
+                    borderBottom="1px solid #dbdbdb6b"
+                    pb="15px"
+                    mb="18px"
+                  >
+                    <Heading fontSize="23px" fontWeight="normal">
+                      {workName}
+                    </Heading>
+                    <TotalTime totalTime={workTotalTime} />
+                  </Flex>
+                  <AddContents
+                    contents="スモールゴールの追加"
+                    onClick={onOpen1}
+                    color="#c5d198fc"
+                  />
+                  <Box mt={3}>
                     {incompletedSmallGoals.length !== 0 ? (
                       <SmallGoalList
                         workId={Number(id)}
@@ -175,19 +107,24 @@ export const Work = memo(() => {
                       />
                     ) : (
                       <Flex align="center" justify="center" pt={5}>
-                        <Text>スモールゴールを設定しましょう！</Text>
+                        <Text fontSize={{ base: "12px", sm: "14px" }}>
+                          スモールゴールを設定しましょう
+                        </Text>
                       </Flex>
                     )}
                   </Box>
-                </WorkContainer>
+                </Box>
+              </WorkContainer>
+            </Box>
+
+            <Flex w="100%" justify="center">
+              <Box w="100%" maxW="580px" pt={{ base: "20px", md: "30px" }}>
+                <DrawerButton
+                  text={`完了したスモールゴール（${completedSmallGoals.length}）`}
+                  onClick={onOpen2}
+                />
               </Box>
             </Flex>
-            <Box pt={{ base: "20px", md: "30px" }}>
-              <DrawerButton
-                text={`完了したスモールゴール（${completedSmallGoals.length}）`}
-                onClick={onOpen2}
-              />
-            </Box>
           </Box>
         </PrimaryWrapper>
         <AddSmallGoalModal
@@ -202,12 +139,6 @@ export const Work = memo(() => {
           onClick={onClickBack}
           isOpen={isOpen2}
           onClose={onClose2}
-        />
-        <KingModal
-          onClose={onClose3}
-          isOpen={isOpen3}
-          line={line}
-          king={king}
         />
       </SecondaryLayout>
     </Background>

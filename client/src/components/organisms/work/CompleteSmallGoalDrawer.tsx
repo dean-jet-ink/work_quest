@@ -1,4 +1,4 @@
-import { Flex, Text, Button } from "@chakra-ui/react";
+import { Flex, Text, Button, Box } from "@chakra-ui/react";
 
 import { DrawerContainer } from "../../molcules/display/DrawerContainer";
 import { TotalTime } from "../../molcules/layout/TotalTime";
@@ -28,34 +28,39 @@ export const CompleteSmallGoalDrawer = (props: Props) => {
     >
       {completeSmallGoals.length !== 0 ? (
         completeSmallGoals.map((smallGoal, index) => (
-          <Flex align="center" justify="center" key={smallGoal.id}>
-            <Flex justify="start" align="center" w="70%">
-              <TotalTime totalTime={10} color="gray.300" fontSize="14px" />
-              <Text color="#7ad069" fontWeight="bold">
-                {smallGoal.smallGoalName}
-              </Text>
+          <Flex
+            align="center"
+            justify="space-between"
+            key={smallGoal.id}
+            fontSize={{ base: "14px", sm: "15px", md: "16px", lg: "18px" }}
+          >
+            <Text>{smallGoal.smallGoalName}</Text>
+            <Flex justify="center" align="center">
+              <Box mr={4}>
+                <TotalTime totalTime={smallGoal.totalTime} />
+              </Box>
+              <Button
+                bg="transparent"
+                w="30%"
+                p="0"
+                _hover={{ bg: "unset", color: "orange" }}
+                _focus={{
+                  boxShadow: "unset",
+                }}
+                _active={{ bg: "unset" }}
+                onClick={() => {
+                  onClick(smallGoal.id, index);
+                  onClickPlaySoundEffect();
+                }}
+              >
+                もどす
+              </Button>
             </Flex>
-            <Button
-              bg="transparent"
-              w="30%"
-              p="0"
-              _hover={{ bg: "unset", color: "orange" }}
-              _focus={{
-                boxShadow: "unset",
-              }}
-              _active={{ bg: "unset" }}
-              onClick={() => {
-                onClick(smallGoal.id, index);
-                onClickPlaySoundEffect();
-              }}
-            >
-              もどす
-            </Button>
           </Flex>
         ))
       ) : (
         <Flex justify="center" p={6}>
-          <Text>完了したスモールゴールがありません...</Text>
+          <Text>完了したスモールゴールはありません</Text>
         </Flex>
       )}
     </DrawerContainer>

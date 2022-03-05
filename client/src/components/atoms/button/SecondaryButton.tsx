@@ -13,7 +13,7 @@ export const SecondaryButton = memo((props: Props) => {
   const {
     children,
     onClick,
-    color = "white",
+    color = "inherit",
     fontSize = "inherit",
     disabled = false,
   } = props;
@@ -28,6 +28,7 @@ export const SecondaryButton = memo((props: Props) => {
       _focus={{ bg: "transparent" }}
       _active={{ bg: "transparent" }}
       _hover={{ bg: "transparent", color: "orange" }}
+      fontWeight="normal"
     >
       {children}
     </Button>

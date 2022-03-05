@@ -33,7 +33,7 @@ export const PrimaryDrawer = memo((props: Props) => {
       size="md"
     >
       <DrawerOverlay />
-      <DrawerContent>
+      <DrawerContent bg="transparent">
         <DrawerCloseButton top="25px" right="45px" color={closeButtonColor} />
         {children}
       </DrawerContent>

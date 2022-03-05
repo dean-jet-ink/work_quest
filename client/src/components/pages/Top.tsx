@@ -67,66 +67,68 @@ export const Top: VFC = memo(() => {
     isOpen3,
     isOpen4,
   } = useDisclosures();
+  const width = { base: "100%", sm: "440px", md: "440px", lg: "530px" };
 
   return (
     <Background>
       <PrimaryLayout onOpenProfile={onOpen1} onOpenCheer={onOpen4} src={file}>
         <PrimaryWrapper>
-          <Box py={{ md: "30px" }}>
-            <Flex
-              flexDir={{ base: "column", md: "row" }}
-              align={{ md: "center" }}
-              justify={{ md: "center" }}
-            >
-              <Box flex={{ md: "50%" }} mr={{ md: 6, lg: 20 }}>
-                <Status
-                  user={user}
-                  level={level}
-                  title={title}
-                  titleImage={titleImage}
-                  experienceRate={experienceRate}
-                  flag={levelUpFlag}
-                  onClickLevelUp={onClickLevelUp}
-                  myProfile={true}
-                />
-              </Box>
+          <Flex
+            flexDir={{ base: "column", md: "row" }}
+            align={"center"}
+            justify={"center"}
+          >
+            <Box w={width} mr={{ md: 6 }}>
+              <Status
+                user={user}
+                level={level}
+                title={title}
+                titleImage={titleImage}
+                experienceRate={experienceRate}
+                flag={levelUpFlag}
+                onClickLevelUp={onClickLevelUp}
+                myProfile={true}
+              />
+            </Box>
 
-              <Box mt={{ base: "30px", md: 0 }} flex={{ md: "50%" }}>
-                <WorkContainer>
-                  <Box
-                    py={{ base: 4, lg: 8 }}
-                    px={{ base: 6, lg: 8, xl: "50px" }}
-                  >
-                    <Box mb={{ base: 2 }}>
-                      <AddContents onClick={onOpen2} />
-                    </Box>
-                    <Box mt={3}>
-                      {incompleteWorks.length !== 0 ? (
-                        <WorkList
-                          works={incompleteWorks}
-                          onClickDelete={onClickDelete}
-                          onClickComplete={onClickComplete}
-                          onSubmit={onClickUpdate}
-                          validationSchema={workValidationSchema}
-                        />
-                      ) : (
-                        <Flex align="center" justify="center" pt={5}>
-                          <Text>Workを設定しましょう！</Text>
-                        </Flex>
-                      )}
-                    </Box>
+            <Box w={width} mt={{ base: "25px", md: 0 }}>
+              <WorkContainer>
+                <Box
+                  pt={{ base: 4, lg: 8 }}
+                  pb={{ base: 2 }}
+                  px={{ base: 6, lg: 8, xl: "50px" }}
+                >
+                  <Box mb={{ base: 2 }}>
+                    <AddContents onClick={onOpen2} color="#c5d198fc" />
                   </Box>
-                </WorkContainer>
-              </Box>
-            </Flex>
+                  <Box mt={3}>
+                    {incompleteWorks.length !== 0 ? (
+                      <WorkList
+                        works={incompleteWorks}
+                        onClickDelete={onClickDelete}
+                        onClickComplete={onClickComplete}
+                        onSubmit={onClickUpdate}
+                        validationSchema={workValidationSchema}
+                      />
+                    ) : (
+                      <Flex align="center" justify="center" pt={5}>
+                        <Text>Workを設定しましょう</Text>
+                      </Flex>
+                    )}
+                  </Box>
+                </Box>
+              </WorkContainer>
+            </Box>
+          </Flex>
 
-            <Box pt={{ base: "20px", md: "30px" }}>
+          <Flex w="100%" justify="center">
+            <Box w="100%" maxW="580px" pt={{ base: "20px", md: "30px" }}>
               <DrawerButton
                 text={`完了したWork (${completeWorks.length})`}
                 onClick={onOpen3}
               />
             </Box>
-          </Box>
+          </Flex>
         </PrimaryWrapper>
         <ProfileFormModal
           user={user}

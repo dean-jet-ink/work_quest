@@ -3,7 +3,6 @@ import { BrowserRouter } from "react-router-dom";
 
 import { theme } from "./theme/theme";
 import { Router } from "./router/Router";
-import "./assets/css/font.css";
 
 function App() {
   console.log(process.env.CHOKIDAR_USEPOLLING);

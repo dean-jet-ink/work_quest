@@ -10,6 +10,7 @@ import { axios } from "../../apis/axios";
 
 import { Guild } from "../../types/guild";
 import { useFormatCamel } from "../useFormatCamel";
+import { useShowMessage } from "../useShowMessage";
 
 type Props = {
   userId: number;
@@ -36,6 +37,7 @@ export const useGuildList = (props: Props) => {
     comment: "",
   };
   const { snakeToCamel } = useFormatCamel();
+  const { showMessage } = useShowMessage();
 
   useEffect(() => {
     axios.get("/fetch/guildlist").then((res) => {
@@ -47,11 +49,11 @@ export const useGuildList = (props: Props) => {
   }, []);
 
   const onSubmitGuild = useCallback(
-    (props: GuildOnSubmitProps) => {
+    async (props: GuildOnSubmitProps) => {
       const { values, setSubmitting } = props;
       const { guildName, guildPicture, comment } = values;
 
-      axios
+      await axios
         .post<any[]>(`/post/guild/${userId}`, {
           guildName,
           guildPicture,
@@ -66,7 +68,8 @@ export const useGuildList = (props: Props) => {
           setSubmitting(false);
           throw err;
         });
-      axios
+
+      await axios
         .get<any[]>("/fetch/guildlist")
         .then((res) => {
           const formatedList = snakeToCamel(res.data, "guild");
@@ -78,13 +81,19 @@ export const useGuildList = (props: Props) => {
           setSubmitting(false);
           throw err;
         });
+
+      showMessage({
+        description: `ギルド「${guildName}」が追加されました`,
+        status: "success",
+      });
     },
     //eslint-disable-next-line react-hooks/exhaustive-deps
     [userId]
   );
 
   const guildValidationSchema = Yup.object({
-    guildName: Yup.string().required("入力必須です"),
+    guildName: Yup.string().max(20, "20文字以内です").required("入力必須です"),
+    comment: Yup.string().max(40, "40文字以内です"),
   });
 
   return {

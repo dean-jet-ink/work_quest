@@ -194,7 +194,7 @@ export const useWorks = (userId: number) => {
   );
 
   const workValidationSchema = Yup.object({
-    workName: Yup.string().required("入力必須です"),
+    workName: Yup.string().max(20, "20文字以内です").required("入力必須です"),
   });
 
   return {

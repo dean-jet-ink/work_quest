@@ -3,16 +3,35 @@ import { Box, Text } from "@chakra-ui/react";
 
 import { PrimaryContainer } from "../../atoms/layout/PrimaryContainer";
 
-export const Comment = memo((props: { children: string }) => {
-  const { children } = props;
+type Props = {
+  children: string;
+  fontSize?: any;
+  padding?: any;
+  height?: any;
+  overflow?: string;
+};
+
+export const Comment = memo((props: Props) => {
+  const {
+    children,
+    fontSize = "inherit",
+    padding = 2,
+    height = "auto",
+    overflow = "auto",
+  } = props;
 
   return (
-    <PrimaryContainer>
-      <Box p={5}>
-        <Text color="white" fontSize="14px">
-          {children}
-        </Text>
+    <Box
+      bg="#191e2bd6"
+      border="2px solid #dadada"
+      shadow="md"
+      borderRadius="md"
+      h={height}
+      overflow={overflow}
+    >
+      <Box p={padding}>
+        <Text fontSize={fontSize}>{children}</Text>
       </Box>
-    </PrimaryContainer>
+    </Box>
   );
 });
