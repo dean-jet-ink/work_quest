@@ -14,11 +14,12 @@ type Props = {
   user: User;
   index: number;
   isRanking?: boolean;
+  bg: string;
 };
 
 export const UserRow = (props: Props) => {
   const { loginUserId } = useLoginUser();
-  const { user, index, isRanking = false } = props;
+  const { user, index, isRanking = false, bg } = props;
   const { file } = useFile({ key: "member", picture: user.picture });
   const noLink = loginUserId === user.userId ? "none" : "auto"; //リストの自分の行はリンク無効
   const border = loginUserId === user.userId ? "3px solid #dadada" : "none"; //リストの自分の行はborder表示
@@ -41,7 +42,7 @@ export const UserRow = (props: Props) => {
   return (
     <ListItem
       h={{ base: "70px" }}
-      bg="#302e3494"
+      bg={bg}
       border={border}
       px={{ base: 4 }}
       borderRadius="4px"

@@ -59,7 +59,7 @@ export const useSignup = () => {
 
   // validation
   const validationSchema = Yup.object({
-    userName: Yup.string().required("*入力必須です"),
+    userName: Yup.string().max(10, "*10文字以内です").required("*入力必須です"),
     mail: Yup.string()
       .email("*メールアドレスが正しくありません")
       .required("*入力必須です")
@@ -80,7 +80,7 @@ export const useSignup = () => {
         }
       ),
     pass: Yup.string()
-      .min(4, "*パスワードは最低4文字です")
+      .min(4, "*4文字以上入力してください")
       .required("*入力必須です"),
     passConfirm: Yup.string().oneOf(
       [Yup.ref("pass")],

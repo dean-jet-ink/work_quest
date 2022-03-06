@@ -61,7 +61,17 @@ export const WorkList = memo((props: Props) => {
                     <Text mr={2}>Work</Text>
                   </Flex>
                 </Link>
-                <SecondaryButton onClick={onOpen1}>編集する</SecondaryButton>
+                <SecondaryButton
+                  onClick={() =>
+                    onSelectWork({
+                      id: work.id,
+                      works,
+                      onOpen: onOpen1,
+                    })
+                  }
+                >
+                  編集する
+                </SecondaryButton>
                 <Box
                   onClick={() => {
                     onClickComplete(work.id, index);
@@ -83,16 +93,16 @@ export const WorkList = memo((props: Props) => {
                 </SecondaryButton>
               </PrimaryAccordionPanel>
             </AccordionPanel>
-            <EditWorkModal
-              work={work}
-              onSubmit={onSubmit}
-              validationSchema={validationSchema}
-              onClose={onClose1}
-              isOpen={isOpen1}
-            />
           </AccordionItem>
         ))}
       </Stack>
+      <EditWorkModal
+        work={selectedWork}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+        onClose={onClose1}
+        isOpen={isOpen1}
+      />
       <Dialog
         header={`「${selectedWork.workName}」を削除しますか？`}
         color="red"

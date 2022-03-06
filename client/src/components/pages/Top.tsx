@@ -122,7 +122,7 @@ export const Top: VFC = memo(() => {
           </Flex>
 
           <Flex w="100%" justify="center">
-            <Box w="100%" maxW="580px" pt={{ base: "20px", md: "30px" }}>
+            <Box w={width} pt={{ base: "20px", md: "30px" }}>
               <DrawerButton
                 text={`完了したWork (${completeWorks.length})`}
                 onClick={onOpen3}

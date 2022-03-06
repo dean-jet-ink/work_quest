@@ -181,7 +181,9 @@ export const useSmallGoal = (workId: number) => {
   );
 
   const smallGoalValidationSchema = Yup.object({
-    smallGoalName: Yup.string().required("入力必須です"),
+    smallGoalName: Yup.string()
+      .max(20, "*20文字以内です")
+      .required("入力必須です"),
   });
 
   return {

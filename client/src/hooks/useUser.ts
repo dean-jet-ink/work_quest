@@ -104,7 +104,7 @@ export const useUser = (userId: number) => {
   }, []);
 
   const userValidationSchema = Yup.object({
-    name: Yup.string().max(20, "20文字以内です").required("*入力必須です"),
+    name: Yup.string().max(10, "*10文字以内です").required("*入力必須です"),
     mail: Yup.string()
       .email("*メールアドレスが正しくありません")
       .required("*入力必須です")
@@ -129,6 +129,7 @@ export const useUser = (userId: number) => {
           return validation;
         }
       ),
+    comment: Yup.string().max(40, "*40文字以内です"),
   });
 
   return {

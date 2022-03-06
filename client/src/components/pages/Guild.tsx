@@ -1,12 +1,5 @@
 import { memo } from "react";
-import {
-  Image,
-  Box,
-  useDisclosure,
-  Center,
-  Flex,
-  Text,
-} from "@chakra-ui/react";
+import { Image, Box, useDisclosure, Flex, Text } from "@chakra-ui/react";
 
 import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
 import mister from "../../image/mister.png";
@@ -54,6 +47,7 @@ export const Guild = memo(() => {
   return (
     <SecondaryLayout>
       <Flex
+        position="relative"
         align="center"
         justify="center"
         zIndex="-1"
@@ -74,13 +68,13 @@ export const Guild = memo(() => {
         </Box>
         <Image
           src={mister}
-          boxSize={{ base: "195px", md: "210px", lg: "243px" }}
+          boxSize={{ base: "195px", md: "210px", lg: "250px" }}
           height={{ md: "195px", lg: "189px" }}
           objectFit="cover"
         />
       </Flex>
 
-      <Box mt={{ base: "-66px", lg: "-50px" }}>
+      <Box mt={{ base: "-66px", lg: "-53px" }}>
         <PrimaryTab
           defaultIndex={1}
           tab1="ギルド一覧"
