@@ -92,8 +92,10 @@ export const useGuildList = (props: Props) => {
   );
 
   const guildValidationSchema = Yup.object({
-    guildName: Yup.string().max(20, "20文字以内です").required("入力必須です"),
-    comment: Yup.string().max(40, "40文字以内です"),
+    guildName: Yup.string()
+      .max(20, "*20文字以内です")
+      .required("*入力必須です"),
+    comment: Yup.string().max(40, "*40文字以内です"),
   });
 
   return {

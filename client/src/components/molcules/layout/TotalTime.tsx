@@ -5,7 +5,7 @@ import TimerIcon from "@material-ui/icons/Timer";
 type Props = {
   totalTime: number;
   color?: string;
-  fontSize?: string;
+  fontSize?: any;
 };
 
 export const TotalTime = memo((props: Props) => {

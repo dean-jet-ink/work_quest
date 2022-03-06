@@ -56,6 +56,7 @@ export const Status = memo((props: Props) => {
   const levelUpDisplay = flag ? "auto" : "none";
   const profileLevel = myProfile ? level : user.level;
   const profileTitle = myProfile ? title : user.title;
+  const fontSize = { base: "15px", sm: "17px", xl: "20px" };
 
   const { isOpen, onClose, onOpen } = useDisclosure();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -80,15 +81,17 @@ export const Status = memo((props: Props) => {
       >
         <Box>
           <Box mb={6}>
-            <TotalTime totalTime={user.totalTime} fontSize="18px" />
+            <TotalTime totalTime={user.totalTime} fontSize={fontSize} />
           </Box>
           <Box mb={3}>
-            <Text fontSize={{ base: "18px", xl: "22px" }}>{user.userName}</Text>
+            <Text fontSize={{ base: "15px", sm: "17px", xl: "22px" }}>
+              {user.userName}
+            </Text>
           </Box>
           <Stack spacing={{ base: 5, md: 8 }}>
             <Box>
               <Flex align="center">
-                <Text fontSize={{ base: "15px", xl: "20px" }}>Level</Text>
+                <Text fontSize={fontSize}>Level</Text>
                 <Text ml={5}>{profileLevel}</Text>
               </Flex>
               <Progress
@@ -96,7 +99,7 @@ export const Status = memo((props: Props) => {
                 value={experienceRate}
                 colorScheme={colorScheme}
                 size="md"
-                w={{ base: "100px", md: "120px", xl: "150px" }}
+                w={{ base: "100px", md: "130px", xl: "150px" }}
                 mt={2}
               />
 
@@ -137,8 +140,8 @@ export const Status = memo((props: Props) => {
                 </MotionBox>
               </Box>
             </Box>
-            <Flex align="center">
-              <Text fontSize="15px">称号</Text>
+            <Flex align="center" fontSize={fontSize}>
+              <Text>称号</Text>
               <Text ml={5}>{profileTitle}</Text>
             </Flex>
           </Stack>

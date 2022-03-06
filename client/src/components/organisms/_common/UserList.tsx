@@ -7,10 +7,11 @@ import { UserRow } from "../../molcules/layout/UserRow";
 type Props = {
   users: User[];
   isRanking?: boolean;
+  bg?: string;
 };
 
 export const UserList = memo((props: Props) => {
-  const { users, isRanking } = props;
+  const { users, isRanking, bg = "#302e3494" } = props;
 
   return (
     <List w="100%" px={{ base: 2, lg: 5 }} py={4} minH="50vh">
@@ -21,6 +22,7 @@ export const UserList = memo((props: Props) => {
             user={user}
             index={index}
             isRanking={isRanking}
+            bg={bg}
           />
         ))}
       </Stack>

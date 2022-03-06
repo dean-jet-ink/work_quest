@@ -114,7 +114,7 @@ describe("Signupコンポーネントのテストケース", () => {
     userEvent.type(passForm, "123");
     fireEvent.blur(passForm);
     await waitFor(() => {
-      expect(queryByText("*パスワードは最低4文字です")).toBeInTheDocument();
+      expect(queryByText("*4文字以上入力してください")).toBeInTheDocument();
     });
 
     fireEvent.change(passForm, { target: { value: "1234" } });

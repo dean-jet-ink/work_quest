@@ -21,7 +21,7 @@ export const PrimaryDrawer = memo((props: Props) => {
     isOpen,
     children,
     placement = "bottom",
-    closeButtonColor = "black",
+    closeButtonColor = "inherit",
   } = props;
 
   return (

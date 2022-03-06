@@ -83,7 +83,17 @@ export const SmallGoalList = memo((props: Props) => {
                     <Text fontWeight="bold">たたかう</Text>
                   </Link>
                 </Flex>
-                <SecondaryButton onClick={onOpen1}>編集する</SecondaryButton>
+                <SecondaryButton
+                  onClick={() =>
+                    onSelectSmallGoal({
+                      id: smallGoal.id,
+                      smallGoals,
+                      onOpen: onOpen1,
+                    })
+                  }
+                >
+                  編集する
+                </SecondaryButton>
                 <Box
                   onClick={() => {
                     onClickComplete(smallGoal.id, index);
@@ -105,16 +115,16 @@ export const SmallGoalList = memo((props: Props) => {
                 </SecondaryButton>
               </PrimaryAccordionPanel>
             </AccordionPanel>
-            <EditSmallGoalModal
-              smallGoal={smallGoal}
-              onSubmit={onClickUpdate}
-              validationSchema={validationSchema}
-              onClose={onClose1}
-              isOpen={isOpen1}
-            />
           </AccordionItem>
         ))}
       </Stack>
+      <EditSmallGoalModal
+        smallGoal={selectedSmallGoal}
+        onSubmit={onClickUpdate}
+        validationSchema={validationSchema}
+        onClose={onClose1}
+        isOpen={isOpen1}
+      />
       <Dialog
         header={`「${selectedSmallGoal.smallGoalName}」を削除しますか？`}
         color="red"
