@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
-import { Flex, Box, Text } from "@chakra-ui/react";
+import { Flex, Box, Text, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+
+import logo from "../../../image/workquest_logo.svg";
 
 type Props = {
   children: ReactNode;
@@ -24,14 +26,12 @@ export const LoginContainer = (props: Props) => {
       borderRadius={5}
     >
       <Box w="100%">
-        <Text
-          fontSize={{ base: "35px", sm: "45px", md: "80px", lg: "100px" }}
-          fontWeight="bold"
-          mb={{ sm: 3, md: 8 }}
-          fontFamily="fantasy"
-        >
-          Work Quest
-        </Text>
+        <Image
+          src={logo}
+          w={{ base: "225px", sm: "260px", lg: "350px", xl: "375px" }}
+          mx="auto"
+          mb={{ base: "15px", lg: "30px" }}
+        />
         <Box py={7} spacing={20} w="100%" mx="auto">
           {children}
         </Box>

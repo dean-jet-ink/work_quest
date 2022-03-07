@@ -2,7 +2,6 @@ import { memo } from "react";
 import { useParams } from "react-router-dom";
 import { Flex, Box, Text } from "@chakra-ui/react";
 
-import { PrimaryWrapper } from "../atoms/layout/PrimaryWrapper";
 import { CheerUp } from "../molcules/button/CheerUp";
 import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
 import { Status } from "../organisms/top/Status";
@@ -25,7 +24,7 @@ export const Member = memo(() => {
     targetId,
     user.userName
   );
-  const { week } = useReport(loginUserId as number);
+  const { week, memberWeek } = useReport(loginUserId!, targetId);
   const { titleImage } = useLevelUp(user);
   const width = { base: "100%", sm: "440px", md: "440px", lg: "520px" };
 
@@ -76,7 +75,7 @@ export const Member = memo(() => {
                   <Text mb={2} mt={{ md: "10px" }}>
                     一週間の戦績
                   </Text>
-                  <LineChart week={week} />
+                  <LineChart week={memberWeek} myWeek={week} />
                 </Flex>
               </PrimaryContainer>
             </Box>

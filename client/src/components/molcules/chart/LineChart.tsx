@@ -2,50 +2,27 @@ import { memo } from "react";
 import { Box } from "@chakra-ui/react";
 import { Line } from "react-chartjs-2";
 
-import { Week } from "../../../types/week";
-
 type Props = {
-  week: Week;
-  myWeek?: Week;
+  week: number[];
+  myWeek?: number[];
 };
 
 export const LineChart = memo((props: Props) => {
   const { week, myWeek } = props;
-  const alignWeek = [
-    week.monday,
-    week.tuesday,
-    week.wednesday,
-    week.thursday,
-    week.friday,
-    week.saturday,
-    week.sunday,
-  ];
-  const alignMyWeek: number[] = [];
-  if (myWeek) {
-    alignMyWeek.push(
-      myWeek.monday,
-      myWeek.tuesday,
-      myWeek.wednesday,
-      myWeek.thursday,
-      myWeek.friday,
-      myWeek.saturday,
-      myWeek.sunday
-    );
-  }
 
   const data = {
     labels: ["月", "火", "水", "木", "金", "土", "日"],
     datasets: [
       {
         label: "勉強時間",
-        data: alignWeek,
+        data: week,
         backgroundColor: "orange",
         borderColor: "orange",
         borderWidth: 1,
       },
       {
         label: "自分の勉強時間",
-        data: alignMyWeek,
+        data: myWeek,
         backgroundColor: "#d5d5d5",
         borderColor: "#d5d5d5",
         borderWidth: 1,

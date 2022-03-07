@@ -13,6 +13,7 @@ services:
     environment:
       - SKIP_PREFLIGHT_CHECK=true
       - CHOKIDAR_USEPOLLING=true
+      - TZ=Asia/Tokyo
 
   server:
     build:
@@ -24,6 +25,8 @@ services:
       - 4000:4000
     volumes:
       - ./server:/usr/src/app
+    environment:
+      TZ: Asia/Tokyo
 
   db:
     build: ./db
