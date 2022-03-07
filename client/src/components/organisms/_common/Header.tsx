@@ -5,6 +5,7 @@ import { PrimaryContainer } from "../../atoms/layout/PrimaryContainer";
 
 import { CheerButton } from "../../molcules/button/CheerButton";
 import { HeaderItems } from "../../molcules/menu/HeaderItems";
+import logo from "../../../image/workquest_logo.svg";
 
 type Props = {
   onOpenProfile: () => void;
@@ -35,14 +36,12 @@ export const Header = memo((props: Props) => {
             objectFit="cover"
           />
         </Box>
-        <Text
-          d={{ base: "none", md: "block" }}
-          fontSize={{ md: "35px", lg: "42px" }}
+        <Image
+          src={logo}
           ml="15%"
-          fontFamily="fantasy"
-        >
-          Work Quest
-        </Text>
+          w={{ md: "168px" }}
+          d={{ base: "none", md: "block" }}
+        />
         <Flex align="center" justify="space-between">
           <CheerButton onOpenCheer={onOpenCheer} />
           <HeaderItems />

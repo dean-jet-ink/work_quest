@@ -35,8 +35,7 @@ export const HowToUse = memo((props: { color: string }) => {
         </Box>
         <Image
           src={soldier}
-          w={{ base: "85px", sm: "128px", lg: "210px" }}
-          h={{ base: "125px", sm: "163px", lg: "265px" }}
+          w={{ base: "85px", sm: "146px", lg: "190px" }}
           objectFit="cover"
           position="absolute"
           bottom="64px"

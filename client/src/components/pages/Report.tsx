@@ -25,7 +25,7 @@ export const Report = memo(() => {
   });
   const pieChartDisplay = ongoingWorks.length > 0 ? "block" : "none";
   const alternativeText = ongoingWorks.length > 0 ? "none" : "block";
-  const chartWidth = { base: "315px", sm: "439px", lg: "500px" };
+  const chartWidth = { base: "315px", sm: "425px", lg: "500px" };
   const fontSize = { lg: "18px" };
 
   return (

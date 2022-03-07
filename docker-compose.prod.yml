@@ -10,7 +10,7 @@ services:
       - 80:80
     environment:
       - SKIP_PREFLIGHT_CHECK=true
-      - REACT_APP_REST_API_URL=http://work-quest.com:4000
+      - TZ=Asia/Tokyo
 
   server:
     build:
@@ -20,3 +20,7 @@ services:
     container_name: server
     ports:
       - 4000:4000
+    environment:
+      - SKIP_PREFLIGHT_CHECK=true
+      - REACT_APP_REST_API_URL=http://work-quest.com:4000
+      - TZ=Asia/Tokyo

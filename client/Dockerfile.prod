@@ -7,5 +7,6 @@ RUN npm i\
 FROM nginx:alpine
 COPY --from=build /usr/src/app/public /var/www
 COPY ./nginx /etc/nginx/conf.d
+RUN apk add tzdata
 WORKDIR /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
