@@ -1,6 +1,9 @@
+import { cron } from "../../cron/cron";
 import { dbDisconnect } from "../../models/utils/dbconnect";
 import { resetDB } from "../testUtils/resetDB";
 import { request } from "../testUtils/testRequest";
+
+cron.stop();
 
 describe("getリクエストのテスト", () => {
   beforeEach(async () => {

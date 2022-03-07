@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import { router } from "./routes/router";
 import { dbConnect } from "./models/utils/dbconnect";
 import { dotenvConfigure } from "./models/utils/dotenvConfigure";
-import { cronDo } from "./models/utils/cron";
+import { cron } from "./cron/cron";
 
 dotenvConfigure();
 
@@ -23,4 +23,4 @@ app.use("/", router);
 dbConnect();
 
 // クーロンの実行
-cronDo();
+cron.start();
