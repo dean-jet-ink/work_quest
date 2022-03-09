@@ -50,7 +50,7 @@ export const AddWorkModal = memo((props: Props) => {
                 handleSubmit();
                 setFieldValue(
                   "deadline",
-                  date ? moment.utc(date).format("YYYY-MM-DD") : null
+                  date ? moment(date).format("YYYY-MM-DD") : null
                 );
               }}
             >
