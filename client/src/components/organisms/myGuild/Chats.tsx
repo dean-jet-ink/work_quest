@@ -30,7 +30,7 @@ type RightOrLeftProps = {
 
 export const Chats = memo((props: Props) => {
   const { loginUserId, members, chat } = props;
-  chat.time = moment.utc(chat.time).format("YYYY/MM/DD HH:mm");
+  chat.time = moment(chat.time).format("YYYY/MM/DD HH:mm");
   const user = members.find((member) => member.userId === chat.userId);
   const { file } = useFile({ key: "member", picture: user!.picture });
   const imageSize = {
