@@ -17,3 +17,20 @@
 .DateInput_input__focused {
   border-bottom-color: transparent;
 }
+.SingleDatePicker_picker__directionLeft {
+  left: -36px !important;
+  top: 0 !important;
+}
+.DateInput_fang {
+  display: none;
+}
+
+@media (min-width: 500px) {
+  .SingleDatePicker_picker__directionLeft {
+    left: 0 !important;
+    top: 66px !important;
+  }
+  .DateInput_fang {
+    display: block;
+  }
+}

@@ -12,6 +12,7 @@ import {
   MyGuildOnSubmitProps,
 } from "../../../hooks/form/useMyGuild";
 import { useFile } from "../../../hooks/useFile";
+import { useFetchGuildMembers } from "../../../hooks/useFetchGuildMembers";
 
 type Props = {
   onClose: () => void;
@@ -31,6 +32,8 @@ export const GuildDetailModal = memo((props: Props) => {
   );
   const joinFormDisplay =
     myGuildList.length >= 3 || isMyGuild ? "none" : "flex"; //所属しているギルドが3つ、もしくは所属ギルドなら参加フォーム非表示
+  const { guildMembers } = useFetchGuildMembers(guild.guildId);
+  const numberOfGuildMember = guildMembers.length;
 
   return (
     <PrimaryModal onClose={onClose} isOpen={isOpen}>
@@ -38,12 +41,13 @@ export const GuildDetailModal = memo((props: Props) => {
         <Stack flexGrow={1} align="center" spacing={{ base: 2, sm: 4 }}>
           <Image
             src={file}
+            Members
             boxSize={{ base: "90px", md: "120px" }}
             borderRadius="50%"
             m="auto"
           />
           <Text>{guild.guildName}</Text>
-          <PeopleOfNumber num={8} />
+          <PeopleOfNumber num={numberOfGuildMember} />
           <Box w="100%" textAlign="start">
             <Comment
               height="79px"

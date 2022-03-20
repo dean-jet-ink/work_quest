@@ -11,7 +11,7 @@ export const LoginWrapper = (props: Props) => {
 
   return (
     <Flex
-      h={{ base: "600px", sm: "700px", lg: "720px" }}
+      minH={{ base: "600px", sm: "700px", lg: "720px" }}
       bg="gray.800"
       p={5}
       color={color}
