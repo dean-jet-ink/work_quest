@@ -7,6 +7,7 @@ import {
   cleanup,
   waitFor,
   fireEvent,
+  getByText,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -90,6 +91,36 @@ const handlers = [
       );
     }
   }),
+  rest.get(`${baseURL}/fetch/guild/members/:id`, (req, res, ctx) => {
+    return res(
+      ctx.json([
+        {
+          user_id: 1,
+          user_name: "ケンタ",
+          comment: "テストです",
+          mail: "test@test.com",
+          picture: "test",
+          sex: "male",
+          total_time: 300,
+          title: "村人A",
+          white_noise: "clock",
+          level: 18,
+        },
+        {
+          user_id: 2,
+          user_name: "ケンタ",
+          comment: "テストです",
+          mail: "test@test.com",
+          picture: "test",
+          sex: "male",
+          total_time: 300,
+          title: "村人A",
+          white_noise: "clock",
+          level: 18,
+        },
+      ])
+    );
+  }),
 ];
 const server = setupServer(...handlers);
 
@@ -117,31 +148,31 @@ describe("Guildコンポーネントのテスト", () => {
     server.close();
   });
 
-  // it("Guildページのrenderテスト", async () => {
-  //   const { getAllByText, getByText } = screen;
+  it("Guildページのrenderテスト", async () => {
+    const { getAllByText, getByText } = screen;
 
-  //   await waitFor(() => {
-  //     expect(getByText("マイギルド")).toBeTruthy();
-  //     expect(getByText("あんたの所属してるギルドだ")).toBeTruthy();
-  //   });
+    await waitFor(() => {
+      expect(getByText("マイギルド")).toBeTruthy();
+      expect(getByText("あんたの所属してるギルドだ")).toBeTruthy();
+    });
 
-  //   const tabButton = getByText("ギルド一覧");
-  //   expect(tabButton).toBeTruthy();
-  //   userEvent.click(tabButton);
-  //   await waitFor(() => {
-  //     expect(getByText("参加したいギルドを選びな")).toBeTruthy();
-  //     expect(getAllByText("ギルド")).toBeTruthy();
-  //     expect(getAllByText("ギルド")).toHaveLength(20);
-  //   });
-  // });
+    const tabButton = getByText("ギルド一覧");
+    expect(tabButton).toBeTruthy();
+    userEvent.click(tabButton);
+    await waitFor(() => {
+      expect(getByText("参加したいギルドを選びな")).toBeTruthy();
+      expect(getAllByText("ギルド")).toBeTruthy();
+      expect(getAllByText("ギルド")).toHaveLength(20);
+    });
+  });
 
   it("ギルドのcreateテスト", async () => {
     const { getByText, getByTestId, getByLabelText, getByDisplayValue } =
       screen;
 
-    const guildListTabButton = getByText("ギルド一覧");
-    expect(guildListTabButton).toBeTruthy();
-    await userEvent.click(guildListTabButton);
+    const guildTabButton = getByText("ギルド一覧");
+    expect(guildTabButton).toBeTruthy();
+    await userEvent.click(guildTabButton);
 
     const modalButton = getByTestId("addButton");
     expect(modalButton).toBeTruthy();

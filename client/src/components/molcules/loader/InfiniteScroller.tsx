@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Flex, Spinner } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroller";
 
 type Props = {
@@ -13,7 +13,14 @@ export const InfiniteScroller = (props: Props) => {
 
   const loader = (
     <Box key={0}>
-      <Spinner color="blue.500" emptyColor="gray.200" />
+      <Flex align="center" justify="center">
+        <Spinner
+          color="gray.600"
+          emptyColor="white"
+          size="xl"
+          thickness="4px"
+        />
+      </Flex>
     </Box>
   );
 

@@ -4,6 +4,7 @@ import { Guild } from "../../../types/guild";
 import { PeopleOfNumber } from "./PeopleOfNumber";
 import { useFile } from "../../../hooks/useFile";
 import { Comment } from "../layout/Comment";
+import { useFetchGuildMembers } from "../../../hooks/useFetchGuildMembers";
 
 type Props = {
   guild: Guild;
@@ -22,6 +23,8 @@ export const GuildRow = (props: Props) => {
     (myGuild) => myGuild.guildId === guild.guildId
   );
   const border = isMyGuild && !myGuildTab ? "3px solid #dadada" : "none"; //リストの自分の行はborder表示
+  const { guildMembers } = useFetchGuildMembers(guild.guildId);
+  const numberOfGuildMember = guildMembers.length;
 
   return (
     <ListItem
@@ -50,7 +53,7 @@ export const GuildRow = (props: Props) => {
           <Text fontSize={{ base: "14px" }} overflow="hidden">
             {guild.guildName}
           </Text>
-          <PeopleOfNumber num={11} fontSize="13px" />
+          <PeopleOfNumber num={numberOfGuildMember} fontSize="13px" />
           <Box w="100%">
             <Comment
               fontSize={{ base: "13px", sm: "14px", md: "16px" }}
