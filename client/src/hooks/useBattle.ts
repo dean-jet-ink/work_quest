@@ -51,13 +51,13 @@ export const useBattle = (props: Props) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // timeLeftステイトに関心を持ち、timeup関数実行
+  // timeLeftがゼロならタイムアップ
   useEffect(() => {
     timeup();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft]);
 
-  // timeLeftステイトから毎秒１ずつ減算するsetIntervalの処理を、countdownステイトに代入
+  // timeLeftから毎秒１ずつ減算するsetIntervalの処理を、countdownに代入
   const startCountdown = useCallback(() => {
     if (!active) {
       setCountdown(
@@ -82,18 +82,18 @@ export const useBattle = (props: Props) => {
       });
   };
 
-  // timeLeftステイトが0になったときの処理
+  // timeLeftが0になったときの処理
   const timeup = useCallback(async () => {
     if (timeLeft === 0) {
       clearInterval(countdown);
       setActive(false);
       if (!finish) {
         const addTime = await round(limit);
-        // await recordTimeOnReport(addTime);
+        await recordTimeOnReport(addTime);
         await asyncUpdateTotalTime(addTime);
         showMessage({ description: "敵を倒した！", status: "success" });
         setTimeLeft(rest);
-        setTotalTime((prev) => prev + addTime);
+        setTotalTime((prev) => (prev * 10 + addTime * 10) / 10); //javascriptの浮動小数点数の計算の誤差を消すため、一度整数に戻す
         setFinish(true);
       } else {
         setTimeLeft(limit);
