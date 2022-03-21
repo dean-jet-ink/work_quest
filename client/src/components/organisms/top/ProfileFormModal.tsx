@@ -70,7 +70,9 @@ export const ProfileFormModal = memo((props: Props) => {
                 handleSubmit();
                 setFieldValue(
                   "picture",
-                  selectedFile ? generateFileNameWithHash(selectedFile) : null
+                  selectedFile
+                    ? generateFileNameWithHash(selectedFile)
+                    : user.picture
                 );
               }}
             >
