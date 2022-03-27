@@ -1,3 +1,13 @@
 .slick-disabled {
   display: none !important;
 }
+
+.slick-next {
+  right: -18px;
+  top: 200px;
+}
+
+.slick-prev {
+  left: -18px;
+  top: 200px;
+}

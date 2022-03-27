@@ -3,6 +3,7 @@ import { Box, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
 
 import { HowToUseModal } from "./HowToUseModal";
 import soldier from "../../../image/title/soldier.png";
+import queen from "../../../image/queen.png";
 
 export const HowToUse = memo((props: { color: string }) => {
   const { color } = props;
@@ -17,6 +18,15 @@ export const HowToUse = memo((props: { color: string }) => {
         pt={7}
         fontSize={{ base: "12px" }}
       >
+        <Image
+          src={queen}
+          w={{ md: "117px", lg: "158px" }}
+          objectFit="cover"
+          position="absolute"
+          bottom="64px"
+          left="156px"
+          d={{ base: "none", md: "block" }}
+        />
         <Box
           color={color}
           _hover={{ color: "orange", borderBottomColor: "orange" }}
@@ -35,7 +45,7 @@ export const HowToUse = memo((props: { color: string }) => {
         </Box>
         <Image
           src={soldier}
-          w={{ base: "85px", sm: "146px", lg: "190px" }}
+          w={{ md: "146px", lg: "190px" }}
           objectFit="cover"
           position="absolute"
           bottom="64px"
