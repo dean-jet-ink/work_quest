@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import CommentIcon from "@material-ui/icons/Comment";
 
