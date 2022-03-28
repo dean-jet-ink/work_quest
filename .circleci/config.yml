@@ -21,8 +21,9 @@ jobs:
             npm test
 
   test_server: #server containerのテスト
-    docker:
-      - image: cimg/base:edge
+    machine:
+      image: ubuntu-2004
+      docker_layer_caching: true
     working_directory: ~/work_quest
     steps:
       - checkout
