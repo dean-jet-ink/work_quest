@@ -22,7 +22,7 @@ jobs:
 
   test_server: #server containerのテスト
     machine:
-      image: circleci/classic:edge
+      image: cimg/base:stable
     working_directory: ~/work_quest
     steps:
       - checkout
@@ -33,7 +33,7 @@ jobs:
 
   build-and-push-client: #ECRへ、client imageのpush
     machine:
-      image: cimg/base:stable
+      image: circleci/classic:edge
     working_directory: ~/work_quest/client
     steps:
       - checkout:
