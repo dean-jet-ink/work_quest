@@ -21,12 +21,12 @@ jobs:
             npm test
 
   test_server: #server containerのテスト
-    machine:
-      image: cimg/base:edge
+    build:
+      docker:
+        image: cimg/base:edge
     working_directory: ~/work_quest
     steps:
       - checkout
-      - docker/install-docker-compose
       - run:
           name: test_server
           command: docker-compose -f unit-test.yml up --abort-on-container-exit --exit-code-from test_server
