@@ -22,7 +22,7 @@ jobs:
 
   test_server: #server containerのテスト
     machine:
-      image: cimg/base:stable
+      image: cimg/base:edge
     working_directory: ~/work_quest
     steps:
       - checkout
