@@ -33,7 +33,7 @@ jobs:
 
   build-and-push-client: #ECRへ、client imageのpush
     machine:
-      image: circleci/classic:edge
+      image: cimg/base:stable
     working_directory: ~/work_quest/client
     steps:
       - checkout:
