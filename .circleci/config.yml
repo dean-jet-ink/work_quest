@@ -21,9 +21,8 @@ jobs:
             npm test
 
   test_server: #server containerのテスト
-    build:
-      docker:
-        image: cimg/base:edge
+    docker:
+      - image: cimg/base:edge
     working_directory: ~/work_quest
     steps:
       - checkout
