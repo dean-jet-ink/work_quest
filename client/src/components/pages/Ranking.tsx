@@ -18,9 +18,9 @@ export const Ranking = memo(() => {
         <SecondaryLayout>
           <Flex align="center" justify="center" pt={4}>
             <Flex align="center" justify="center">
-              <Box h="fit-content">
+              <Box h="fit-content" textAlign="center">
                 <LineOfChara
-                  line="せいぜい頑張ったら？"
+                  line="頑張ってくださいね！"
                   position="right"
                   width={{
                     base: "154px",
@@ -32,7 +32,11 @@ export const Ranking = memo(() => {
               </Box>
             </Flex>
             <Flex justify="center" align="center">
-              <Image src={queen} boxSize={{ base: "160px", lg: "220px" }} />
+              <Image
+                src={queen}
+                w={{ base: "120px", lg: "145px" }}
+                h={{ base: "160px", lg: "190px" }}
+              />
             </Flex>
           </Flex>
           <Box minH="100vh">

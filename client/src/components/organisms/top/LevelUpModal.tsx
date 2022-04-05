@@ -26,15 +26,22 @@ export const LevelUpModal = memo((props: Props) => {
             LEVEL UP !!
           </Text>
         </Box>
-        <Flex justify="space-around" textAlign="center" mt={3}>
-          <Flex flexDir="column" justify="center" align="center" w="120px">
+        <Flex justify="center" textAlign="center" mt={{ base: 3, sm: 6 }}>
+          <Flex
+            flexDir="column"
+            justify="center"
+            align="center"
+            w="120px"
+            fontSize={{ sm: "18px" }}
+            mr="10px"
+          >
             <Flex justify="space-around">
               <Text>level {level}</Text>
             </Flex>
             <Text mt={3}>{title}</Text>
           </Flex>
           <Flex align="center" justify="center">
-            <Image src={titleImage} w="130px" />
+            <Image src={titleImage} w={{ base: "130px", sm: "165px" }} />
           </Flex>
         </Flex>
       </Box>
