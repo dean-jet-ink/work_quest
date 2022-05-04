@@ -27,7 +27,8 @@ jobs:
     working_directory: ~/work_quest
     steps:
       - checkout
-      - docker/install-docker-compose
+      - docker/install-docker-compose:
+          version: "2.5.0"
       - run:
           name: test_server
           command: docker-compose -f unit-test.yml up --abort-on-container-exit --exit-code-from test_server
