@@ -3,7 +3,7 @@ import baseAxios from "axios";
 const url =
   process.env.REACT_APP_SWITCH === "1"
     ? "http://localhost:4000"
-    : "http://work-quest.com:4000";
+    : "https://work-quest.com:4000";
 
 export const axios = baseAxios.create({
   baseURL: url,
