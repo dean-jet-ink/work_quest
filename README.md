@@ -1,8 +1,12 @@
 # Work Quest
 
 学習補助サイトです。
+
 自分の勉強、作業時間に合わせて、アバターが成長していきます。
+
 レスポンシブ対応をしており、各種端末からご覧いただけます。
+
+
 [紹介動画](https://www.youtube.com/watch?v=pg89nlTQkMY)
 
 # 使用技術
@@ -42,7 +46,8 @@
 # CI/CD
 
 ![CI/CD](https://user-images.githubusercontent.com/78989717/166641284-b62e1195-2ab7-4010-b45c-f4419c527d31.png)
-git へ push 時、CircleCI において Docker で環境構築を行い、Jest によるテストを行います。
+
+- git へ push 時、CircleCI において Docker で環境構築を行い、Jest によるテストを行います。
 
 # 機能一覧
 
