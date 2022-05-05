@@ -1,9 +1,9 @@
 import { Flex, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-import ranking from "../../../image/rank1.png";
-import guild from "../../../image/guild.png";
-import report from "../../../image/report.png";
+import ranking from "../../../assets/image/rank1.png";
+import guild from "../../../assets/image/guild.png";
+import report from "../../../assets/image/report.png";
 
 type Item = {
   itemName: string;

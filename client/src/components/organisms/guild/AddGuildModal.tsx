@@ -10,11 +10,12 @@ import { SubmitOrCancel } from "../../molcules/button/SubmitOrCancel";
 import {
   GuildInitialValuesType,
   GuildOnSubmitProps,
-} from "../../../hooks/form/useGuildList";
+} from "../../../hooks/useGuildList";
 import { useFile } from "../../../hooks/useFile";
 import { OptionalObjectSchema } from "yup/lib/object";
 import { generateFileNameWithHash } from "../../../utils/generateFileNameWithHash";
-import noImage from "../../../image/no-image.png";
+
+import noImage from "../../../assets/image/no-image.png";
 
 type Props = {
   initialValues: GuildInitialValuesType;

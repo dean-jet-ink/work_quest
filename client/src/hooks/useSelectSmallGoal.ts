@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+
 import { SmallGoal } from "../types/smallGoal";
 
 type Props = {

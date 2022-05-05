@@ -5,19 +5,19 @@ import { useParams } from "react-router-dom";
 import { PrimaryWrapper } from "../atoms/layout/PrimaryWrapper";
 import { WorkContainer } from "../atoms/layout/WorkContainer";
 import { AddContents } from "../molcules/button/AddContents";
-import { SmallGoalList } from "../organisms/work/SmallGoalList";
 import { DrawerButton } from "../molcules/display/DrawerButton";
 import { TotalTime } from "../molcules/layout/TotalTime";
-import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
-import { useSmallGoal } from "../../hooks/useSmallGoal";
+import { LineOfChara } from "../molcules/layout/LineOfChara";
+import { Background } from "../molcules/layout/Background";
+import { SmallGoalList } from "../organisms/work/SmallGoalList";
 import { AddSmallGoalModal } from "../organisms/work/AddSmallGoalModal";
 import { CompleteSmallGoalDrawer } from "../organisms/work/CompleteSmallGoalDrawer";
-import { Background } from "../molcules/layout/Background";
-import kanban from "../../image/wood_kanban.png";
-import { useKingsLine } from "../../hooks/useKingsLine";
-import { KingModal } from "../organisms/work/KingModal";
+import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
+import { useSmallGoal } from "../../hooks/useSmallGoal";
+import { useGreatmansLine } from "../../hooks/useGreatmansLine";
 import { useDisclosures } from "../../hooks/useDisclosures";
-import { LineOfChara } from "../molcules/layout/LineOfChara";
+
+import kanban from "../../assets/image/wood_kanban.png";
 
 export const Work = memo(() => {
   const { id } = useParams<{ id: string }>();
@@ -34,18 +34,9 @@ export const Work = memo(() => {
     onClickUpdate,
     smallGoalValidationSchema,
   } = useSmallGoal(Number(id));
-  const {
-    isOpen1,
-    onOpen1,
-    onClose1,
-    isOpen2,
-    onOpen2,
-    onClose2,
-    isOpen3,
-    onOpen3,
-    onClose3,
-  } = useDisclosures();
-  const { line } = useKingsLine();
+  const { isOpen1, onOpen1, onClose1, isOpen2, onOpen2, onClose2 } =
+    useDisclosures();
+  const { line } = useGreatmansLine();
 
   return (
     <Background>

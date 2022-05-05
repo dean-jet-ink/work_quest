@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { axios } from "../../apis/axios";
-import { Guild } from "../../types/guild";
-import { useFormatCamel } from "../useFormatCamel";
+
+import { axios } from "../apis/axios";
+import { Guild } from "../types/guild";
+import { useFormatCamel } from "./useFormatCamel";
 
 export type MyGuildInitialValuesType = {
   guildId: null | number;

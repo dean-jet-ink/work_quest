@@ -6,7 +6,7 @@ import { PrimaryButton } from "../../atoms/button/PrimarButton";
 import {
   LoginInitialValuesType,
   LoginOnSubmitProps,
-} from "../../../hooks/form/useLogin";
+} from "../../../hooks/useLogin";
 import { OptionalObjectSchema } from "yup/lib/object";
 
 type Props = {

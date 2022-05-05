@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Box } from "@chakra-ui/react";
-import bg from "../../../image/city.jpg";
+
+import bg from "../../../assets/image/city.jpg";
 
 export const Background = (props: { children: ReactNode }) => {
   const { children } = props;

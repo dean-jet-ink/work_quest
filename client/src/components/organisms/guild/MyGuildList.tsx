@@ -1,8 +1,8 @@
-import { Box, Text, Flex, List, Stack } from "@chakra-ui/react";
+import { Box, Text, List, Stack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+
 import { Guild } from "../../../types/guild";
 import { GuildRow } from "../../molcules/layout/GuildRow";
-import { MyGuildCard } from "../../molcules/layout/MyGuildCard";
 
 export const MyGuildList = (props: { myGuildList: Guild[] }) => {
   const { myGuildList } = props;

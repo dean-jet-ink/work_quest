@@ -4,17 +4,18 @@ import { useParams } from "react-router-dom";
 
 import { PrimaryContainer } from "../atoms/layout/PrimaryContainer";
 import { useEnemyEncounter } from "../../hooks/useEnemyEncounter";
-import restTime from "../../image/restTime.png";
 import { useWhiteNoise } from "../../hooks/useWhiteNoise";
-import clock from "../../assets/audio/clock.mp3";
-import victory from "../../assets/audio/victory.mp3";
-import breakIsOver from "../../assets/audio/breakIsOver.mp3";
 import { useSoundEffect } from "../../hooks/useSoundEffect";
 import { Dialog } from "../molcules/popUp/Dialog";
 import { useBattle } from "../../hooks/useBattle";
 import { TotalTime } from "../molcules/layout/TotalTime";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import { BattleButtons } from "../molcules/button/BattleButtons";
+
+import restTime from "../../assets/image/restTime.png";
+import clock from "../../assets/audio/clock.mp3";
+import victory from "../../assets/audio/victory.mp3";
+import breakIsOver from "../../assets/audio/breakIsOver.mp3";
 
 export const Battle = memo(() => {
   // 制限時間設定
@@ -26,8 +27,10 @@ export const Battle = memo(() => {
   // 休憩時間設定
   const rest = restCount >= 3 ? 60 * 15 : 60 * 5;
 
-  const { workId, smallGoalId } =
-    useParams<{ workId: string; smallGoalId: string }>();
+  const { workId, smallGoalId } = useParams<{
+    workId: string;
+    smallGoalId: string;
+  }>();
   const { loginUserId } = useLoginUser();
   const {
     smallGoalName,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useKingsLine = () => {
+export const useGreatmansLine = () => {
   const [line, setLine] = useState<{ saying: string; who: string }>({
     saying: "",
     who: "",

@@ -1,19 +1,19 @@
 import { memo, useState } from "react";
-import { FormLabel } from "@chakra-ui/react";
+import { FormLabel, Box } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import "react-dates/initialize";
 import { SingleDatePicker } from "react-dates";
-import moment, { Moment } from "moment";
 import "react-dates/lib/css/_datepicker.css";
+import moment, { Moment } from "moment";
+import { OptionalObjectSchema } from "yup/lib/object";
 
 import { PrimaryInputText } from "../../molcules/input/PrimaryInputText";
 import { PrimaryModal } from "../../molcules/popUp/PrimaryModal";
-import { Box } from "@chakra-ui/layout";
 import { SubmitOrCancel } from "../../molcules/button/SubmitOrCancel";
 import { WorkUpdateProps } from "../../../hooks/useWorks";
-import "../../../assets/css/react-dates.css";
-import { OptionalObjectSchema } from "yup/lib/object";
 import { Work } from "../../../types/work";
+
+import "../../../assets/css/react-dates.css";
 
 type Props = {
   work: Work;

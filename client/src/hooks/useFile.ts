@@ -2,6 +2,9 @@ import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 import { axios } from "../apis/axios";
 
+import userDefault from "../assets/image/user_default.png";
+import noImage from "../assets/image/no-image.png";
+
 type Props = {
   picture: string | null;
   key: "member" | "guild";
@@ -19,9 +22,9 @@ export const useFile = (props: Props) => {
       setFile(`${baseUrl}${key}/${picture}`);
     } else {
       if (key === "member") {
-        setFile(`${baseUrl}static/user_default.png`);
+        setFile(userDefault);
       } else {
-        setFile(`${baseUrl}static/no_image.png`);
+        setFile(noImage);
       }
     }
   }, [picture]);

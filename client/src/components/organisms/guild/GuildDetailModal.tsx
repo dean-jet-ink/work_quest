@@ -1,16 +1,16 @@
 import { memo } from "react";
-import { Box, Text, Image, Flex, Stack } from "@chakra-ui/react";
+import { Box, Text, Image, Stack } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
 
 import { PrimaryModal } from "../../molcules/popUp/PrimaryModal";
 import { Guild } from "../../../types/guild";
 import { PeopleOfNumber } from "../../molcules/layout/PeopleOfNumber";
 import { Comment } from "../../molcules/layout/Comment";
 import { PrimaryButton } from "../../atoms/button/PrimarButton";
-import { Form, Formik } from "formik";
 import {
   MyGuildInitialValuesType,
   MyGuildOnSubmitProps,
-} from "../../../hooks/form/useMyGuild";
+} from "../../../hooks/useMyGuild";
 import { useFile } from "../../../hooks/useFile";
 import { useFetchGuildMembers } from "../../../hooks/useFetchGuildMembers";
 

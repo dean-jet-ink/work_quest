@@ -2,8 +2,9 @@ import { memo } from "react";
 import { Box, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
 
 import { HowToUseModal } from "./HowToUseModal";
-import soldier from "../../../image/title/soldier.png";
-import queen from "../../../image/queen.png";
+
+import soldier from "../../../assets/image/soldier.png";
+import queen from "../../../assets/image/queen.png";
 
 export const HowToUse = memo((props: { color: string }) => {
   const { color } = props;

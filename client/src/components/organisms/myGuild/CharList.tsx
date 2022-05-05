@@ -1,12 +1,10 @@
 import { memo, useEffect, useRef } from "react";
-import { Box, useDisclosure } from "@chakra-ui/react";
-import CommentIcon from "@material-ui/icons/Comment";
+import { Box } from "@chakra-ui/react";
 
 import { Chats } from "./Chats";
 import { Chat } from "../../../types/chat";
 import { User } from "../../../types/user";
 import { useScroll } from "../../../hooks/useScroll";
-import { ChatForm } from "./ChatForm";
 
 type Props = {
   chat: Chat[];

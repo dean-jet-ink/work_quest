@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import enemy_1 from "../image/enemy_1.png";
-import enemy_2 from "../image/enemy_2.png";
-import enemy_3 from "../image/enemy_3.png";
-import enemy_4 from "../image/enemy_4.png";
-import enemy_5 from "../image/enemy_5.png";
+
+import enemy_1 from "../assets/image/enemy_1.png";
+import enemy_2 from "../assets/image/enemy_2.png";
+import enemy_3 from "../assets/image/enemy_3.png";
+import enemy_4 from "../assets/image/enemy_4.png";
+import enemy_5 from "../assets/image/enemy_5.png";
 
 export const useEnemyEncounter = () => {
   const [enemy, setEnemy] = useState("");

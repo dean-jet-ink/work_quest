@@ -2,7 +2,6 @@ import { memo } from "react";
 import {
   Flex,
   Box,
-  Heading,
   Stack,
   Text,
   Image,
@@ -17,9 +16,10 @@ import { TotalTime } from "../../molcules/layout/TotalTime";
 import { User } from "../../../types/user";
 import { Comment } from "../../molcules/layout/Comment";
 import { LevelUpModal } from "./LevelUpModal";
-import praise from "../../../assets/audio/praise.mp3";
 import { useSoundEffect } from "../../../hooks/useSoundEffect";
 import { MotionBox } from "../../../animation/MotionBox";
+
+import praise from "../../../assets/audio/praise.mp3";
 
 type Props = {
   user: User;

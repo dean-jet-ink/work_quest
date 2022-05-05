@@ -1,5 +1,5 @@
-import { Flex, Image } from "@chakra-ui/react";
 import { memo } from "react";
+import { Flex, Image } from "@chakra-ui/react";
 
 export const ImageBox = memo((props: { src: string }) => {
   const { src } = props;

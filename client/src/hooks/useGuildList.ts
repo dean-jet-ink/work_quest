@@ -6,11 +6,11 @@ import {
   useState,
 } from "react";
 import * as Yup from "yup";
-import { axios } from "../../apis/axios";
 
-import { Guild } from "../../types/guild";
-import { useFormatCamel } from "../useFormatCamel";
-import { useShowMessage } from "../useShowMessage";
+import { axios } from "../apis/axios";
+import { Guild } from "../types/guild";
+import { useFormatCamel } from "./useFormatCamel";
+import { useShowMessage } from "./useShowMessage";
 
 type Props = {
   userId: number;

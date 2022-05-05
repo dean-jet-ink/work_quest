@@ -1,6 +1,6 @@
+import { memo } from "react";
 import { Box, Text, Textarea } from "@chakra-ui/react";
 import { useField } from "formik";
-import { memo } from "react";
 
 type Props = {
   placeholder?: string;

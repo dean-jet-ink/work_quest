@@ -1,8 +1,6 @@
 import { memo } from "react";
 import { Box, Text } from "@chakra-ui/react";
 
-import { PrimaryContainer } from "../../atoms/layout/PrimaryContainer";
-
 type Props = {
   children: string;
   fontSize?: any;

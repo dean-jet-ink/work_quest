@@ -1,11 +1,12 @@
 import { memo } from "react";
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
 
 import { PrimaryContainer } from "../../atoms/layout/PrimaryContainer";
 
 import { CheerButton } from "../../molcules/button/CheerButton";
 import { HeaderItems } from "../../molcules/menu/HeaderItems";
-import logo from "../../../image/workquest_logo.svg";
+
+import logo from "../../../assets/image/workquest_logo.svg";
 
 type Props = {
   onOpenProfile: () => void;

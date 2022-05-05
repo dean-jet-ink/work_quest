@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
-import { useChat } from "../../hooks/form/useChat";
+import { useChat } from "../../hooks/useChat";
 import { UserList } from "../organisms/_common/UserList";
 import { useGuild } from "../../hooks/useGuild";
 import { useFetchGuildMembers } from "../../hooks/useFetchGuildMembers";

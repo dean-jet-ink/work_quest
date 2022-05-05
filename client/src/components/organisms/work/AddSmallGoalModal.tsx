@@ -1,13 +1,12 @@
 import { memo } from "react";
-import { FormLabel, Flex, Stack } from "@chakra-ui/react";
+import { FormLabel, Flex, Stack, Box } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
+import { OptionalObjectSchema } from "yup/lib/object";
 
 import { PrimaryInputText } from "../../molcules/input/PrimaryInputText";
 import { PrimaryModal } from "../../molcules/popUp/PrimaryModal";
-import { Box } from "@chakra-ui/layout";
-import { InitialValuesType } from "../../../hooks/useSmallGoal";
-import { OptionalObjectSchema } from "yup/lib/object";
 import { SubmitOrCancel } from "../../molcules/button/SubmitOrCancel";
+import { InitialValuesType } from "../../../hooks/useSmallGoal";
 
 type Props = {
   initialValues: InitialValuesType;

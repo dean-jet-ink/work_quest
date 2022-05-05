@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Box, List, Stack, useDisclosure, Wrap } from "@chakra-ui/react";
+import { List, Stack, useDisclosure } from "@chakra-ui/react";
 
 import { useSelectGuild } from "../../../hooks/useSelectGuild";
 import { GuildDetailModal } from "./GuildDetailModal";
@@ -7,7 +7,7 @@ import { Guild } from "../../../types/guild";
 import {
   MyGuildInitialValuesType,
   MyGuildOnSubmitProps,
-} from "../../../hooks/form/useMyGuild";
+} from "../../../hooks/useMyGuild";
 import { GuildRow } from "../../molcules/layout/GuildRow";
 
 type Props = {

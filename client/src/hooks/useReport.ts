@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import moment from "moment";
-import { Week } from "../types/week";
+
 import { axios } from "../apis/axios";
 
 export const useReport = (userId: number, memberId?: number) => {

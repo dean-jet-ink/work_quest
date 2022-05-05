@@ -1,10 +1,12 @@
 import { memo } from "react";
 import { Box, Text, Flex, Stack, Image, useDisclosure } from "@chakra-ui/react";
-import guildBg from "../../../image/guild_bg.jpg";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
 import { ExitGuildDialog } from "../../molcules/popUp/ExitGuildDialog";
 import { PrimaryContainer } from "../../atoms/layout/PrimaryContainer";
 import { Guild } from "../../../types/guild";
+
+import guildBg from "../../../assets/image/guild_bg.jpg";
 
 type Props = {
   loginUserId: number;

@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { TotalTime } from "./TotalTime";
 import { User } from "../../../types/user";
 import { useLoginUser } from "../../../hooks/useLoginUser";
-import rank1 from "../../../image/rank1.png";
-import rank2 from "../../../image/rank2.png";
-import rank3 from "../../../image/rank3.png";
 import { useFile } from "../../../hooks/useFile";
+
+import rank1 from "../../../assets/image/rank1.png";
+import rank2 from "../../../assets/image/rank2.png";
+import rank3 from "../../../assets/image/rank3.png";
 
 type Props = {
   user: User;

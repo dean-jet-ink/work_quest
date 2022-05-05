@@ -3,9 +3,10 @@ import { Flex, Text, Button, Box } from "@chakra-ui/react";
 import { DrawerContainer } from "../../molcules/display/DrawerContainer";
 import { TotalTime } from "../../molcules/layout/TotalTime";
 import { SmallGoal } from "../../../types/smallGoal";
-import goalFlag from "../../../image/goalFlag.png";
-import cancel from "../../../assets/audio/cancel.mp3";
 import { useSoundEffect } from "../../../hooks/useSoundEffect";
+
+import goalFlag from "../../../assets/image/goalFlag.png";
+import cancel from "../../../assets/audio/cancel.mp3";
 
 type Props = {
   completeSmallGoals: Array<SmallGoal>;

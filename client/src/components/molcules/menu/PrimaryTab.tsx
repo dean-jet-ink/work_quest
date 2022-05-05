@@ -1,7 +1,7 @@
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
 import { ReactNode } from "react";
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
 
-import wood from "../../../image/wood.png";
+import wood from "../../../assets/image/wood.png";
 
 type Props = {
   defaultIndex: 0 | 1;

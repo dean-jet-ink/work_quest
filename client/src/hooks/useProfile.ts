@@ -1,11 +1,11 @@
 import { FormikHelpers } from "formik";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import * as Yup from "yup";
-import { axios } from "../../apis/axios";
 
-import { User } from "../../types/user";
-import { useFileStringify } from "../useFileStringify";
-import { useShowMessage } from "../useShowMessage";
+import { axios } from "../apis/axios";
+import { User } from "../types/user";
+import { useFileStringify } from "./useFileStringify";
+import { useShowMessage } from "./useShowMessage";
 
 type InitialValuesType = {
   picture: File | string | null;

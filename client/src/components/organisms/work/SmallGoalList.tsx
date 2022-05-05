@@ -11,21 +11,22 @@ import {
   Box,
 } from "@chakra-ui/react";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import { Link } from "react-router-dom";
+import { OptionalObjectSchema } from "yup/lib/object";
 
 import { AccordionInnerButton } from "../../atoms/button/AccordionInnerButton";
 import { TotalTime } from "../../molcules/layout/TotalTime";
 import { SmallGoal } from "../../../types/smallGoal";
-import { Link } from "react-router-dom";
 import { SecondaryButton } from "../../atoms/button/SecondaryButton";
 import { useSelectSmallGoal } from "../../../hooks/useSelectSmallGoal";
 import { Dialog } from "../../molcules/popUp/Dialog";
 import { useSoundEffect } from "../../../hooks/useSoundEffect";
-import complete from "../../../assets/audio/complete.mp3";
 import { PrimaryAccordionPanel } from "../../molcules/display/PaimaryAccordionPanel";
 import { useDisclosures } from "../../../hooks/useDisclosures";
 import { EditSmallGoalModal } from "./EditSmallGoalModal";
 import { SmallGoalUpdateProps } from "../../../hooks/useSmallGoal";
-import { OptionalObjectSchema } from "yup/lib/object";
+
+import complete from "../../../assets/audio/complete.mp3";
 
 type Props = {
   workId: number;

@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import { useLogin } from "../../hooks/form/useLogin";
+import { useLogin } from "../../hooks/useLogin";
 import { LoginWrapper } from "../atoms/layout/LoginWrapper";
 import { LoginContainer } from "../molcules/layout/LoginContainer";
 import { FooterLayout } from "../templates/layout/FooterLayout";

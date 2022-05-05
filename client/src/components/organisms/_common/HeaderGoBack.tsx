@@ -1,11 +1,11 @@
 import { memo, useCallback } from "react";
-import { Box, Flex } from "@chakra-ui/react";
 import { Link, useHistory } from "react-router-dom";
+import { Box, Flex } from "@chakra-ui/react";
+import HomeIcon from "@material-ui/icons/Home";
 
 import { PrimaryContainer } from "../../atoms/layout/PrimaryContainer";
 import { SecondaryButton } from "../../atoms/button/SecondaryButton";
 import { HeaderItems } from "../../molcules/menu/HeaderItems";
-import HomeIcon from "@material-ui/icons/Home";
 
 export const HeaderGoBack = memo(() => {
   const history = useHistory();

@@ -1,10 +1,12 @@
 import { Box, Image, Stack, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+
 import { Guild } from "../../../types/guild";
 import { Comment } from "./Comment";
 import { PeopleOfNumber } from "./PeopleOfNumber";
-import paper from "../../../image/paper.png";
 import { useFile } from "../../../hooks/useFile";
+
+import paper from "../../../assets/image/paper.png";
 
 type Props = {
   guild: Guild;

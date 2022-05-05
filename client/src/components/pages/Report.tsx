@@ -1,17 +1,18 @@
 import { memo } from "react";
 import { Image, Box, Text, Flex } from "@chakra-ui/react";
 
-import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
 import { PrimaryWrapper } from "../atoms/layout/PrimaryWrapper";
 import { PrimaryContainer } from "../atoms/layout/PrimaryContainer";
-import book from "../../image/report.png";
 import { LineChart } from "../molcules/chart/LineChart";
 import { PieChart } from "../molcules/chart/PieChart";
+import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
 import { useReport } from "../../hooks/useReport";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import { useWorks } from "../../hooks/useWorks";
 import { Work } from "../../types/work";
-import library from "../../image/library.jpg";
+
+import book from "../../assets/image/report.png";
+import library from "../../assets/image/library.jpg";
 
 export const Report = memo(() => {
   const { loginUserId } = useLoginUser();

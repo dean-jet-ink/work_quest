@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Flex, Box, Text, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-import logo from "../../../image/workquest_logo.svg";
+import logo from "../../../assets/image/workquest_logo.svg";
 
 type Props = {
   children: ReactNode;

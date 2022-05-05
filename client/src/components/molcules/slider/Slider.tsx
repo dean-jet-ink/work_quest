@@ -1,7 +1,7 @@
+import { ReactNode } from "react";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ReactNode } from "react";
 import { Settings } from "react-slick";
 
 type Props = {

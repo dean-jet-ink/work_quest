@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import moment from "moment";
-import { Chat } from "../../types/chat";
-import { useFormatCamel } from "../useFormatCamel";
-import { axios } from "../../apis/axios";
+
+import { Chat } from "../types/chat";
+import { useFormatCamel } from "./useFormatCamel";
+import { axios } from "../apis/axios";
 
 type Props = {
   guildId: number;

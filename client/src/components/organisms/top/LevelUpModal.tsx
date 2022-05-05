@@ -1,6 +1,5 @@
 import { memo } from "react";
-import { Flex, Text, Image, Box, Stack } from "@chakra-ui/react";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import { Flex, Text, Image, Box } from "@chakra-ui/react";
 
 import { PrimaryModal } from "../../molcules/popUp/PrimaryModal";
 import { User } from "../../../types/user";

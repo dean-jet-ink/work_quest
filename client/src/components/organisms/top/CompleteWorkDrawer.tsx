@@ -2,10 +2,11 @@ import { Box, Flex, Text, Button } from "@chakra-ui/react";
 
 import { Work } from "../../../types/work";
 import { DrawerContainer } from "../../molcules/display/DrawerContainer";
-import treasure from "../../../image/treasure2.png";
-import chest from "../../../assets/audio/chest.mp3";
 import { useSoundEffect } from "../../../hooks/useSoundEffect";
 import { TotalTime } from "../../molcules/layout/TotalTime";
+
+import treasure from "../../../assets/image/treasure2.png";
+import chest from "../../../assets/audio/chest.mp3";
 
 type Props = {
   completeWorks: Array<Work>;

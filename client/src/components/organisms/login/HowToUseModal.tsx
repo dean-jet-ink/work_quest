@@ -5,15 +5,16 @@ import CommentIcon from "@material-ui/icons/Comment";
 import { MotionBox } from "../../../animation/MotionBox";
 import { PrimaryModal } from "../../molcules/popUp/PrimaryModal";
 import { Slider } from "../../molcules/slider/Slider";
-import howToUse from "../../../image/howtouse_1.png";
-import howToUse2 from "../../../image/howtouse_2.png";
-import howToUse3 from "../../../image/howtouse_3.png";
-import howToUse4 from "../../../image/howtouse_4.png";
-import howToUse5 from "../../../image/howtouse_5.png";
-import howtouse6 from "../../../image/howtouse_6.svg";
-import ranking from "../../../image/rank1.png";
-import guild from "../../../image/guild.png";
-import report from "../../../image/report.png";
+
+import howToUse from "../../../assets/image/howtouse_1.png";
+import howToUse2 from "../../../assets/image/howtouse_2.png";
+import howToUse3 from "../../../assets/image/howtouse_3.png";
+import howToUse4 from "../../../assets/image/howtouse_4.png";
+import howToUse5 from "../../../assets/image/howtouse_5.png";
+import howtouse6 from "../../../assets/image/howtouse_6.svg";
+import ranking from "../../../assets/image/rank1.png";
+import guild from "../../../assets/image/guild.png";
+import report from "../../../assets/image/report.png";
 import "../../../assets/css/slick.css";
 
 type Props = {

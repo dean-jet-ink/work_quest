@@ -10,6 +10,7 @@ import {
   AccordionPanel,
   Box,
 } from "@chakra-ui/react";
+import { OptionalObjectSchema } from "yup/lib/object";
 
 import { AccordionInnerButton } from "../../atoms/button/AccordionInnerButton";
 import { Work } from "../../../types/work";
@@ -17,13 +18,13 @@ import { Dialog } from "../../molcules/popUp/Dialog";
 import { useSelectWork } from "../../../hooks/useSelectWork";
 import { SecondaryButton } from "../../atoms/button/SecondaryButton";
 import { useSoundEffect } from "../../../hooks/useSoundEffect";
-import complete from "../../../assets/audio/complete.mp3";
 import { WorkItem } from "../../molcules/layout/WorkItem";
 import { PrimaryAccordionPanel } from "../../molcules/display/PaimaryAccordionPanel";
 import { EditWorkModal } from "./EditWorkModal";
-import { OptionalObjectSchema } from "yup/lib/object";
 import { WorkUpdateProps } from "../../../hooks/useWorks";
 import { useDisclosures } from "../../../hooks/useDisclosures";
+
+import complete from "../../../assets/audio/complete.mp3";
 
 type Props = {
   works: Array<Work>;

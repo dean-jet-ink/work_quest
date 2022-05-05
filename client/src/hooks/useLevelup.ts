@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
-import villager from "../image/title/villager.png";
-import villagerStrong from "../image/title/villager_strong.png";
-import soldier from "../image/title/soldier.png";
-import soldierStrong from "../image/title/soldier_strong.png";
-import knight from "../image/title/knight.png";
-import royalKnight from "../image/title/royal_knight.png";
-import adventurer from "../image/title/adventurer.png";
-import breaver from "../image/title/breaver.png";
+
 import { User } from "../types/user";
 import { axios } from "../apis/axios";
+
+import villager from "../assets/image/villager.png";
+import villagerStrong from "../assets/image/villager_strong.png";
+import soldier from "../assets/image/soldier.png";
+import soldierStrong from "../assets/image/soldier_strong.png";
+import knight from "../assets/image/knight.png";
+import royalKnight from "../assets/image/royal_knight.png";
+import adventurer from "../assets/image/adventurer.png";
+import breaver from "../assets/image/breaver.png";
 
 type Props = {
   onOpen: () => void;

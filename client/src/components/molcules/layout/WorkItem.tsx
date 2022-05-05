@@ -1,7 +1,8 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { useDeadline } from "../../../hooks/form/useDaedline";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import moment from "moment";
+
+import { useDeadline } from "../../../hooks/useDaedline";
 
 type Props = {
   name: string;

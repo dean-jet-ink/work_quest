@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import moment from "moment";
 
 import { User } from "../../../types/user";
-import moment from "moment";
 import { useFile } from "../../../hooks/useFile";
 
 type Props = {

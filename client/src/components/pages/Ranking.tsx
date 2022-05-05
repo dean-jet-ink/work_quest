@@ -1,13 +1,14 @@
 import { memo } from "react";
 import { Box, Flex, Image } from "@chakra-ui/react";
 
-import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
-import { UserList } from "../organisms/_common/UserList";
-import queen from "../../image/queen.png";
 import { InfiniteScroller } from "../molcules/loader/InfiniteScroller";
-import { useInfiniteScrollUser } from "../../hooks/useInfiniteScrollUser";
 import { LineOfChara } from "../molcules/layout/LineOfChara";
-import palace from "../../image/palace.jpg";
+import { UserList } from "../organisms/_common/UserList";
+import { SecondaryLayout } from "../templates/layout/SecondaryLayout";
+import { useInfiniteScrollUser } from "../../hooks/useInfiniteScrollUser";
+
+import queen from "../../assets/image/queen.png";
+import palace from "../../assets/image/palace.jpg";
 
 export const Ranking = memo(() => {
   const { userList, hasMore, loadMoreUser } = useInfiniteScrollUser();
